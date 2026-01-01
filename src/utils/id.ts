@@ -7,37 +7,20 @@
  *   - msg_b6a82fb38001Ei3X3A63gRCfuN (message)
  *   - prt_990882f75002cw7B1Eg1BdaxzV (part)
  *
- * The timestamp portion is hex-encoded milliseconds.
+ * Note: The timestamp encoding in IDs is not standard hex milliseconds.
+ * For reliable timestamps, use the `time.created` field from the JSON entities.
+ * IDs are still designed to sort chronologically via string comparison.
  */
 
 /**
  * Extract the timestamp from an OpenCode ID
- * Returns the Date if parsing succeeds, null otherwise
+ * Note: This may return null as the encoding is non-standard.
+ * Prefer using entity.time.created for reliable timestamps.
  */
-export function parseIdTimestamp(id: string): Date | null {
-  // Extract timestamp portion (after prefix_)
-  // The format is: prefix_[hex timestamp][random chars]
-  // The hex timestamp is typically 12 characters
-  const match = id.match(/^[a-z]+_([0-9a-f]+)/i)
-  if (!match) return null
-
-  const hex = match[1]
-  if (!hex || hex.length < 10) return null
-
-  // Try to parse as hex timestamp (milliseconds)
-  // The timestamp is in the first ~12 hex chars
-  const timestampHex = hex.slice(0, 12)
-  const ms = parseInt(timestampHex, 16)
-
-  if (isNaN(ms) || ms <= 0) return null
-
-  // Sanity check: should be a reasonable timestamp (after year 2020, before 2100)
-  const minTimestamp = new Date("2020-01-01").getTime()
-  const maxTimestamp = new Date("2100-01-01").getTime()
-
-  if (ms < minTimestamp || ms > maxTimestamp) return null
-
-  return new Date(ms)
+export function parseIdTimestamp(_id: string): Date | null {
+  // The ID timestamp encoding is non-standard and unreliable for parsing.
+  // Use the time.created field from the entity JSON instead.
+  return null
 }
 
 /**
