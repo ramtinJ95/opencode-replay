@@ -95,6 +95,15 @@ opencode-replay --open
 
 # Specify custom storage path (defaults to ~/.local/share/opencode/storage)
 opencode-replay --storage /path/to/storage
+
+# Generate and serve via HTTP server (Phase 4.5)
+opencode-replay --serve
+
+# Serve on a specific port (default: 3000)
+opencode-replay --serve --port 8080
+
+# Serve existing output without regenerating
+opencode-replay --serve -o ./existing-output --no-generate
 ```
 
 ## Output Structure
@@ -468,6 +477,229 @@ Client-side search implementation:
 - `src/assets/styles.css` - Added ~400 lines of tool-specific CSS
 - `src/utils/format.ts` - Added `formatBytes()` utility
 - `src/utils/html.ts` - Exported `isSafeUrl()` for webfetch
+
+### Phase 4.5: Development Server & Dark Mode
+
+This phase adds two quality-of-life features: a built-in HTTP server for easier viewing of generated transcripts, and a dark mode theme for improved readability in low-light environments.
+
+#### 4.5.1: Built-in HTTP Server (`--serve` flag)
+
+**Motivation:** Static HTML files opened via `file://` protocol have limitations (CORS, some JS features). A simple HTTP server makes viewing and sharing locally much easier, especially for development and review workflows.
+
+**CLI Changes:**
+```bash
+# Generate and immediately serve the output
+opencode-replay --serve
+
+# Serve on a specific port (default: 3000)
+opencode-replay --serve --port 8080
+
+# Serve existing output directory without regenerating
+opencode-replay --serve -o ./existing-output --no-generate
+```
+
+**Implementation Tasks:**
+- [ ] Add `--serve` CLI flag (boolean, default: false)
+- [ ] Add `--port` CLI flag (number, default: 3000)
+- [ ] Add `--no-generate` CLI flag (boolean, default: false) - skip generation, just serve
+- [ ] Implement HTTP server using `Bun.serve()` in `src/server.ts`
+  - Serve static files from output directory
+  - Proper MIME type handling (html, css, js, json)
+  - Directory index (serve index.html for directory requests)
+  - 404 handling for missing files
+- [ ] Auto-open browser when `--serve` is used (unless `--no-open` specified)
+- [ ] Display server URL in console output: `Server running at http://localhost:3000`
+- [ ] Graceful shutdown on Ctrl+C with cleanup message
+- [ ] Update CLI help text with new flags
+
+**Server Implementation (`src/server.ts`):**
+```typescript
+interface ServeOptions {
+  directory: string
+  port: number
+  open?: boolean
+}
+
+export async function serve(options: ServeOptions): Promise<void> {
+  const { directory, port, open = true } = options
+  
+  const server = Bun.serve({
+    port,
+    async fetch(req) {
+      const url = new URL(req.url)
+      let path = url.pathname
+      
+      // Serve index.html for directory requests
+      if (path.endsWith('/')) path += 'index.html'
+      
+      const filePath = join(directory, path)
+      const file = Bun.file(filePath)
+      
+      if (await file.exists()) {
+        return new Response(file)
+      }
+      
+      return new Response('Not Found', { status: 404 })
+    }
+  })
+  
+  console.log(`Server running at http://localhost:${port}`)
+  
+  if (open) {
+    const openCmd = process.platform === 'darwin' ? 'open' : 'xdg-open'
+    Bun.spawn([openCmd, `http://localhost:${port}`])
+  }
+}
+```
+
+**Files to Create:**
+- `src/server.ts` - HTTP server implementation
+
+**Files to Modify:**
+- `src/index.ts` - Add --serve, --port, --no-generate flags and server invocation
+- `README.md` - Document new flags
+
+#### 4.5.2: Dark Mode Theme
+
+**Motivation:** Many developers prefer dark mode for reduced eye strain. The generated transcripts should support both light and dark themes.
+
+**Implementation Approach:** CSS-only solution using `prefers-color-scheme` media query for automatic OS-based switching, plus a manual toggle button for user preference override stored in localStorage.
+
+**Implementation Tasks:**
+- [ ] Add CSS variables for dark mode colors in `src/assets/styles.css`
+  - Background colors (page, cards, messages, code blocks)
+  - Text colors (primary, secondary, muted)
+  - Border colors
+  - Tool-specific colors adapted for dark backgrounds
+  - Status colors (success, error, warning) with appropriate contrast
+- [ ] Add `@media (prefers-color-scheme: dark)` rules for automatic switching
+- [ ] Add `.dark-mode` class overrides for manual toggle
+- [ ] Create theme toggle button component in base template
+  - Sun/moon icon toggle
+  - Positioned in header (top-right corner)
+  - Accessible with proper ARIA labels
+- [ ] Add theme toggle JavaScript in `src/assets/theme.js`
+  - Check localStorage for saved preference
+  - Check system preference as fallback
+  - Toggle between light/dark modes
+  - Save preference to localStorage
+  - Listen for system preference changes
+- [ ] Update base HTML template to include theme toggle button and script
+- [ ] Ensure all tool renderers look good in dark mode
+- [ ] Test contrast ratios meet WCAG AA standards (4.5:1 for text)
+
+**Dark Mode Color Scheme:**
+```css
+:root {
+  /* Light mode (default) */
+  --bg-page: #ffffff;
+  --bg-card: #f8f9fa;
+  --bg-code: #1e1e1e;
+  --text-primary: #212121;
+  --text-secondary: #757575;
+  --border-color: #e0e0e0;
+  
+  /* Message backgrounds - light */
+  --user-bg: #e3f2fd;
+  --assistant-bg: #f5f5f5;
+  --tool-bg: #fff3e0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-page: #121212;
+    --bg-card: #1e1e1e;
+    --bg-code: #0d0d0d;
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --border-color: #333333;
+    
+    /* Message backgrounds - dark */
+    --user-bg: #1a365d;
+    --assistant-bg: #262626;
+    --tool-bg: #3d2814;
+  }
+}
+
+/* Manual dark mode override */
+.dark-mode {
+  --bg-page: #121212;
+  --bg-card: #1e1e1e;
+  /* ... same as above ... */
+}
+```
+
+**Theme Toggle JavaScript (`src/assets/theme.js`):**
+```javascript
+(function() {
+  const STORAGE_KEY = 'opencode-replay-theme'
+  
+  function getSystemPreference() {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  }
+  
+  function getSavedPreference() {
+    return localStorage.getItem(STORAGE_KEY)
+  }
+  
+  function applyTheme(theme) {
+    document.documentElement.classList.toggle('dark-mode', theme === 'dark')
+    updateToggleIcon(theme)
+  }
+  
+  function updateToggleIcon(theme) {
+    const toggle = document.querySelector('.theme-toggle')
+    if (toggle) {
+      toggle.innerHTML = theme === 'dark' ? '☀️' : '🌙'
+      toggle.setAttribute('aria-label', `Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`)
+    }
+  }
+  
+  function toggleTheme() {
+    const current = document.documentElement.classList.contains('dark-mode') ? 'dark' : 'light'
+    const next = current === 'dark' ? 'light' : 'dark'
+    localStorage.setItem(STORAGE_KEY, next)
+    applyTheme(next)
+  }
+  
+  // Initialize on load
+  document.addEventListener('DOMContentLoaded', () => {
+    const saved = getSavedPreference()
+    const theme = saved || getSystemPreference()
+    applyTheme(theme)
+    
+    // Set up toggle button
+    const toggle = document.querySelector('.theme-toggle')
+    if (toggle) {
+      toggle.addEventListener('click', toggleTheme)
+    }
+  })
+  
+  // Listen for system preference changes
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!getSavedPreference()) {
+      applyTheme(e.matches ? 'dark' : 'light')
+    }
+  })
+})()
+```
+
+**Files to Create:**
+- `src/assets/theme.js` - Theme toggle functionality
+
+**Files to Modify:**
+- `src/assets/styles.css` - Add dark mode CSS variables and media queries
+- `src/render/templates/base.ts` - Add theme toggle button and theme.js script
+- `src/render/html.ts` - Copy theme.js to output assets directory
+
+**Testing Checklist:**
+- [ ] Light mode renders correctly (regression test)
+- [ ] Dark mode activates automatically based on OS preference
+- [ ] Manual toggle overrides system preference
+- [ ] Preference persists across page reloads (localStorage)
+- [ ] All tool renderers have adequate contrast in dark mode
+- [ ] Code blocks remain readable in both modes
+- [ ] Toggle button is visible and accessible in both modes
 
 ### Phase 5: Part Type Renderers
 - [ ] Text parts (user input, assistant response)
