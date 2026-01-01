@@ -81,15 +81,17 @@ function renderToolPart(part: ToolPart): string {
 
 /**
  * Generic tool renderer for unknown or unsupported tools
+ * Provides a fallback for tools without specialized renderers
  */
 function renderGenericToolPart(part: ToolPart): string {
   const { tool, state } = part
   const status = state.status
   const title = state.title || tool
 
-  // Get tool input as formatted JSON or specific fields
+  // Get tool input as formatted JSON
   const inputHtml = state.input
     ? `<div class="tool-input">
+      <div class="tool-input-label">Input</div>
       <pre><code>${escapeHtml(JSON.stringify(state.input, null, 2))}</code></pre>
     </div>`
     : ""
@@ -97,6 +99,7 @@ function renderGenericToolPart(part: ToolPart): string {
   // Get output (may be truncated)
   const outputHtml = state.output
     ? `<div class="tool-output">
+      <div class="tool-output-label">Output</div>
       <pre><code>${escapeHtml(state.output)}</code></pre>
     </div>`
     : ""
@@ -104,18 +107,24 @@ function renderGenericToolPart(part: ToolPart): string {
   // Error message if any
   const errorHtml = state.error
     ? `<div class="tool-error">
-      <pre><code>${escapeHtml(state.error)}</code></pre>
+      <span class="error-icon">&#9888;</span>
+      <span class="error-message">${escapeHtml(state.error)}</span>
     </div>`
     : ""
 
-  return `<div class="tool-call tool-${escapeHtml(tool)}" data-status="${status}">
-  <div class="tool-header" onclick="this.querySelector('.tool-body')?.classList.toggle('collapsed')">
+  // Determine if should be collapsed
+  const outputLines = (state.output || "").split("\n").length
+  const isLongOutput = outputLines > 20
+  const collapsedClass = isLongOutput ? "collapsed" : ""
+
+  return `<div class="tool-call tool-generic tool-${escapeHtml(tool)}" data-status="${status}">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
     <span class="tool-icon">${getToolIcon(tool)}</span>
     <span class="tool-name">${escapeHtml(tool)}</span>
     <span class="tool-title">${escapeHtml(title)}</span>
-    <span class="tool-toggle">-</span>
+    <span class="tool-toggle">${isLongOutput ? "+" : "-"}</span>
   </div>
-  <div class="tool-body">
+  <div class="tool-body ${collapsedClass}">
     ${inputHtml}
     ${outputHtml}
     ${errorHtml}
