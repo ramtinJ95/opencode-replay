@@ -2579,14 +2579,17 @@ code,
    ---------------------------------------------------------------------------- */
 
 .part-file {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
   padding: var(--spacing-md);
   background: var(--color-bg-secondary);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   margin: var(--spacing-md) 0;
+}
+
+.file-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
 }
 
 .file-icon {
