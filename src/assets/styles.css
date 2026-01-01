@@ -752,17 +752,23 @@ pre code {
 
 .edit-stats {
   display: flex;
+  align-items: center;
   gap: var(--spacing-xs);
   font-size: var(--font-size-xs);
   font-family: var(--font-mono);
+  color: var(--color-text-muted);
 }
 
-.edit-additions {
-  color: var(--color-success);
-}
-
-.edit-deletions {
+.edit-old-lines {
   color: var(--color-error);
+}
+
+.edit-arrow {
+  color: var(--color-text-muted);
+}
+
+.edit-new-lines {
+  color: var(--color-success);
 }
 
 .edit-diff {
