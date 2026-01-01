@@ -16,6 +16,7 @@ import { renderReadTool } from "./tools/read"
 import { renderWriteTool } from "./tools/write"
 import { renderEditTool } from "./tools/edit"
 import { renderGlobTool } from "./tools/glob"
+import { renderGrepTool } from "./tools/grep"
 
 /**
  * Render a text part
@@ -62,6 +63,8 @@ function renderToolPart(part: ToolPart): string {
       return renderEditTool(part)
     case "glob":
       return renderGlobTool(part)
+    case "grep":
+      return renderGrepTool(part)
     default:
       return renderGenericToolPart(part)
   }
