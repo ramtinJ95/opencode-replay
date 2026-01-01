@@ -2462,6 +2462,625 @@ code,
 }
 
 /* ============================================================================
+   Part Type Renderers - Phase 5
+   ============================================================================ */
+
+/* ----------------------------------------------------------------------------
+   Text Parts - Enhanced with Prism.js support
+   ---------------------------------------------------------------------------- */
+
+.part-text {
+  line-height: 1.7;
+}
+
+.part-text p:last-child {
+  margin-bottom: 0;
+}
+
+/* Prism.js code block container */
+.part-text pre[class*="language-"] {
+  margin: var(--spacing-md) 0;
+  border-radius: var(--radius-md);
+  position: relative;
+}
+
+/* Language label for code blocks */
+.code-block-wrapper {
+  position: relative;
+  margin: var(--spacing-md) 0;
+}
+
+.code-block-wrapper .code-language {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 2px 8px;
+  font-size: var(--font-size-xs);
+  font-family: var(--font-sans);
+  background: var(--color-bg-tertiary);
+  border-bottom-left-radius: var(--radius-sm);
+  border-top-right-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.code-block-wrapper pre {
+  margin: 0;
+}
+
+/* ----------------------------------------------------------------------------
+   Reasoning Parts - Enhanced with collapsible and timing
+   ---------------------------------------------------------------------------- */
+
+.reasoning {
+  margin: var(--spacing-md) 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.reasoning-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--reasoning-bg);
+  border: 1px solid var(--reasoning-border);
+  border-bottom: none;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+.reasoning-header:hover {
+  filter: brightness(0.98);
+}
+
+.reasoning-icon {
+  font-size: var(--font-size-lg);
+}
+
+.reasoning-label {
+  font-weight: 600;
+  color: #e65100;
+}
+
+.reasoning-duration {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-left: auto;
+}
+
+.reasoning-toggle {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  padding: 2px 6px;
+}
+
+.reasoning-content {
+  padding: var(--spacing-md);
+  background: var(--reasoning-bg);
+  border: 1px solid var(--reasoning-border);
+  border-top: none;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  color: var(--color-text-secondary);
+  font-style: italic;
+  white-space: pre-wrap;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.reasoning-content.collapsed {
+  display: none;
+}
+
+/* ----------------------------------------------------------------------------
+   File Parts - Enhanced with image preview
+   ---------------------------------------------------------------------------- */
+
+.part-file {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  margin: var(--spacing-md) 0;
+}
+
+.file-icon {
+  font-size: var(--font-size-lg);
+  flex-shrink: 0;
+}
+
+.file-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.file-name {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-meta {
+  display: flex;
+  gap: var(--spacing-md);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+.file-mime {
+  font-size: var(--font-size-xs);
+  padding: 2px 6px;
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+}
+
+.file-size {
+  color: var(--color-text-muted);
+}
+
+.file-preview {
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.file-preview img {
+  max-width: 100%;
+  max-height: 400px;
+  border-radius: var(--radius-sm);
+}
+
+.file-preview-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  color: var(--color-info);
+}
+
+.file-preview-link:hover {
+  text-decoration: underline;
+}
+
+/* ----------------------------------------------------------------------------
+   Snapshot Parts - Undo/Redo markers
+   ---------------------------------------------------------------------------- */
+
+.part-snapshot {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: linear-gradient(90deg, var(--color-bg-secondary), transparent);
+  border-left: 3px solid var(--color-info);
+  margin: var(--spacing-md) 0;
+  font-size: var(--font-size-sm);
+}
+
+.snapshot-icon {
+  font-size: var(--font-size-lg);
+  color: var(--color-info);
+}
+
+.snapshot-label {
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.snapshot-id {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  background: var(--color-bg-tertiary);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+}
+
+/* ----------------------------------------------------------------------------
+   Patch Parts - File changes checkpoint
+   ---------------------------------------------------------------------------- */
+
+.part-patch {
+  margin: var(--spacing-md) 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.patch-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-bg-secondary);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.patch-icon {
+  font-size: var(--font-size-lg);
+  color: var(--color-success);
+}
+
+.patch-label {
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.patch-hash {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  background: var(--color-bg-tertiary);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  margin-left: auto;
+}
+
+.patch-file-count {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.patch-files {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.patch-file-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xs) var(--spacing-md);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.patch-file-item:last-child {
+  border-bottom: none;
+}
+
+.patch-file-item:hover {
+  background: var(--color-bg-secondary);
+}
+
+.patch-file-icon {
+  color: var(--color-success);
+}
+
+/* ----------------------------------------------------------------------------
+   Agent Parts - Sub-agent invocations
+   ---------------------------------------------------------------------------- */
+
+.part-agent {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: linear-gradient(90deg, #e8f5e9, transparent);
+  border-left: 3px solid var(--color-success);
+  margin: var(--spacing-md) 0;
+  font-size: var(--font-size-sm);
+}
+
+.agent-icon {
+  font-size: var(--font-size-lg);
+}
+
+.agent-label {
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.agent-name-badge {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--color-success);
+  color: white;
+}
+
+.agent-source {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-left: auto;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ----------------------------------------------------------------------------
+   Compaction Parts - Context compaction markers
+   ---------------------------------------------------------------------------- */
+
+.part-compaction {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  margin: var(--spacing-lg) 0;
+  position: relative;
+}
+
+.part-compaction::before,
+.part-compaction::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-border), transparent);
+}
+
+.compaction-badge {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-md);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.compaction-icon {
+  font-size: var(--font-size-sm);
+}
+
+.compaction-type {
+  font-weight: 500;
+}
+
+/* ----------------------------------------------------------------------------
+   Subtask Parts - Task metadata
+   ---------------------------------------------------------------------------- */
+
+.part-subtask {
+  margin: var(--spacing-md) 0;
+  border: 1px solid var(--tool-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--tool-bg);
+}
+
+.subtask-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.subtask-icon {
+  font-size: var(--font-size-lg);
+}
+
+.subtask-label {
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.subtask-agent-badge {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.subtask-description {
+  font-weight: 500;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.subtask-body {
+  border-top: 1px solid var(--color-border-light);
+}
+
+.subtask-command {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-bg-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.subtask-command-label {
+  color: var(--color-text-muted);
+}
+
+.subtask-prompt {
+  padding: var(--spacing-md);
+}
+
+.subtask-prompt-label {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-xs);
+}
+
+.subtask-prompt-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  white-space: pre-wrap;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* ----------------------------------------------------------------------------
+   Retry Parts - Error and retry markers
+   ---------------------------------------------------------------------------- */
+
+.part-retry {
+  margin: var(--spacing-md) 0;
+  border: 1px solid var(--error-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--error-bg);
+}
+
+.retry-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.retry-icon {
+  font-size: var(--font-size-lg);
+  color: var(--color-warning);
+}
+
+.retry-label {
+  font-weight: 600;
+  color: var(--color-warning);
+}
+
+.retry-attempt {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--color-warning);
+  color: white;
+}
+
+.retry-error {
+  padding: var(--spacing-md);
+  border-top: 1px solid var(--error-border);
+}
+
+.retry-error-name {
+  font-weight: 600;
+  color: var(--color-error);
+  margin-bottom: var(--spacing-xs);
+}
+
+.retry-error-message {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  white-space: pre-wrap;
+}
+
+.retry-error-code {
+  margin-top: var(--spacing-sm);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  background: var(--color-bg);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  display: inline-block;
+}
+
+/* ----------------------------------------------------------------------------
+   Generic Part Fallback
+   ---------------------------------------------------------------------------- */
+
+.part-generic {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-bg-secondary);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  margin: var(--spacing-md) 0;
+  font-size: var(--font-size-sm);
+}
+
+.part-type {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  padding: 2px 6px;
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+}
+
+/* ============================================================================
+   Phase 5 - Dark Mode Overrides
+   ============================================================================ */
+
+/* Reasoning */
+:root[data-theme="dark"] .reasoning-label {
+  color: #d29922;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .reasoning-label {
+    color: #d29922;
+  }
+}
+
+/* Agent part */
+:root[data-theme="dark"] .part-agent {
+  background: linear-gradient(90deg, #1a2e1a, transparent);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .part-agent {
+    background: linear-gradient(90deg, #1a2e1a, transparent);
+  }
+}
+
+/* Snapshot part */
+:root[data-theme="dark"] .part-snapshot {
+  background: linear-gradient(90deg, #1a3a5c, transparent);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .part-snapshot {
+    background: linear-gradient(90deg, #1a3a5c, transparent);
+  }
+}
+
+/* Subtask agent badges - same as task tool */
+.subtask-agent-badge.agent-general {
+  background: var(--color-info);
+  color: white;
+}
+
+.subtask-agent-badge.agent-explore {
+  background: #9c27b0;
+  color: white;
+}
+
+.subtask-agent-badge.agent-reviewer {
+  background: #ff9800;
+  color: white;
+}
+
+.subtask-agent-badge.agent-docs {
+  background: var(--color-success);
+  color: white;
+}
+
+/* ============================================================================
    Print Styles
    ============================================================================ */
 
