@@ -32,11 +32,16 @@ export function nl2br(str: string): string {
 }
 
 /**
- * Check if a URL is safe (not javascript:, data:, or other dangerous protocols)
+ * Check if a URL is safe (not javascript: or other dangerous protocols)
+ * Allows: http(s), relative URLs, hash links, and data: URLs for images
  */
 export function isSafeUrl(url: string): boolean {
   // Allow relative URLs, hash links, and http(s) URLs
-  return /^(https?:\/\/|\/|#|\.\.?\/)/.test(url) || !/^[a-z]+:/i.test(url)
+  if (/^(https?:\/\/|\/|#|\.\.?\/)/.test(url)) return true
+  // Allow data URLs for images (safe for display)
+  if (/^data:image\//i.test(url)) return true
+  // Block other protocol URLs (javascript:, vbscript:, etc.)
+  return !/^[a-z]+:/i.test(url)
 }
 
 /**

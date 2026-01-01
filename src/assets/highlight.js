@@ -38,7 +38,7 @@
         { type: 'builtin', pattern: /\b(print|len|range|str|int|float|list|dict|set|tuple|bool|type|isinstance|hasattr|getattr|setattr|open|input|map|filter|reduce|zip|enumerate|sorted|reversed|sum|min|max|abs|round)\b/g },
         { type: 'number', pattern: /\b\d+\.?\d*([eE][+-]?\d+)?\b/g },
         { type: 'function', pattern: /\b([a-zA-Z_][\w]*)\s*(?=\()/g },
-        { type: 'class-name', pattern: /(?<=class\s+)([A-Z][\w]*)/g },
+        { type: 'class-name', pattern: /\bclass\s+([A-Z][\w]*)/g },
         { type: 'decorator', pattern: /@[\w.]+/g },
         { type: 'operator', pattern: /[+\-*/%=<>!&|^~@]+/g },
         { type: 'punctuation', pattern: /[{}[\]();:,]/g }
@@ -219,7 +219,6 @@
 
     // Track which parts of the code have been tokenized
     const tokens = [];
-    let remaining = code;
     
     // Apply each pattern
     for (const { type, pattern } of patterns) {
