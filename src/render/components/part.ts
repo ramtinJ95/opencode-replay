@@ -11,6 +11,7 @@ import type {
   FilePart,
 } from "../../storage/types"
 import { escapeHtml, renderMarkdown } from "../../utils/html"
+import { renderBashTool } from "./tools/bash"
 
 /**
  * Render a text part
@@ -39,10 +40,25 @@ function renderReasoningPart(part: ReasoningPart): string {
 }
 
 /**
- * Render a tool call - basic version
- * More sophisticated tool-specific renderers will be added in Phase 4
+ * Render a tool call
+ * Dispatches to specialized renderers for known tools, falls back to generic
  */
 function renderToolPart(part: ToolPart): string {
+  const { tool } = part
+
+  // Use specialized renderers for known tools
+  switch (tool) {
+    case "bash":
+      return renderBashTool(part)
+    default:
+      return renderGenericToolPart(part)
+  }
+}
+
+/**
+ * Generic tool renderer for unknown or unsupported tools
+ */
+function renderGenericToolPart(part: ToolPart): string {
   const { tool, state } = part
   const status = state.status
   const title = state.title || tool
@@ -69,13 +85,11 @@ function renderToolPart(part: ToolPart): string {
     : ""
 
   return `<div class="tool-call tool-${escapeHtml(tool)}" data-status="${status}">
-  <div class="tool-header">
+  <div class="tool-header" onclick="this.querySelector('.tool-body')?.classList.toggle('collapsed')">
     <span class="tool-icon">${getToolIcon(tool)}</span>
     <span class="tool-name">${escapeHtml(tool)}</span>
     <span class="tool-title">${escapeHtml(title)}</span>
-    <button class="tool-toggle" onclick="this.closest('.tool-call').querySelector('.tool-body').classList.toggle('collapsed')">
-      Toggle
-    </button>
+    <span class="tool-toggle">-</span>
   </div>
   <div class="tool-body">
     ${inputHtml}
