@@ -326,12 +326,70 @@ Client-side search implementation:
 - [x] Handle edge cases (missing files, malformed JSON - returns null/empty array)
 - [x] Test with real OpenCode data (verified: 27 projects, 137 sessions)
 
-### Phase 3: Basic HTML Generation
-- [ ] Create base HTML template
-- [ ] Create CSS stylesheet (clean, readable design)
-- [ ] Implement index page generation
-- [ ] Implement session overview page
-- [ ] Implement basic message rendering (text only)
+### Phase 3: Basic HTML Generation (COMPLETED)
+- [x] Create base HTML template (`src/render/templates/base.ts`)
+  - HTML wrapper with DOCTYPE, meta tags, viewport, generator meta
+  - Header component with breadcrumbs navigation
+  - Footer component with attribution link
+  - Search button placeholder (Ctrl+K hint)
+- [x] Create CSS stylesheet (`src/assets/styles.css` - 938 lines)
+  - CSS variables for theming (colors, spacing, typography)
+  - Message backgrounds: user (light blue), assistant (light gray), tool (light orange)
+  - Tool-specific colors: bash (purple), read (indigo), write (green), edit (orange)
+  - Status colors for success/error/warning/info
+  - Responsive design with mobile breakpoints
+  - Print styles that hide navigation and expand collapsed sections
+- [x] Create HTML utility functions (`src/utils/html.ts`)
+  - `escapeHtml()` - XSS prevention
+  - `renderMarkdown()` - code blocks, inline code, bold, italic, links
+  - `isSafeUrl()` - URL validation to prevent javascript: XSS
+  - `truncate()`, `slugify()` helpers
+- [x] Create formatting utilities (`src/utils/format.ts`)
+  - Date/time formatting (formatDate, formatDateTime, formatTime, formatRelativeTime)
+  - Duration formatting with edge case handling for negative values
+  - Token count formatting with k/M suffixes
+  - Cost formatting with appropriate decimal places
+  - Diff formatting (+additions -deletions)
+- [x] Implement index page template (`src/render/templates/index-page.ts`)
+  - Session cards with title, date, message count, first prompt preview
+  - Summary stats (total sessions, messages, code changes)
+  - Support for multi-project view with project names
+- [x] Implement session overview page (`src/render/templates/session.ts`)
+  - Session header with breadcrumbs and stats
+  - Timeline view showing each user prompt with tool usage counts
+  - Stats: created date, duration, message count, model, tokens, cost, file changes
+  - Pagination links to conversation pages
+- [x] Implement message rendering (`src/render/components/message.ts`)
+  - User message with role badge, timestamp, model info
+  - Assistant message with token stats, cost, finish reason
+  - Renders all parts within each message
+- [x] Implement part rendering (`src/render/components/part.ts`)
+  - Text parts with markdown rendering
+  - Reasoning parts (extended thinking) with special styling
+  - Tool parts with collapsible input/output sections
+  - Tool icons for common tools (bash, read, write, edit, glob, grep, task, todowrite, webfetch)
+  - Generic fallback for unknown part types
+- [x] Implement conversation page template (`src/render/templates/page.ts`)
+  - Paginated message display (5 user prompts per page)
+  - Previous/Next navigation with page numbers
+  - Breadcrumb navigation back to session and index
+- [x] Implement HTML generation orchestration (`src/render/html.ts`)
+  - Main `generateHtml()` function coordinating all generation
+  - Three modes: current project, all projects, single session
+  - Timeline building from messages with tool usage counts
+  - Message pagination logic
+  - Asset copying (CSS, placeholder search.js)
+  - Progress output during generation
+- [x] Wire up CLI to call generateHtml()
+  - Tested with 987 real sessions successfully
+  - Cross-platform browser opening (xdg-open on Linux, open on macOS)
+
+**Phase 3 Design Decisions:**
+- Pagination: 5 user prompts per page (matches claude-code-transcripts)
+- Templates: Raw TypeScript template strings (zero dependencies)
+- Tool rendering: Generic collapsible view for all tools (specific renderers deferred to Phase 4)
+- Assets: Separate files (not embedded) for easier customization
+- Security: URL validation in markdown to prevent XSS via javascript: links
 
 ### Phase 4: Tool Renderers
 - [ ] Implement `bash` tool renderer
