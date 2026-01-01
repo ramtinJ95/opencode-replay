@@ -577,6 +577,73 @@ pre code {
   padding: 0;
 }
 
+/* Read tool styling */
+.read-file-path {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.read-full-path {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.read-range {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  background: rgba(0, 0, 0, 0.05);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+}
+
+.read-lines {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.read-content {
+  padding: var(--spacing-md);
+  background: var(--code-bg);
+  max-height: 500px;
+  overflow: auto;
+}
+
+.read-content pre {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+}
+
+.read-content code {
+  font-size: var(--font-size-sm);
+  background: transparent;
+  border: none;
+  padding: 0;
+  white-space: pre;
+}
+
+.read-error {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  background: var(--error-bg);
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
+}
+
+.read-error .error-icon {
+  font-size: var(--font-size-lg);
+}
+
 /* File path styling */
 .tool-file {
   font-family: var(--font-mono);

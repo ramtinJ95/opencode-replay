@@ -12,6 +12,7 @@ import type {
 } from "../../storage/types"
 import { escapeHtml, renderMarkdown } from "../../utils/html"
 import { renderBashTool } from "./tools/bash"
+import { renderReadTool } from "./tools/read"
 
 /**
  * Render a text part
@@ -50,6 +51,8 @@ function renderToolPart(part: ToolPart): string {
   switch (tool) {
     case "bash":
       return renderBashTool(part)
+    case "read":
+      return renderReadTool(part)
     default:
       return renderGenericToolPart(part)
   }
