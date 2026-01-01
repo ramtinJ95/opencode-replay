@@ -302,19 +302,29 @@ Client-side search implementation:
 
 ## Implementation Plan
 
-### Phase 1: Project Setup
-- [ ] Initialize Bun/TypeScript project
-- [ ] Set up package.json with CLI entry point
-- [ ] Configure TypeScript
-- [ ] Set up basic project structure
+### Phase 1: Project Setup (COMPLETED)
+- [x] Initialize Bun/TypeScript project (`bun init`)
+- [x] Set up package.json with CLI entry point, scripts, and metadata
+- [x] Configure TypeScript (tsconfig.json with strict mode, paths, bun-types)
+- [x] Set up basic project structure (src/storage, src/render, src/utils, src/assets)
+- [x] Create CLI entry point with argument parsing (--help, --version, --all, --output, etc.)
+- [x] Configure .gitignore
 
-### Phase 2: Storage Reader
-- [ ] Define TypeScript types for all entities
-- [ ] Implement project listing
-- [ ] Implement session listing (per project)
-- [ ] Implement message + parts reading
-- [ ] Add sorting (by timestamp embedded in IDs)
-- [ ] Handle edge cases (missing files, malformed JSON)
+### Phase 2: Storage Reader (COMPLETED)
+- [x] Define TypeScript types for Project entity
+- [x] Define TypeScript types for Session entity
+- [x] Define TypeScript types for Message entity (User + Assistant with discriminated union)
+- [x] Define TypeScript types for all Part types (text, tool, reasoning, file, snapshot, patch, agent, compaction, subtask, retry)
+- [x] Implement getDefaultStoragePath() utility
+- [x] Implement listProjects() - read all projects from storage
+- [x] Implement listSessions() - read sessions for a project
+- [x] Implement listMessages() - read messages for a session
+- [x] Implement listParts() - read parts for a message
+- [x] Implement getMessagesWithParts() - combined message+parts query
+- [x] Implement findProjectByPath() - find project by cwd
+- [x] Add ID parsing utilities (compareIds, isSessionId, isMessageId, isPartId)
+- [x] Handle edge cases (missing files, malformed JSON - returns null/empty array)
+- [x] Test with real OpenCode data (verified: 27 projects, 137 sessions)
 
 ### Phase 3: Basic HTML Generation
 - [ ] Create base HTML template
