@@ -8,7 +8,7 @@ This document contains everything needed to implement Phase 4.5 of opencode-repl
 
 1. [Overview](#overview)
 2. [Part 1: HTTP Server Implementation](#part-1-http-server-implementation) - **COMPLETED**
-3. [Part 2: Dark Mode Implementation](#part-2-dark-mode-implementation) - Pending
+3. [Part 2: Dark Mode Implementation](#part-2-dark-mode-implementation) - **COMPLETED**
 4. [File Changes Summary](#file-changes-summary)
 5. [Todo List](#todo-list)
 
@@ -19,7 +19,7 @@ This document contains everything needed to implement Phase 4.5 of opencode-repl
 Phase 4.5 adds two quality-of-life features:
 
 1. **Built-in HTTP Server (`--serve` flag)** - Serve generated transcripts via HTTP for easier viewing - **COMPLETED**
-2. **Dark Mode Theme** - CSS-based theming with automatic OS detection and manual toggle - **Pending**
+2. **Dark Mode Theme** - CSS-based theming with automatic OS detection and manual toggle - **COMPLETED**
 
 ### Current Project Structure (Relevant Files)
 
@@ -363,19 +363,29 @@ All 19 tests passed:
 
 ## Part 2: Dark Mode Implementation
 
-> **STATUS: PENDING**
+> **STATUS: COMPLETED**
 >
-> **Impact from Server Implementation:** None. The server implementation is fully independent
-> and does not affect the dark mode implementation. All files that need modification for
-> dark mode (`styles.css`, `base.ts`, `html.ts`) were not modified during server implementation.
+> Implemented in commit:
+> - `ff64536` - feat(theme): add dark mode with toggle and OS preference detection
 >
-> **Files to create:**
-> - `src/assets/theme.js` - Theme toggle JavaScript
+> **Key implementation notes:**
+> - Used GitHub-inspired dark mode color palette with WCAG AA compliance
+> - Implemented automatic OS preference detection via `prefers-color-scheme` media query
+> - Added manual toggle via `data-theme` attribute with localStorage persistence
+> - Created FOUC prevention inline script to avoid flash of unstyled content
+> - Added sun/moon toggle button with SVG icons in header
+> - All tool-specific colors updated for dark mode (bash, read, write, edit, grep, glob, etc.)
+> - Added smooth theme transitions with `prefers-reduced-motion` support
+> - Added custom scrollbar styling for both themes
+> - Theme preference follows system after 24 hours of no manual toggle
 >
-> **Files to modify:**
-> - `src/assets/styles.css` - Add dark mode CSS variables and overrides
-> - `src/render/templates/base.ts` - Add FOUC prevention script and theme toggle button
-> - `src/render/html.ts` - Update copyAssets() to copy theme.js
+> **Files created:**
+> - `src/assets/theme.js` - Theme toggle JavaScript with localStorage persistence
+>
+> **Files modified:**
+> - `src/assets/styles.css` - Added 613 lines of dark mode CSS
+> - `src/render/templates/base.ts` - Added FOUC script, theme toggle button, header layout
+> - `src/render/html.ts` - Updated copyAssets() to copy theme.js
 
 ### 2.1 Color Palette Specification
 
@@ -1198,44 +1208,59 @@ console.log("Search not yet implemented");
 | 4.5.12-console-output | Display server URL in console output with Ctrl+C to stop message | medium | **completed** |
 | 4.5.13-cli-help | Update CLI help text with new --serve, --port, --no-generate flags | low | **completed** |
 
-### Phase 4.5.2: Dark Mode Theme - PENDING
+### Phase 4.5.2: Dark Mode Theme - COMPLETED
 
 | ID | Task | Priority | Status |
 |----|------|----------|--------|
-| 4.6.1-dark-css-vars | Add dark mode CSS variables to styles.css using GitHub-inspired palette | high | pending |
-| 4.6.2-auto-dark | Add @media (prefers-color-scheme: dark) rules for automatic OS-based switching | high | pending |
-| 4.6.3-data-theme | Add [data-theme='dark'] CSS overrides for manual toggle | high | pending |
-| 4.6.4-theme-js | Create src/assets/theme.js with localStorage persistence and system preference detection | high | pending |
-| 4.6.5-toggle-button | Create theme toggle button component (sun/moon icons) in base template header | high | pending |
-| 4.6.6-fouc-prevention | Add inline script to prevent Flash of Unstyled Content (FOUC) in base template | high | pending |
-| 4.6.7-tool-dark-colors | Update all tool-specific CSS colors for dark mode (bash, read, write, edit, etc.) | medium | pending |
-| 4.6.8-code-dark | Update code block colors for dark mode (terminal output, syntax) | medium | pending |
-| 4.6.9-copy-theme-js | Update html.ts to copy theme.js to output assets directory | medium | pending |
-| 4.6.10-contrast-check | Verify all text colors meet WCAG AA contrast requirements (4.5:1 for text) | medium | pending |
-| 4.6.11-transitions | Add smooth transitions between themes with reduced-motion respect | low | pending |
-| 4.6.12-scrollbar | Add dark mode scrollbar styling | low | pending |
-| 4.6.13-test-light | Test light mode renders correctly (regression test) | medium | pending |
-| 4.6.14-test-dark | Test dark mode activates based on OS preference and manual toggle | medium | pending |
+| 4.6.1-dark-css-vars | Add dark mode CSS variables to styles.css using GitHub-inspired palette | high | **completed** |
+| 4.6.2-auto-dark | Add @media (prefers-color-scheme: dark) rules for automatic OS-based switching | high | **completed** |
+| 4.6.3-data-theme | Add [data-theme='dark'] CSS overrides for manual toggle | high | **completed** |
+| 4.6.4-theme-js | Create src/assets/theme.js with localStorage persistence and system preference detection | high | **completed** |
+| 4.6.5-toggle-button | Create theme toggle button component (sun/moon icons) in base template header | high | **completed** |
+| 4.6.6-fouc-prevention | Add inline script to prevent Flash of Unstyled Content (FOUC) in base template | high | **completed** |
+| 4.6.7-tool-dark-colors | Update all tool-specific CSS colors for dark mode (bash, read, write, edit, etc.) | medium | **completed** |
+| 4.6.8-code-dark | Update code block colors for dark mode (terminal output, syntax) | medium | **completed** |
+| 4.6.9-copy-theme-js | Update html.ts to copy theme.js to output assets directory | medium | **completed** |
+| 4.6.10-contrast-check | Verify all text colors meet WCAG AA contrast requirements (4.5:1 for text) | medium | **completed** |
+| 4.6.11-transitions | Add smooth transitions between themes with reduced-motion respect | low | **completed** |
+| 4.6.12-scrollbar | Add dark mode scrollbar styling | low | **completed** |
+| 4.6.13-test-light | Test light mode renders correctly (regression test) | medium | **completed** |
+| 4.6.14-test-dark | Test dark mode activates based on OS preference and manual toggle | medium | **completed** |
 
 ---
 
-## Implementation Notes for Dark Mode
+## Implementation Notes
 
-The server implementation is **completely independent** from dark mode. Key observations:
+### Phase 4.5 Complete
 
-1. **No shared state**: The server just serves static files; it doesn't care about their content.
+Both parts of Phase 4.5 are now complete:
 
-2. **No file conflicts**: The server implementation touched:
-   - `src/server.ts` (new file)
-   - `src/index.ts` (CLI flags only)
-   - `README.md` (documentation)
-   
-   Dark mode will touch:
-   - `src/assets/styles.css`
-   - `src/assets/theme.js` (new file)
-   - `src/render/templates/base.ts`
-   - `src/render/html.ts`
+1. **HTTP Server (Part 1)** - Implemented with full security features, caching, and graceful shutdown
+2. **Dark Mode (Part 2)** - Implemented with OS preference detection, manual toggle, and localStorage persistence
 
-3. **Testing synergy**: The `--serve` flag will be useful for testing dark mode visually during development. Run `opencode-replay --serve` and toggle between themes in the browser.
+### Key Implementation Details
 
-4. **No code changes needed**: The dark mode implementation plan in sections 2.1-2.10 can proceed exactly as written.
+**Dark Mode Features:**
+- GitHub-inspired color palette with WCAG AA compliant contrast ratios
+- Automatic OS preference detection via `prefers-color-scheme` media query
+- Manual toggle via `data-theme` attribute with sun/moon SVG icons
+- FOUC prevention inline script in `<head>` before CSS loads
+- localStorage persistence with 24-hour auto-follow for system changes
+- Smooth transitions with `prefers-reduced-motion` support
+- Custom scrollbar styling for both themes
+- All tool-specific colors updated (bash, read, write, edit, grep, glob, task, todowrite, webfetch, batch)
+
+**Files Changed:**
+| File | Changes |
+|------|---------|
+| `src/assets/styles.css` | +613 lines (dark mode variables, overrides, toggle styles, transitions, scrollbar) |
+| `src/assets/theme.js` | New file - theme toggle JavaScript |
+| `src/render/templates/base.ts` | +64 lines (FOUC script, toggle button, header layout) |
+| `src/render/html.ts` | +4 lines (copy theme.js) |
+
+**Testing:**
+- Build compiles successfully
+- Generated HTML includes FOUC prevention script
+- Theme toggle button present with proper ARIA labels
+- theme.js copied to output assets
+- Both light and dark modes render correctly
