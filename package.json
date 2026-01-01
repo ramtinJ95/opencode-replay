@@ -1,12 +1,37 @@
 {
   "name": "opencode-replay",
-  "module": "index.ts",
+  "version": "0.1.0",
+  "description": "Generate static HTML transcripts from OpenCode sessions",
   "type": "module",
-  "private": true,
-  "devDependencies": {
-    "@types/bun": "latest"
+  "bin": {
+    "opencode-replay": "./dist/index.js"
   },
-  "peerDependencies": {
-    "typescript": "^5"
+  "main": "./dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "bun build ./src/index.ts --outdir ./dist --target bun",
+    "dev": "bun run ./src/index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5.0.0"
+  },
+  "keywords": [
+    "opencode",
+    "ai",
+    "coding",
+    "transcripts",
+    "sessions",
+    "html",
+    "cli"
+  ],
+  "author": "ramtinj95",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ramtinj95/opencode-replay"
   }
 }
