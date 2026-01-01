@@ -15,6 +15,7 @@ import { renderBashTool } from "./tools/bash"
 import { renderReadTool } from "./tools/read"
 import { renderWriteTool } from "./tools/write"
 import { renderEditTool } from "./tools/edit"
+import { renderGlobTool } from "./tools/glob"
 
 /**
  * Render a text part
@@ -59,6 +60,8 @@ function renderToolPart(part: ToolPart): string {
       return renderWriteTool(part)
     case "edit":
       return renderEditTool(part)
+    case "glob":
+      return renderGlobTool(part)
     default:
       return renderGenericToolPart(part)
   }
