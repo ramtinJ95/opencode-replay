@@ -1762,6 +1762,13 @@ pre code {
   cursor: not-allowed;
 }
 
+.pagination-ellipsis {
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-xs);
+  color: var(--color-text-secondary);
+  cursor: default;
+}
+
 /* ============================================================================
    Timeline (Session Overview)
    ============================================================================ */
