@@ -1219,6 +1219,72 @@ pre code {
   font-size: var(--font-size-sm);
 }
 
+/* WebFetch tool styling */
+.tool-webfetch {
+  background: #e0f7fa;
+  border: 1px solid #80deea;
+}
+
+.webfetch-url {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  color: var(--color-info);
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.webfetch-url:hover {
+  text-decoration: underline;
+}
+
+.webfetch-format {
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  background: rgba(0, 0, 0, 0.1);
+  color: var(--color-text-secondary);
+}
+
+.webfetch-size {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.webfetch-content {
+  padding: var(--spacing-md);
+  background: var(--code-bg);
+  max-height: 500px;
+  overflow: auto;
+}
+
+.webfetch-content pre {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+}
+
+.webfetch-content code {
+  font-size: var(--font-size-sm);
+  background: transparent;
+  border: none;
+  padding: 0;
+  white-space: pre-wrap;
+}
+
+.webfetch-error {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  background: var(--error-bg);
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
+}
+
 /* File path styling */
 .tool-file {
   font-family: var(--font-mono);
