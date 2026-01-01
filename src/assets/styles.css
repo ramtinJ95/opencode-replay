@@ -4,13 +4,17 @@
  */
 
 /* ============================================================================
-   CSS Variables / Theme
+   CSS Variables / Theme - LIGHT MODE (Default)
    ============================================================================ */
 
 :root {
+  /* Color scheme declaration */
+  color-scheme: light dark;
+
   /* Colors */
   --color-bg: #ffffff;
   --color-bg-secondary: #f8f9fa;
+  --color-bg-tertiary: #f1f3f5;
   --color-text: #212529;
   --color-text-secondary: #6c757d;
   --color-text-muted: #adb5bd;
@@ -75,8 +79,138 @@
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
 
+  /* Scrollbar */
+  --scrollbar-track: #f1f1f1;
+  --scrollbar-thumb: #c1c1c1;
+
   /* Container */
   --container-max-width: 900px;
+}
+
+/* ============================================================================
+   DARK MODE - Automatic (OS Preference)
+   ============================================================================ */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    
+    /* Core Colors */
+    --color-bg: #0d1117;
+    --color-bg-secondary: #161b22;
+    --color-bg-tertiary: #21262d;
+    --color-text: #e6edf3;
+    --color-text-secondary: #8b949e;
+    --color-text-muted: #6e7681;
+    --color-border: #30363d;
+    --color-border-light: #21262d;
+
+    /* Message backgrounds */
+    --user-bg: #1c3a5e;
+    --user-border: #2d5a8b;
+    --assistant-bg: #21262d;
+    --assistant-border: #30363d;
+    --tool-bg: #2d2006;
+    --tool-border: #4a3c1a;
+    --error-bg: #3d1418;
+    --error-border: #5c2125;
+    --reasoning-bg: #2d2006;
+    --reasoning-border: #4a3c1a;
+
+    /* Tool-specific colors */
+    --bash-bg: #2a1f35;
+    --bash-border: #4a3860;
+    --read-bg: #1a2340;
+    --read-border: #2d3a5a;
+    --write-bg: #1a2e1a;
+    --write-border: #2d4a2d;
+    --edit-bg: #2d2006;
+    --edit-border: #4a3c1a;
+
+    /* Status colors */
+    --color-success: #3fb950;
+    --color-error: #f85149;
+    --color-warning: #d29922;
+    --color-info: #58a6ff;
+
+    /* Code */
+    --code-bg: #161b22;
+    --code-border: #30363d;
+    --code-text: #e6edf3;
+
+    /* Shadows - darker for dark mode */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+
+    /* Scrollbar */
+    --scrollbar-track: #21262d;
+    --scrollbar-thumb: #484f58;
+  }
+}
+
+/* ============================================================================
+   DARK MODE - Manual Override via data-theme attribute
+   ============================================================================ */
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  
+  /* Core Colors */
+  --color-bg: #0d1117;
+  --color-bg-secondary: #161b22;
+  --color-bg-tertiary: #21262d;
+  --color-text: #e6edf3;
+  --color-text-secondary: #8b949e;
+  --color-text-muted: #6e7681;
+  --color-border: #30363d;
+  --color-border-light: #21262d;
+
+  /* Message backgrounds */
+  --user-bg: #1c3a5e;
+  --user-border: #2d5a8b;
+  --assistant-bg: #21262d;
+  --assistant-border: #30363d;
+  --tool-bg: #2d2006;
+  --tool-border: #4a3c1a;
+  --error-bg: #3d1418;
+  --error-border: #5c2125;
+  --reasoning-bg: #2d2006;
+  --reasoning-border: #4a3c1a;
+
+  /* Tool-specific colors */
+  --bash-bg: #2a1f35;
+  --bash-border: #4a3860;
+  --read-bg: #1a2340;
+  --read-border: #2d3a5a;
+  --write-bg: #1a2e1a;
+  --write-border: #2d4a2d;
+  --edit-bg: #2d2006;
+  --edit-border: #4a3c1a;
+
+  /* Status colors */
+  --color-success: #3fb950;
+  --color-error: #f85149;
+  --color-warning: #d29922;
+  --color-info: #58a6ff;
+
+  /* Code */
+  --code-bg: #161b22;
+  --code-border: #30363d;
+  --code-text: #e6edf3;
+
+  /* Shadows - darker for dark mode */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+
+  /* Scrollbar */
+  --scrollbar-track: #21262d;
+  --scrollbar-thumb: #484f58;
+}
+
+/* Force light mode when explicitly set */
+:root[data-theme="light"] {
+  color-scheme: light;
+  /* All light mode values are already the default in :root */
 }
 
 /* ============================================================================
@@ -1855,13 +1989,488 @@ pre code {
 }
 
 /* ============================================================================
+   Theme Toggle Button
+   ============================================================================ */
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: 
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.theme-toggle:hover {
+  background-color: var(--color-bg-tertiary);
+  border-color: var(--color-text-muted);
+  color: var(--color-text);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--color-info);
+  outline-offset: 2px;
+}
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Icon visibility - light mode shows moon, dark mode shows sun */
+.theme-toggle .icon-sun {
+  display: none;
+}
+
+.theme-toggle .icon-moon {
+  display: block;
+}
+
+:root[data-theme="dark"] .theme-toggle .icon-sun {
+  display: block;
+}
+
+:root[data-theme="dark"] .theme-toggle .icon-moon {
+  display: none;
+}
+
+/* Auto dark mode icon states */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle .icon-sun {
+    display: block;
+  }
+  :root:not([data-theme="light"]) .theme-toggle .icon-moon {
+    display: none;
+  }
+}
+
+/* ============================================================================
+   Header Layout - Updated for Theme Toggle
+   ============================================================================ */
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-md);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex-shrink: 0;
+}
+
+/* ============================================================================
+   Dark Mode Element Overrides
+   ============================================================================ */
+
+/* User message role color */
+:root[data-theme="dark"] .message-user .message-role {
+  color: #58a6ff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .message-user .message-role {
+    color: #58a6ff;
+  }
+}
+
+/* Assistant message role color */
+:root[data-theme="dark"] .message-assistant .message-role {
+  color: #8b949e;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .message-assistant .message-role {
+    color: #8b949e;
+  }
+}
+
+/* Bash output - keep dark in both modes, but adjust */
+:root[data-theme="dark"] .bash-output {
+  background: #0d1117;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .bash-output {
+    background: #0d1117;
+  }
+}
+
+/* Edit diff colors */
+:root[data-theme="dark"] .edit-diff .diff-old,
+:root[data-theme="dark"] .diff-old {
+  background: #3d1418;
+}
+
+:root[data-theme="dark"] .edit-diff .diff-new,
+:root[data-theme="dark"] .diff-new {
+  background: #1a2e1a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .edit-diff .diff-old,
+  :root:not([data-theme="light"]) .diff-old {
+    background: #3d1418;
+  }
+  :root:not([data-theme="light"]) .edit-diff .diff-new,
+  :root:not([data-theme="light"]) .diff-new {
+    background: #1a2e1a;
+  }
+}
+
+/* Edit diff long styling */
+:root[data-theme="dark"] .edit-diff-long .diff-old-section .diff-label {
+  background: #3d1418;
+}
+
+:root[data-theme="dark"] .edit-diff-long .diff-new-section .diff-label {
+  background: #1a2e1a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .edit-diff-long .diff-old-section .diff-label {
+    background: #3d1418;
+  }
+  :root:not([data-theme="light"]) .edit-diff-long .diff-new-section .diff-label {
+    background: #1a2e1a;
+  }
+}
+
+/* Diff removed/added backgrounds */
+:root[data-theme="dark"] .diff-removed {
+  background: #3d1418;
+}
+
+:root[data-theme="dark"] .diff-added {
+  background: #1a2e1a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .diff-removed {
+    background: #3d1418;
+  }
+  :root:not([data-theme="light"]) .diff-added {
+    background: #1a2e1a;
+  }
+}
+
+/* Priority badges */
+:root[data-theme="dark"] .priority-high {
+  background: #5c2125;
+  color: #f85149;
+}
+
+:root[data-theme="dark"] .priority-medium {
+  background: #3d2e06;
+  color: #d29922;
+}
+
+:root[data-theme="dark"] .priority-low {
+  background: #1a2e1a;
+  color: #3fb950;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .priority-high {
+    background: #5c2125;
+    color: #f85149;
+  }
+  :root:not([data-theme="light"]) .priority-medium {
+    background: #3d2e06;
+    color: #d29922;
+  }
+  :root:not([data-theme="light"]) .priority-low {
+    background: #1a2e1a;
+    color: #3fb950;
+  }
+}
+
+/* Search modal */
+:root[data-theme="dark"] .search-modal {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+:root[data-theme="dark"] .search-modal-content {
+  background: var(--color-bg-secondary);
+}
+
+:root[data-theme="dark"] .search-header input {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .search-modal {
+    background: rgba(0, 0, 0, 0.7);
+  }
+  :root:not([data-theme="light"]) .search-modal-content {
+    background: var(--color-bg-secondary);
+  }
+  :root:not([data-theme="light"]) .search-header input {
+    background: var(--color-bg);
+    color: var(--color-text);
+  }
+}
+
+/* Session card hover */
+:root[data-theme="dark"] .session-card:hover {
+  border-color: #484f58;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .session-card:hover {
+    border-color: #484f58;
+  }
+}
+
+/* WebFetch tool */
+:root[data-theme="dark"] .tool-webfetch {
+  background: #0a2540;
+  border-color: #1a4060;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .tool-webfetch {
+    background: #0a2540;
+    border-color: #1a4060;
+  }
+}
+
+/* TodoWrite tool */
+:root[data-theme="dark"] .tool-todowrite {
+  background: #21262d;
+  border-color: #30363d;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .tool-todowrite {
+    background: #21262d;
+    border-color: #30363d;
+  }
+}
+
+/* Batch tool */
+:root[data-theme="dark"] .tool-batch {
+  background: #161b22;
+  border-color: #30363d;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .tool-batch {
+    background: #161b22;
+    border-color: #30363d;
+  }
+}
+
+/* Edit replace all badge */
+:root[data-theme="dark"] .edit-replace-all {
+  background: #3d2e06;
+  color: #d29922;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .edit-replace-all {
+    background: #3d2e06;
+    color: #d29922;
+  }
+}
+
+/* Write badge success */
+:root[data-theme="dark"] .write-badge.badge-success {
+  background: #1a2e1a;
+  color: #3fb950;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .write-badge.badge-success {
+    background: #1a2e1a;
+    color: #3fb950;
+  }
+}
+
+/* Grep include badge */
+:root[data-theme="dark"] .grep-include {
+  background: #1a3a5c;
+  color: #58a6ff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .grep-include {
+    background: #1a3a5c;
+    color: #58a6ff;
+  }
+}
+
+/* Badges */
+:root[data-theme="dark"] .badge-success {
+  background: #1a2e1a;
+  color: #3fb950;
+}
+
+:root[data-theme="dark"] .badge-error {
+  background: #3d1418;
+  color: #f85149;
+}
+
+:root[data-theme="dark"] .badge-info {
+  background: #1a3a5c;
+  color: #58a6ff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .badge-success {
+    background: #1a2e1a;
+    color: #3fb950;
+  }
+  :root:not([data-theme="light"]) .badge-error {
+    background: #3d1418;
+    color: #f85149;
+  }
+  :root:not([data-theme="light"]) .badge-info {
+    background: #1a3a5c;
+    color: #58a6ff;
+  }
+}
+
+/* Reasoning header color */
+:root[data-theme="dark"] .reasoning-header {
+  color: #d29922;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .reasoning-header {
+    color: #d29922;
+  }
+}
+
+/* Tool input/output backgrounds */
+:root[data-theme="dark"] .tool-input {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+:root[data-theme="dark"] .tool-output {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .tool-input {
+    background: rgba(0, 0, 0, 0.2);
+  }
+  :root:not([data-theme="light"]) .tool-output {
+    background: rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Message stats border */
+:root[data-theme="dark"] .message-stats {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .message-stats {
+    border-top-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Tool body border */
+:root[data-theme="dark"] .tool-body {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .tool-body {
+    border-top-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* ============================================================================
+   Theme Transitions
+   ============================================================================ */
+
+body,
+.container,
+.message,
+.tool-call,
+.session-card,
+pre,
+code,
+.page-header,
+.page-footer,
+.search-modal-content,
+.theme-toggle {
+  transition: 
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================================
+   Scrollbar Styling
+   ============================================================================ */
+
+/* Webkit scrollbars */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+/* ============================================================================
    Print Styles
    ============================================================================ */
 
 @media print {
   .search-container,
   .search-modal,
-  .pagination {
+  .pagination,
+  .theme-toggle,
+  .header-actions {
     display: none;
   }
 
