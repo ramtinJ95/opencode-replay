@@ -40,7 +40,12 @@ export function formatTime(timestamp: number): string {
  * Format a duration between two timestamps (e.g., "5m 30s", "1h 20m")
  */
 export function formatDuration(startMs: number, endMs: number): string {
-  const seconds = Math.floor((endMs - startMs) / 1000)
+  const diff = endMs - startMs
+
+  // Handle negative or zero durations
+  if (diff <= 0) return "0s"
+
+  const seconds = Math.floor(diff / 1000)
 
   if (seconds < 60) return `${seconds}s`
   if (seconds < 3600) {
@@ -89,6 +94,10 @@ export function formatDiff(additions: number, deletions: number): string {
 export function formatRelativeTime(timestamp: number): string {
   const now = Date.now()
   const diff = now - timestamp
+
+  // Handle future timestamps (clock skew or malformed data)
+  if (diff < 0) return formatDate(timestamp)
+
   const seconds = Math.floor(diff / 1000)
   const minutes = Math.floor(seconds / 60)
   const hours = Math.floor(minutes / 60)
