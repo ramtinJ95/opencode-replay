@@ -52,8 +52,15 @@ export function renderMarkdown(text: string): string {
     /```([^\n]*)\n([\s\S]*?)```/g,
     (_, lang, code) => {
       // Sanitize language to only allow safe chars for CSS class
-      const safeLang = (lang || "text").replace(/[^a-zA-Z0-9_-]/g, "")
-      return `<pre><code class="language-${safeLang || "text"}">${code.trim()}</code></pre>`
+      const rawLang = (lang || "").trim()
+      const safeLang = rawLang.replace(/[^a-zA-Z0-9_-]/g, "") || "text"
+      const displayLang = rawLang || "text"
+      
+      // Wrap in container with language label
+      return `<div class="code-block-wrapper">
+<span class="code-language">${escapeHtml(displayLang)}</span>
+<pre><code class="language-${safeLang}">${code.trim()}</code></pre>
+</div>`
     }
   )
 

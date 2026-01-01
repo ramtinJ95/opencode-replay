@@ -52,6 +52,7 @@ export function renderBasePage(options: BaseTemplateOptions): string {
   <title>${escapeHtml(title)} - OpenCode Replay</title>
   ${FOUC_PREVENTION_SCRIPT}
   <link rel="stylesheet" href="${assetsPath}/styles.css">
+  <link rel="stylesheet" href="${assetsPath}/prism.css">
   ${headExtra}
 </head>
 <body${bodyClass ? ` class="${bodyClass}"` : ""}>
@@ -59,6 +60,7 @@ export function renderBasePage(options: BaseTemplateOptions): string {
     ${content}
   </div>
   <script src="${assetsPath}/theme.js"></script>
+  <script src="${assetsPath}/highlight.js"></script>
   <script src="${assetsPath}/search.js"></script>
 </body>
 </html>`
