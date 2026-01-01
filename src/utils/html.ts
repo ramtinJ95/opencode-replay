@@ -32,6 +32,14 @@ export function nl2br(str: string): string {
 }
 
 /**
+ * Check if a URL is safe (not javascript:, data:, or other dangerous protocols)
+ */
+function isSafeUrl(url: string): boolean {
+  // Allow relative URLs, hash links, and http(s) URLs
+  return /^(https?:\/\/|\/|#|\.\.?\/)/.test(url) || !/^[a-z]+:/i.test(url)
+}
+
+/**
  * Render basic markdown-like content to HTML
  * Supports: code blocks, inline code, bold, italic, links
  */
@@ -39,10 +47,14 @@ export function renderMarkdown(text: string): string {
   let html = escapeHtml(text)
 
   // Code blocks (```language\ncode\n```)
+  // Language can include non-word chars like c++, c#, f#
   html = html.replace(
-    /```(\w*)\n([\s\S]*?)```/g,
-    (_, lang, code) =>
-      `<pre><code class="language-${lang || "text"}">${code.trim()}</code></pre>`
+    /```([^\n]*)\n([\s\S]*?)```/g,
+    (_, lang, code) => {
+      // Sanitize language to only allow safe chars for CSS class
+      const safeLang = (lang || "text").replace(/[^a-zA-Z0-9_-]/g, "")
+      return `<pre><code class="language-${safeLang || "text"}">${code.trim()}</code></pre>`
+    }
   )
 
   // Inline code (`code`)
@@ -54,10 +66,13 @@ export function renderMarkdown(text: string): string {
   // Italic (*text*)
   html = html.replace(/\*([^*]+)\*/g, "<em>$1</em>")
 
-  // Links [text](url)
+  // Links [text](url) - validate URL to prevent XSS
   html = html.replace(
     /\[([^\]]+)\]\(([^)]+)\)/g,
-    '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
+    (_, linkText, url) => {
+      const safeUrl = isSafeUrl(url) ? url : "#"
+      return `<a href="${safeUrl}" target="_blank" rel="noopener noreferrer">${linkText}</a>`
+    }
   )
 
   // Convert double newlines to paragraph breaks
