@@ -29,17 +29,15 @@ export function renderEditTool(part: ToolPart): string {
   // Extract filename from path
   const fileName = filePath.split("/").pop() || filePath
 
-  // Count changes
+  // Count lines changed
   const oldLines = oldString.split("\n").length
   const newLines = newString.split("\n").length
-  const lineDiff = newLines - oldLines
 
-  // Format diff stats
-  const additions = lineDiff > 0 ? lineDiff : 0
-  const deletions = lineDiff < 0 ? Math.abs(lineDiff) : 0
+  // Format diff stats - show line counts since we can't compute accurate diffs
   const diffStats = `<span class="edit-stats">
-    <span class="edit-additions">+${additions}</span>
-    <span class="edit-deletions">-${deletions}</span>
+    <span class="edit-old-lines">${oldLines} lines</span>
+    <span class="edit-arrow">&#8594;</span>
+    <span class="edit-new-lines">${newLines} lines</span>
   </span>`
 
   // Replace all indicator
