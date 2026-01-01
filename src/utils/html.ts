@@ -12,9 +12,11 @@ const HTML_ESCAPE_MAP: Record<string, string> = {
 
 /**
  * Escape HTML special characters to prevent XSS
+ * Handles undefined/null by returning empty string
  */
-export function escapeHtml(str: string): string {
-  return str.replace(/[&<>"']/g, (char) => HTML_ESCAPE_MAP[char] ?? char)
+export function escapeHtml(str: string | undefined | null): string {
+  if (str == null) return ""
+  return String(str).replace(/[&<>"']/g, (char) => HTML_ESCAPE_MAP[char] ?? char)
 }
 
 /**
@@ -98,8 +100,10 @@ export function renderMarkdown(text: string): string {
 
 /**
  * Truncate text to a maximum length, adding ellipsis if needed
+ * Handles undefined/null by returning empty string
  */
-export function truncate(str: string, maxLength: number): string {
+export function truncate(str: string | undefined | null, maxLength: number): string {
+  if (str == null) return ""
   if (str.length <= maxLength) return str
   return str.slice(0, maxLength - 3) + "..."
 }
