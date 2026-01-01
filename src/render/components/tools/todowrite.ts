@@ -52,7 +52,7 @@ export function renderTodoWriteTool(part: ToolPart): string {
     </div>`
   }
 
-  return `<div class="tool-call tool-todowrite" data-status="${status}">
+  return `<div class="tool-call tool-todowrite" data-status="${escapeHtml(status)}">
   <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
     <span class="tool-icon">&#128203;</span>
     <span class="tool-name">Todo List</span>

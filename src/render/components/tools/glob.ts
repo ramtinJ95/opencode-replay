@@ -50,7 +50,7 @@ export function renderGlobTool(part: ToolPart): string {
     </div>`
   }
 
-  return `<div class="tool-call tool-glob" data-status="${status}">
+  return `<div class="tool-call tool-glob" data-status="${escapeHtml(status)}">
   <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
     <span class="tool-icon">&#128269;</span>
     <span class="glob-pattern">${escapeHtml(pattern)}</span>

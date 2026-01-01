@@ -61,7 +61,7 @@ export function renderWriteTool(part: ToolPart): string {
     </div>`
   }
 
-  return `<div class="tool-call tool-write" data-status="${status}">
+  return `<div class="tool-call tool-write" data-status="${escapeHtml(status)}">
   <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
     <span class="tool-icon">&#128221;</span>
     ${statusBadge}
