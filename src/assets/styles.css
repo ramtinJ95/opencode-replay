@@ -505,6 +505,78 @@ pre code {
   border-radius: var(--radius-sm);
 }
 
+.bash-command {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  background: rgba(0, 0, 0, 0.08);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bash-description {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  margin-left: var(--spacing-sm);
+}
+
+.bash-workdir {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  background: rgba(0, 0, 0, 0.05);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+}
+
+.bash-output {
+  padding: var(--spacing-md);
+  background: #1e1e1e;
+  max-height: 400px;
+  overflow: auto;
+}
+
+.bash-output pre {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+}
+
+.bash-output code {
+  color: #d4d4d4;
+  font-size: var(--font-size-sm);
+  background: transparent;
+  border: none;
+  padding: 0;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.bash-error {
+  padding: var(--spacing-md);
+  background: var(--error-bg);
+  border-top: 1px solid var(--error-border);
+}
+
+.bash-error pre {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+}
+
+.bash-error code {
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
 /* File path styling */
 .tool-file {
   font-family: var(--font-mono);
