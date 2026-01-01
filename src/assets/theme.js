@@ -7,11 +7,33 @@
   const THEME_TIME_KEY = 'opencode-replay-theme-time';
 
   /**
+   * Safe localStorage getter (handles private browsing mode)
+   */
+  function getStorageItem(key) {
+    try {
+      return localStorage.getItem(key);
+    } catch {
+      return null;
+    }
+  }
+
+  /**
+   * Safe localStorage setter (handles quota exceeded and private browsing)
+   */
+  function setStorageItem(key, value) {
+    try {
+      localStorage.setItem(key, value);
+    } catch {
+      // Ignore storage errors (private browsing, quota exceeded)
+    }
+  }
+
+  /**
    * Get the user's preferred theme
    * Priority: localStorage > system preference > light
    */
   function getPreferredTheme() {
-    const storedTheme = localStorage.getItem(THEME_KEY);
+    var storedTheme = getStorageItem(THEME_KEY);
     
     if (storedTheme === 'dark' || storedTheme === 'light') {
       return storedTheme;
@@ -30,9 +52,9 @@
    */
   function setTheme(theme, saveTime) {
     document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem(THEME_KEY, theme);
+    setStorageItem(THEME_KEY, theme);
     if (saveTime !== false) {
-      localStorage.setItem(THEME_TIME_KEY, String(Date.now()));
+      setStorageItem(THEME_TIME_KEY, String(Date.now()));
     }
     updateToggleButton(theme);
   }
@@ -73,12 +95,12 @@
 
   // Listen for system theme changes (when no explicit preference is set)
   if (window.matchMedia) {
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    var mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     
     mediaQuery.addEventListener('change', function(e) {
       // Only auto-switch if user hasn't set an explicit preference recently
-      const lastSet = localStorage.getItem(THEME_TIME_KEY);
-      const now = Date.now();
+      var lastSet = getStorageItem(THEME_TIME_KEY);
+      var now = Date.now();
       
       // If preference was set more than 24 hours ago, follow system
       if (!lastSet || (now - parseInt(lastSet, 10)) > 86400000) {

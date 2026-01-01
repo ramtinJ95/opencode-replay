@@ -3,7 +3,7 @@
  * All pages extend this template
  */
 
-import { escapeHtml } from "../../utils/html"
+import { escapeHtml, escapeAttr, isSafeUrl } from "../../utils/html"
 
 export interface BaseTemplateOptions {
   title: string
@@ -118,7 +118,9 @@ export function renderHeader(options: {
             if (isLast || !b.href) {
               return `<span class="breadcrumb-item current">${escapeHtml(b.label)}</span>`
             }
-            return `<a href="${b.href}" class="breadcrumb-item">${escapeHtml(b.label)}</a>`
+            // Validate and escape href to prevent XSS via javascript: URLs
+            const safeHref = isSafeUrl(b.href) ? escapeAttr(b.href) : "#"
+            return `<a href="${safeHref}" class="breadcrumb-item">${escapeHtml(b.label)}</a>`
           })
           .join('<span class="breadcrumb-separator">/</span>')}
       </nav>`
