@@ -71,7 +71,7 @@ export function renderTaskTool(part: ToolPart): string {
     </div>`
   }
 
-  return `<div class="tool-call tool-task" data-status="${status}">
+  return `<div class="tool-call tool-task" data-status="${escapeHtml(status)}">
   <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
     <span class="tool-icon">&#128101;</span>
     ${agentBadge}

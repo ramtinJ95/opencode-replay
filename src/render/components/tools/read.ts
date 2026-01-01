@@ -62,7 +62,7 @@ export function renderReadTool(part: ToolPart): string {
     </div>`
   }
 
-  return `<div class="tool-call tool-read" data-status="${status}">
+  return `<div class="tool-call tool-read" data-status="${escapeHtml(status)}">
   <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
     <span class="tool-icon">&#128196;</span>
     <span class="read-file-path" title="${escapeHtml(filePath)}">${escapeHtml(fileName)}</span>

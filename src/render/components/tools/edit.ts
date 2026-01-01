@@ -59,7 +59,7 @@ export function renderEditTool(part: ToolPart): string {
     </div>`
   }
 
-  return `<div class="tool-call tool-edit" data-status="${status}">
+  return `<div class="tool-call tool-edit" data-status="${escapeHtml(status)}">
   <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
     <span class="tool-icon">&#9998;</span>
     <span class="edit-file-path" title="${escapeHtml(filePath)}">${escapeHtml(fileName)}</span>

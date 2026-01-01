@@ -58,7 +58,7 @@ export function renderWebFetchTool(part: ToolPart): string {
     </div>`
   }
 
-  return `<div class="tool-call tool-webfetch" data-status="${status}">
+  return `<div class="tool-call tool-webfetch" data-status="${escapeHtml(status)}">
   <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
     <span class="tool-icon">&#127760;</span>
     ${urlHtml}

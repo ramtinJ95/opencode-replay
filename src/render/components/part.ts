@@ -117,7 +117,7 @@ function renderGenericToolPart(part: ToolPart): string {
   const isLongOutput = outputLines > 20
   const collapsedClass = isLongOutput ? "collapsed" : ""
 
-  return `<div class="tool-call tool-generic tool-${escapeHtml(tool)}" data-status="${status}">
+  return `<div class="tool-call tool-generic tool-${escapeHtml(tool)}" data-status="${escapeHtml(status)}">
   <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
     <span class="tool-icon">${getToolIcon(tool)}</span>
     <span class="tool-name">${escapeHtml(tool)}</span>

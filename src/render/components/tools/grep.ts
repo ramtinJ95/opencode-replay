@@ -64,7 +64,7 @@ export function renderGrepTool(part: ToolPart): string {
     </div>`
   }
 
-  return `<div class="tool-call tool-grep" data-status="${status}">
+  return `<div class="tool-call tool-grep" data-status="${escapeHtml(status)}">
   <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
     <span class="tool-icon">&#128270;</span>
     <span class="grep-pattern">${escapeHtml(pattern)}</span>
