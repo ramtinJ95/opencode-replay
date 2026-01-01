@@ -981,6 +981,104 @@ pre code {
   font-size: var(--font-size-sm);
 }
 
+/* Grep tool styling */
+.grep-pattern {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.grep-include {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-info);
+  background: #e3f2fd;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+}
+
+.grep-path {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.grep-count {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  background: var(--color-bg-secondary);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.grep-matches {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.grep-match {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-bottom: 1px solid var(--color-border-light);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+}
+
+.grep-match:last-child {
+  border-bottom: none;
+}
+
+.grep-match:hover {
+  background: var(--color-bg-secondary);
+}
+
+.grep-match-file {
+  color: var(--color-info);
+  flex-shrink: 0;
+}
+
+.grep-match-line {
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+.grep-match-content {
+  color: var(--color-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.grep-no-matches {
+  padding: var(--spacing-lg);
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.grep-error {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  background: var(--error-bg);
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
+}
+
 /* File path styling */
 .tool-file {
   font-family: var(--font-mono);
