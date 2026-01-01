@@ -391,17 +391,83 @@ Client-side search implementation:
 - Assets: Separate files (not embedded) for easier customization
 - Security: URL validation in markdown to prevent XSS via javascript: links
 
-### Phase 4: Tool Renderers
-- [ ] Implement `bash` tool renderer
-- [ ] Implement `read` tool renderer
-- [ ] Implement `write` tool renderer
-- [ ] Implement `edit` tool renderer (with diff view)
-- [ ] Implement `glob` tool renderer
-- [ ] Implement `grep` tool renderer
-- [ ] Implement `task` tool renderer
-- [ ] Implement `todowrite` tool renderer
-- [ ] Implement `webfetch` tool renderer
-- [ ] Handle unknown tools gracefully
+### Phase 4: Tool Renderers (COMPLETED)
+- [x] Implement `bash` tool renderer
+  - Terminal-style command display with `$` prefix
+  - Dark background output box with monospace font
+  - Collapsible output for long results (>20 lines)
+  - Error styling with red background
+- [x] Implement `read` tool renderer
+  - File path header with filename highlight
+  - Full path shown on hover/secondary text
+  - Line count display
+  - Range info (offset/limit) when applicable
+- [x] Implement `write` tool renderer
+  - File path with "Created" badge
+  - Line count and byte size display
+  - Collapsible content preview
+- [x] Implement `edit` tool renderer (with diff view)
+  - Side-by-side diff view for short edits (<50 lines)
+  - Collapsible sections for longer edits
+  - Line count comparison (X lines -> Y lines)
+  - "Replace All" badge when applicable
+- [x] Implement `glob` tool renderer
+  - Pattern display with monospace styling
+  - File list with type-specific icons
+  - File count summary
+- [x] Implement `grep` tool renderer
+  - Pattern and include filter display
+  - Parsed file:line:content matches
+  - Match count summary
+- [x] Implement `task` tool renderer
+  - Agent type badge with colors (General/Explore/Reviewer/Docs)
+  - Collapsible prompt section
+  - Expandable result section
+- [x] Implement `todowrite` tool renderer
+  - Checklist with status icons (checkmark/arrow/circle/X)
+  - Priority badges (high=red, medium=orange)
+  - Progress summary (X/Y done)
+- [x] Implement `webfetch` tool renderer
+  - Clickable URL (validated for safety)
+  - Format badge (text/markdown/html)
+  - Content size display
+  - Collapsible content preview
+- [x] Implement `batch` tool renderer (added during implementation)
+  - Nested tool call list with icons
+  - Tool count summary by type
+  - Combined output section
+- [x] Handle unknown tools gracefully
+  - Generic renderer with input/output labels
+  - JSON-formatted input display
+  - Collapsible sections for long output
+
+**Phase 4 Design Decisions:**
+- All tool renderers follow consistent pattern: type interface, main render function, helper functions
+- Security: All `data-status` attributes escaped with `escapeHtml()` to prevent XSS
+- Edit tool shows line counts instead of fake +/- diff stats (accurate diff requires complex algorithm)
+- `formatBytes()` utility extracted to shared `utils/format.ts` to avoid duplication
+- Batch tool added (not in original plan) to properly display nested tool calls
+- Long outputs auto-collapse (threshold varies by tool: 20-50 lines)
+- Toggle indicators show `+`/`-` reflecting collapsed state
+- Tool-specific CSS colors defined in variables for consistency
+
+**Phase 4 Files Created:**
+- `src/render/components/tools/bash.ts`
+- `src/render/components/tools/read.ts`
+- `src/render/components/tools/write.ts`
+- `src/render/components/tools/edit.ts`
+- `src/render/components/tools/glob.ts`
+- `src/render/components/tools/grep.ts`
+- `src/render/components/tools/task.ts`
+- `src/render/components/tools/todowrite.ts`
+- `src/render/components/tools/webfetch.ts`
+- `src/render/components/tools/batch.ts`
+
+**Phase 4 Files Modified:**
+- `src/render/components/part.ts` - Tool dispatcher with switch statement
+- `src/assets/styles.css` - Added ~400 lines of tool-specific CSS
+- `src/utils/format.ts` - Added `formatBytes()` utility
+- `src/utils/html.ts` - Exported `isSafeUrl()` for webfetch
 
 ### Phase 5: Part Type Renderers
 - [ ] Text parts (user input, assistant response)
