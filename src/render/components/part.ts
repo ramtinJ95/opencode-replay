@@ -19,6 +19,7 @@ import { renderGlobTool } from "./tools/glob"
 import { renderGrepTool } from "./tools/grep"
 import { renderTaskTool } from "./tools/task"
 import { renderTodoWriteTool } from "./tools/todowrite"
+import { renderWebFetchTool } from "./tools/webfetch"
 
 /**
  * Render a text part
@@ -71,6 +72,8 @@ function renderToolPart(part: ToolPart): string {
       return renderTaskTool(part)
     case "todowrite":
       return renderTodoWriteTool(part)
+    case "webfetch":
+      return renderWebFetchTool(part)
     default:
       return renderGenericToolPart(part)
   }

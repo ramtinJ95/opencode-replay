@@ -34,7 +34,7 @@ export function nl2br(str: string): string {
 /**
  * Check if a URL is safe (not javascript:, data:, or other dangerous protocols)
  */
-function isSafeUrl(url: string): boolean {
+export function isSafeUrl(url: string): boolean {
   // Allow relative URLs, hash links, and http(s) URLs
   return /^(https?:\/\/|\/|#|\.\.?\/)/.test(url) || !/^[a-z]+:/i.test(url)
 }
