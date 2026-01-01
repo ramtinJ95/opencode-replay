@@ -66,13 +66,19 @@ async function copyAssets(outputDir: string): Promise<void> {
   const assetsDir = join(outputDir, "assets")
   await ensureDir(assetsDir)
 
-  // Copy CSS file
+  // Copy CSS files
   const cssSource = join(import.meta.dir, "../assets/styles.css")
   await copyFile(cssSource, join(assetsDir, "styles.css"))
+  
+  const prismCssSource = join(import.meta.dir, "../assets/prism.css")
+  await copyFile(prismCssSource, join(assetsDir, "prism.css"))
 
-  // Copy theme.js
+  // Copy JavaScript files
   const themeJsSource = join(import.meta.dir, "../assets/theme.js")
   await copyFile(themeJsSource, join(assetsDir, "theme.js"))
+  
+  const highlightJsSource = join(import.meta.dir, "../assets/highlight.js")
+  await copyFile(highlightJsSource, join(assetsDir, "highlight.js"))
 
   // Create placeholder search.js for now
   const searchJs = `// OpenCode Replay - Search functionality
