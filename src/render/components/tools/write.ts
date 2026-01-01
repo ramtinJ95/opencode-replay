@@ -5,6 +5,7 @@
 
 import type { ToolPart } from "../../../storage/types"
 import { escapeHtml } from "../../../utils/html"
+import { formatBytes } from "../../../utils/format"
 
 interface WriteToolInput {
   filePath: string
@@ -78,11 +79,4 @@ export function renderWriteTool(part: ToolPart): string {
 </div>`
 }
 
-/**
- * Format byte count to human-readable string
- */
-function formatBytes(bytes: number): string {
-  if (bytes < 1024) return `${bytes} B`
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
-}
+
