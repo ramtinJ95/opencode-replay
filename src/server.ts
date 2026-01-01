@@ -147,23 +147,46 @@ export async function serve(options: ServeOptions): Promise<void> {
   console.log(`\nServer running at ${serverUrl}`)
   console.log("Press Ctrl+C to stop\n")
 
-  // Auto-open browser
+  // Auto-open browser (cross-platform)
   if (open) {
-    const openCmd = process.platform === "darwin" ? "open" : "xdg-open"
-    Bun.spawn([openCmd, serverUrl])
+    openBrowser(serverUrl)
   }
 
-  // Graceful shutdown handlers
-  const shutdown = (signal: string) => {
+  // Graceful shutdown handlers with cleanup
+  const sigintHandler = () => shutdown("SIGINT")
+  const sigtermHandler = () => shutdown("SIGTERM")
+
+  function shutdown(signal: string) {
     console.log(`\nReceived ${signal}, shutting down...`)
+    // Remove signal handlers to prevent duplicate calls
+    process.off("SIGINT", sigintHandler)
+    process.off("SIGTERM", sigtermHandler)
     server.stop()
     console.log("Server stopped")
     process.exit(0)
   }
 
-  process.on("SIGINT", () => shutdown("SIGINT"))
-  process.on("SIGTERM", () => shutdown("SIGTERM"))
+  process.on("SIGINT", sigintHandler)
+  process.on("SIGTERM", sigtermHandler)
 
   // Keep process alive - server runs until signal
   await new Promise(() => {})
+}
+
+/**
+ * Open a URL in the default browser (cross-platform)
+ */
+function openBrowser(url: string): void {
+  const platform = process.platform
+  
+  if (platform === "darwin") {
+    // macOS
+    Bun.spawn(["open", url])
+  } else if (platform === "win32") {
+    // Windows - use cmd /c start with empty title
+    Bun.spawn(["cmd", "/c", "start", "", url])
+  } else {
+    // Linux and others
+    Bun.spawn(["xdg-open", url])
+  }
 }

@@ -174,11 +174,30 @@ if (values.serve) {
   await serve({
     directory: resolve(outputDir),
     port,
+    // Only auto-open if --open was explicitly passed, or if not specified (default for --serve)
+    // This makes --serve auto-open by default, but respects explicit --open false
     open: values.open ?? true,
   })
 } else if (values.open) {
-  // Just open without serving
+  // Just open without serving (cross-platform)
   const indexPath = resolve(outputDir, "index.html")
-  const openCmd = process.platform === "darwin" ? "open" : "xdg-open"
-  Bun.spawn([openCmd, indexPath])
+  openInBrowser(indexPath)
+}
+
+/**
+ * Open a file or URL in the default browser (cross-platform)
+ */
+function openInBrowser(target: string): void {
+  const platform = process.platform
+  
+  if (platform === "darwin") {
+    // macOS
+    Bun.spawn(["open", target])
+  } else if (platform === "win32") {
+    // Windows - use cmd /c start with empty title
+    Bun.spawn(["cmd", "/c", "start", "", target])
+  } else {
+    // Linux and others
+    Bun.spawn(["xdg-open", target])
+  }
 }
