@@ -5,12 +5,8 @@
 
 import { parseArgs } from "util"
 import { resolve } from "path"
-import { homedir } from "os"
-
-// Default storage path for OpenCode
-function getDefaultStoragePath(): string {
-  return resolve(homedir(), ".local", "share", "opencode", "storage")
-}
+import { getDefaultStoragePath } from "./storage/reader"
+import { generateHtml } from "./render/html"
 
 // Parse CLI arguments
 const { values } = parseArgs({
@@ -112,25 +108,25 @@ if (values.session) {
   console.log(`Session filter: ${values.session}`)
 }
 console.log("")
-console.log("(HTML generation not yet implemented)")
 
-// TODO: Implement in Phase 2+
-// try {
-//   await generateHtml({
-//     storagePath,
-//     outputDir: resolve(outputDir),
-//     all: values.all ?? false,
-//     sessionId: values.session,
-//     includeJson: values.json ?? false,
-//   })
-//
-//   console.log(`Generated HTML transcripts in ${outputDir}`)
-//
-//   if (values.open) {
-//     const indexPath = resolve(outputDir, "index.html")
-//     Bun.spawn(["open", indexPath])
-//   }
-// } catch (error) {
-//   console.error("Error:", error instanceof Error ? error.message : error)
-//   process.exit(1)
-// }
+try {
+  await generateHtml({
+    storagePath,
+    outputDir: resolve(outputDir),
+    all: values.all ?? false,
+    sessionId: values.session,
+    includeJson: values.json ?? false,
+  })
+
+  console.log(`\nGenerated HTML transcripts in ${resolve(outputDir)}`)
+
+  if (values.open) {
+    const indexPath = resolve(outputDir, "index.html")
+    // Use xdg-open on Linux, open on macOS
+    const openCmd = process.platform === "darwin" ? "open" : "xdg-open"
+    Bun.spawn([openCmd, indexPath])
+  }
+} catch (error) {
+  console.error("Error:", error instanceof Error ? error.message : error)
+  process.exit(1)
+}
