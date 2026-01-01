@@ -1168,6 +1168,57 @@ pre code {
   font-size: var(--font-size-sm);
 }
 
+/* TodoWrite tool styling */
+.tool-todowrite {
+  background: #f3f4f6;
+  border: 1px solid #d1d5db;
+}
+
+.todo-summary {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.todo-stats {
+  display: flex;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-xs);
+  flex: 1;
+}
+
+.todo-stat-progress {
+  color: var(--color-info);
+}
+
+.todo-stat-pending {
+  color: var(--color-text-muted);
+}
+
+.todo-stat-cancelled {
+  color: var(--color-error);
+}
+
+.tool-todowrite .todo-list {
+  padding: var(--spacing-md);
+}
+
+.todo-empty {
+  padding: var(--spacing-lg);
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.todo-error {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  background: var(--error-bg);
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
+}
+
 /* File path styling */
 .tool-file {
   font-family: var(--font-mono);
