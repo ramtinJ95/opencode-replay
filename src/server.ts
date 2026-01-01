@@ -3,7 +3,7 @@
  * Uses Bun.serve() with security best practices
  */
 
-import { resolve, join } from "node:path"
+import { resolve, join, sep } from "node:path"
 
 export interface ServeOptions {
   /** Directory to serve files from */
@@ -16,12 +16,13 @@ export interface ServeOptions {
 
 /**
  * Check if a path is safe (no directory traversal)
+ * Uses platform-specific separator for Windows compatibility
  */
 function isPathSafe(rootDir: string, targetPath: string): boolean {
   const resolvedRoot = resolve(rootDir)
   const resolvedTarget = resolve(targetPath)
   return (
-    resolvedTarget.startsWith(resolvedRoot + "/") ||
+    resolvedTarget.startsWith(resolvedRoot + sep) ||
     resolvedTarget === resolvedRoot
   )
 }
@@ -33,7 +34,10 @@ export async function serve(options: ServeOptions): Promise<void> {
   const { directory, port, open = true } = options
   const ROOT_DIR = resolve(directory)
 
-  const server = Bun.serve({
+  let server: ReturnType<typeof Bun.serve>
+
+  try {
+    server = Bun.serve({
     port,
 
     async fetch(req) {
@@ -66,25 +70,23 @@ export async function serve(options: ServeOptions): Promise<void> {
         return new Response("Forbidden", { status: 403 })
       }
 
+      // Try to serve the file, or index.html for directories
       let file = Bun.file(targetPath)
+      let fileExists = await file.exists()
 
-      // Try index.html for directories or paths ending with /
-      if (pathname.endsWith("/") || !(await file.exists())) {
+      // For paths ending with / or non-existent paths, try index.html
+      if (pathname.endsWith("/") || !fileExists) {
         const indexPath = join(targetPath, "index.html")
         const indexFile = Bun.file(indexPath)
 
         if (await indexFile.exists()) {
           file = indexFile
-        } else if (!(await Bun.file(targetPath).exists())) {
-          return new Response("Not Found", {
-            status: 404,
-            headers: { "Content-Type": "text/plain" },
-          })
+          fileExists = true
         }
       }
 
-      // Check if file exists
-      if (!(await file.exists())) {
+      // Return 404 if file doesn't exist
+      if (!fileExists) {
         return new Response("Not Found", {
           status: 404,
           headers: { "Content-Type": "text/plain" },
@@ -132,6 +134,14 @@ export async function serve(options: ServeOptions): Promise<void> {
       return new Response("Internal Server Error", { status: 500 })
     },
   })
+  } catch (err) {
+    const error = err as NodeJS.ErrnoException
+    if (error.code === "EADDRINUSE") {
+      console.error(`Error: Port ${port} is already in use`)
+      process.exit(1)
+    }
+    throw err
+  }
 
   const serverUrl = `http://localhost:${port}`
   console.log(`\nServer running at ${serverUrl}`)
@@ -144,7 +154,7 @@ export async function serve(options: ServeOptions): Promise<void> {
   }
 
   // Graceful shutdown handlers
-  const shutdown = async (signal: string) => {
+  const shutdown = (signal: string) => {
     console.log(`\nReceived ${signal}, shutting down...`)
     server.stop()
     console.log("Server stopped")

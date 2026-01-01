@@ -134,7 +134,19 @@ console.log(`Storage path: ${storagePath}`)
 console.log(`Output directory: ${resolve(outputDir)}`)
 
 // Skip generation if --no-generate is set
-if (!values["no-generate"]) {
+if (values["no-generate"]) {
+  // Validate output directory exists when skipping generation
+  const indexFile = Bun.file(resolve(outputDir, "index.html"))
+  if (!(await indexFile.exists())) {
+    console.error(
+      `Error: Output directory not found or missing index.html: ${resolve(outputDir)}`
+    )
+    console.error("Run without --no-generate to generate output first.")
+    process.exit(1)
+  }
+  console.log("Skipping generation (--no-generate)")
+  console.log("")
+} else {
   console.log(`Mode: ${values.all ? "all projects" : "current project"}`)
   if (values.session) {
     console.log(`Session filter: ${values.session}`)
