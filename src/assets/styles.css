@@ -644,6 +644,85 @@ pre code {
   font-size: var(--font-size-lg);
 }
 
+/* Write tool styling */
+.write-file-path {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.write-full-path {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.write-badge {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+}
+
+.write-badge.badge-success {
+  background: #e8f5e9;
+  color: var(--color-success);
+}
+
+.write-badge.badge-error {
+  background: var(--error-bg);
+  color: var(--color-error);
+}
+
+.write-lines,
+.write-chars {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.write-content {
+  padding: var(--spacing-md);
+  background: var(--code-bg);
+  max-height: 500px;
+  overflow: auto;
+}
+
+.write-content pre {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+}
+
+.write-content code {
+  font-size: var(--font-size-sm);
+  background: transparent;
+  border: none;
+  padding: 0;
+  white-space: pre;
+}
+
+.write-error {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  background: var(--error-bg);
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
+}
+
+.write-error .error-icon {
+  font-size: var(--font-size-lg);
+}
+
 /* File path styling */
 .tool-file {
   font-family: var(--font-mono);
