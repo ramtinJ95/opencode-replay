@@ -58,6 +58,28 @@ opencode-replay --open
 opencode-replay --json
 ```
 
+### HTTP Server Mode
+
+Serve generated transcripts via HTTP for easier viewing and sharing:
+
+```bash
+# Generate and serve via HTTP (default port: 3000)
+opencode-replay --serve
+
+# Serve on a custom port
+opencode-replay --serve --port 8080
+
+# Serve existing output without regenerating
+opencode-replay --serve --no-generate -o ./existing-output
+```
+
+The built-in server includes:
+- Automatic MIME type detection
+- ETag-based caching for efficient reloads
+- Directory index serving (serves `index.html` for directory requests)
+- Path traversal protection
+- Auto-opens browser on start
+
 ### All Options
 
 | Option | Short | Description |
@@ -68,6 +90,9 @@ opencode-replay --json
 | `--json` | | Include raw JSON export alongside HTML |
 | `--open` | | Open in browser after generation |
 | `--storage <path>` | | Custom storage path (default: `~/.local/share/opencode/storage`) |
+| `--serve` | | Start HTTP server after generation |
+| `--port <number>` | | Server port (default: `3000`) |
+| `--no-generate` | | Skip generation, only serve existing output |
 | `--help` | `-h` | Show help message |
 | `--version` | `-v` | Show version |
 
@@ -86,6 +111,12 @@ opencode-replay --session ses_abc123 --json -o ./session-export
 
 # Use custom storage location
 opencode-replay --storage /custom/path/to/storage
+
+# Generate and serve for easy sharing
+opencode-replay --serve --port 8080
+
+# Quick preview of existing transcripts
+opencode-replay --serve --no-generate -o ./my-transcripts
 ```
 
 ## Output Structure
