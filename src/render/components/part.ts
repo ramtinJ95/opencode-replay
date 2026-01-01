@@ -18,6 +18,7 @@ import { renderEditTool } from "./tools/edit"
 import { renderGlobTool } from "./tools/glob"
 import { renderGrepTool } from "./tools/grep"
 import { renderTaskTool } from "./tools/task"
+import { renderTodoWriteTool } from "./tools/todowrite"
 
 /**
  * Render a text part
@@ -68,6 +69,8 @@ function renderToolPart(part: ToolPart): string {
       return renderGrepTool(part)
     case "task":
       return renderTaskTool(part)
+    case "todowrite":
+      return renderTodoWriteTool(part)
     default:
       return renderGenericToolPart(part)
   }
