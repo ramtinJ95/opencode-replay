@@ -64,22 +64,6 @@ async function listJsonFiles(dirPath: string): Promise<string[]> {
   }
 }
 
-/**
- * List subdirectories in a directory
- */
-async function _listDirs(dirPath: string): Promise<string[]> {
-  try {
-    const entries = await readdir(dirPath, { withFileTypes: true })
-    return entries.filter((e) => e.isDirectory()).map((e) => e.name)
-  } catch {
-    // Directory doesn't exist
-    return []
-  }
-}
-
-// Reserved for future use (e.g., listing session directories)
-void _listDirs
-
 // =============================================================================
 // PROJECT FUNCTIONS
 // =============================================================================
@@ -121,8 +105,13 @@ export async function findProjectByPath(
   workdir: string
 ): Promise<Project | null> {
   const projects = await listProjects(storagePath)
-  // Find project where workdir starts with the project's worktree
-  return projects.find((p) => workdir.startsWith(p.worktree)) ?? null
+  // Find project where workdir exactly matches or is a subdirectory of the worktree
+  // Using trailing slash to avoid false positives (e.g., /project vs /project-extended)
+  return (
+    projects.find(
+      (p) => workdir === p.worktree || workdir.startsWith(p.worktree + "/")
+    ) ?? null
+  )
 }
 
 // =============================================================================
@@ -190,7 +179,7 @@ export async function listAllSessions(
 
 /**
  * List all messages for a session
- * Returns messages sorted chronologically by ID
+ * Returns messages sorted chronologically by creation time
  */
 export async function listMessages(
   storagePath: string,
@@ -205,8 +194,8 @@ export async function listMessages(
     if (message) messages.push(message)
   }
 
-  // Sort by ID (which contains timestamp) - chronological order
-  return messages.sort((a, b) => (a.id > b.id ? 1 : -1))
+  // Sort by creation time - chronological order
+  return messages.sort((a, b) => a.time.created - b.time.created)
 }
 
 /**
@@ -229,6 +218,8 @@ export async function getMessage(
 /**
  * List all parts for a message
  * Returns parts sorted chronologically by ID
+ * Note: Parts don't have a consistent time.created field, so we use ID comparison
+ * which is designed to be sequential within a message
  */
 export async function listParts(
   storagePath: string,
@@ -243,8 +234,8 @@ export async function listParts(
     if (part) parts.push(part)
   }
 
-  // Sort by ID - chronological order
-  return parts.sort((a, b) => (a.id > b.id ? 1 : -1))
+  // Sort by ID - chronological order (IDs are sequential within a message)
+  return parts.sort((a, b) => a.id.localeCompare(b.id))
 }
 
 // =============================================================================
