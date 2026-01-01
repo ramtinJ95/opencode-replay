@@ -1285,6 +1285,35 @@ pre code {
   font-size: var(--font-size-sm);
 }
 
+/* Generic tool styling (fallback for unknown tools) */
+.tool-generic {
+  background: var(--tool-bg);
+  border: 1px solid var(--tool-border);
+}
+
+.tool-input-label,
+.tool-output-label {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-xs);
+}
+
+.tool-error {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  background: var(--error-bg);
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
+}
+
+.tool-error .error-icon {
+  font-size: var(--font-size-lg);
+}
+
 /* File path styling */
 .tool-file {
   font-family: var(--font-mono);
