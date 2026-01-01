@@ -670,11 +670,29 @@ export async function serve(options: ServeOptions): Promise<void> {
 - `src/render/html.ts` - Copy new assets to output
 - `src/utils/html.ts` - Enhanced markdown with code block wrappers
 
-### Phase 6: Pagination & Navigation
-- [ ] Implement conversation pagination (5 prompts/page)
-- [ ] Add prev/next navigation
-- [ ] Add page number links
-- [ ] Deep-link support (anchor to specific messages)
+### Phase 6: Pagination & Navigation (COMPLETED)
+- [x] Implement conversation pagination (5 prompts/page)
+  - `paginateMessages()` in `src/render/html.ts` groups messages by user prompts
+  - Configurable via `PROMPTS_PER_PAGE` constant (default: 5)
+- [x] Add prev/next navigation
+  - Previous/Next links with arrow indicators
+  - Disabled state styling when at first/last page
+- [x] Add page number links
+  - Smart pagination with ellipsis for large page counts (8+ pages)
+  - Shows: first page, window around current page, last page
+  - Example: `1 ... 9 10 11 ... 20` when on page 10 of 20
+- [x] Deep-link support (anchor to specific messages)
+  - Each message has `id="{message.id}"` attribute
+  - Timeline entries link to `page-XXX.html#msg-{id}`
+
+**Phase 6 Files Modified:**
+- `src/render/templates/page.ts` - Added `getPageNumbers()` for smart pagination, updated `renderPagination()`
+- `src/assets/styles.css` - Added `.pagination-ellipsis` styling
+
+**Phase 6 Design Decisions:**
+- Threshold for smart pagination: 7 pages (8+ triggers ellipsis mode)
+- Window size: 1 page on each side of current page
+- Always shows first and last page for quick navigation
 
 ### Phase 7: Search
 - [ ] Implement search index generation
