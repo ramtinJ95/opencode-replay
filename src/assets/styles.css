@@ -1320,6 +1320,128 @@ pre code {
   font-size: var(--font-size-lg);
 }
 
+/* Batch tool styling */
+.tool-batch {
+  background: #fafafa;
+  border: 1px solid #e0e0e0;
+}
+
+.batch-title {
+  font-weight: 600;
+}
+
+.batch-summary {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.batch-tool-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.batch-tool-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-bottom: 1px solid var(--color-border-light);
+  font-size: var(--font-size-sm);
+}
+
+.batch-tool-item:last-child {
+  border-bottom: none;
+}
+
+.batch-tool-item:hover {
+  background: var(--color-bg-secondary);
+}
+
+.batch-tool-index {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-secondary);
+  border-radius: 50%;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+.batch-tool-icon {
+  flex-shrink: 0;
+}
+
+.batch-tool-name {
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.batch-tool-info {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.batch-empty {
+  padding: var(--spacing-lg);
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.batch-output {
+  border-top: 1px solid var(--color-border-light);
+}
+
+.batch-output-label {
+  display: block;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-bg-secondary);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+}
+
+.batch-output pre {
+  margin: 0;
+  padding: var(--spacing-md);
+  background: var(--code-bg);
+  border: none;
+  border-radius: 0;
+  max-height: 400px;
+  overflow: auto;
+}
+
+.batch-output code {
+  font-size: var(--font-size-sm);
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.batch-error {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  background: var(--error-bg);
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
+}
+
 /* File path styling */
 .tool-file {
   font-family: var(--font-mono);
