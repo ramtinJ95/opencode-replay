@@ -624,13 +624,51 @@ export async function serve(options: ServeOptions): Promise<void> {
 - [x] FOUC prevention script works (no flash on page load)
 - [x] Smooth transitions with reduced-motion respect
 
-### Phase 5: Part Type Renderers
-- [ ] Text parts (user input, assistant response)
-- [ ] Reasoning parts (extended thinking)
-- [ ] File parts (attachments)
-- [ ] Snapshot/Patch parts (maybe just metadata display)
-- [ ] Agent parts (sub-agent invocations)
-- [ ] Retry parts
+### Phase 5: Part Type Renderers (COMPLETED)
+- [x] Text parts (user input, assistant response)
+  - Enhanced markdown rendering with code block language labels
+  - Added syntax highlighting with custom highlight.js
+  - Support for JS/TS, Python, Go, Rust, Bash, SQL, JSON, YAML, HTML, CSS, Markdown, diff
+- [x] Reasoning parts (extended thinking)
+  - Collapsible content with toggle
+  - Duration display when timing info available
+  - Auto-collapse for long content (>20 lines)
+- [x] File parts (attachments)
+  - Image previews for image mime types
+  - File size estimation from data URLs
+  - Mime-type specific icons
+  - Download links for non-image files
+- [x] Snapshot parts (undo/redo markers)
+  - Visual marker with camera icon
+  - Snapshot ID display
+- [x] Patch parts (file changes checkpoint)
+  - File list with icons
+  - Hash preview
+  - File count display
+- [x] Agent parts (sub-agent invocations)
+  - Agent name badge
+  - Source value preview
+- [x] Compaction parts (context compaction)
+  - Visual divider with icon
+  - Distinguish auto vs manual compaction
+- [x] Subtask parts (task metadata)
+  - Agent type badge with color coding
+  - Command display when present
+  - Collapsible prompt section
+- [x] Retry parts (retry attempts)
+  - Attempt number badge
+  - Error name, message, and code display
+
+**Phase 5 Files Created:**
+- `src/assets/highlight.js` - Lightweight syntax highlighter
+- `src/assets/prism.css` - GitHub-inspired code theme with dark mode
+
+**Phase 5 Files Modified:**
+- `src/render/components/part.ts` - All part type renderers
+- `src/assets/styles.css` - CSS for all new part types
+- `src/render/templates/base.ts` - Include new CSS/JS assets
+- `src/render/html.ts` - Copy new assets to output
+- `src/utils/html.ts` - Enhanced markdown with code block wrappers
 
 ### Phase 6: Pagination & Navigation
 - [ ] Implement conversation pagination (5 prompts/page)
