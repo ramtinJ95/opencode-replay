@@ -723,6 +723,183 @@ pre code {
   font-size: var(--font-size-lg);
 }
 
+/* Edit tool styling */
+.edit-file-path {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.edit-full-path {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.edit-replace-all {
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.edit-stats {
+  display: flex;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-xs);
+  font-family: var(--font-mono);
+}
+
+.edit-additions {
+  color: var(--color-success);
+}
+
+.edit-deletions {
+  color: var(--color-error);
+}
+
+.edit-diff {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--color-border);
+}
+
+.edit-diff .diff-old,
+.edit-diff .diff-new {
+  padding: var(--spacing-md);
+  background: var(--color-bg);
+  overflow: auto;
+  max-height: 400px;
+}
+
+.edit-diff .diff-old {
+  background: #fff5f5;
+}
+
+.edit-diff .diff-new {
+  background: #f0fff4;
+}
+
+.edit-diff .diff-label {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: var(--spacing-sm);
+}
+
+.edit-diff .diff-old .diff-label {
+  color: var(--color-error);
+}
+
+.edit-diff .diff-new .diff-label {
+  color: var(--color-success);
+}
+
+.edit-diff pre {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+}
+
+.edit-diff code {
+  font-size: var(--font-size-sm);
+  background: transparent;
+  border: none;
+  padding: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.edit-diff code.diff-removed {
+  background: transparent;
+}
+
+.edit-diff code.diff-added {
+  background: transparent;
+}
+
+/* Long diff styling */
+.edit-diff-long {
+  padding: var(--spacing-md);
+}
+
+.edit-diff-long .diff-section {
+  margin-bottom: var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.edit-diff-long .diff-section:last-child {
+  margin-bottom: 0;
+}
+
+.edit-diff-long .diff-label {
+  display: block;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-bg-secondary);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+}
+
+.edit-diff-long .diff-old-section .diff-label {
+  color: var(--color-error);
+  background: #fff5f5;
+}
+
+.edit-diff-long .diff-new-section .diff-label {
+  color: var(--color-success);
+  background: #f0fff4;
+}
+
+.edit-diff-long pre {
+  margin: 0;
+  padding: var(--spacing-md);
+  background: var(--code-bg);
+  border: none;
+  border-radius: 0;
+  max-height: 400px;
+  overflow: auto;
+}
+
+.edit-diff-long code {
+  font-size: var(--font-size-sm);
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.edit-error {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  background: var(--error-bg);
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
+}
+
+.edit-error .error-icon {
+  font-size: var(--font-size-lg);
+}
+
+/* Responsive: stack diff on mobile */
+@media (max-width: 768px) {
+  .edit-diff {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* File path styling */
 .tool-file {
   font-family: var(--font-mono);

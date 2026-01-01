@@ -14,6 +14,7 @@ import { escapeHtml, renderMarkdown } from "../../utils/html"
 import { renderBashTool } from "./tools/bash"
 import { renderReadTool } from "./tools/read"
 import { renderWriteTool } from "./tools/write"
+import { renderEditTool } from "./tools/edit"
 
 /**
  * Render a text part
@@ -56,6 +57,8 @@ function renderToolPart(part: ToolPart): string {
       return renderReadTool(part)
     case "write":
       return renderWriteTool(part)
+    case "edit":
+      return renderEditTool(part)
     default:
       return renderGenericToolPart(part)
   }
