@@ -70,6 +70,10 @@ async function copyAssets(outputDir: string): Promise<void> {
   const cssSource = join(import.meta.dir, "../assets/styles.css")
   await copyFile(cssSource, join(assetsDir, "styles.css"))
 
+  // Copy theme.js
+  const themeJsSource = join(import.meta.dir, "../assets/theme.js")
+  await copyFile(themeJsSource, join(assetsDir, "theme.js"))
+
   // Create placeholder search.js for now
   const searchJs = `// OpenCode Replay - Search functionality
 // Will be implemented in Phase 7
