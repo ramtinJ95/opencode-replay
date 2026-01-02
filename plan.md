@@ -731,14 +731,14 @@ export async function serve(options: ServeOptions): Promise<void> {
 - Results link directly to messages via `page-XXX.html#msg-{id}`
 - Max 100 results displayed to prevent performance issues
 
-### Phase 7.5: Git Commit Integration
-- [ ] Extract git commits from bash tool outputs (parse `git commit` and `git push` commands)
-- [ ] Parse commit hashes and messages from tool output
-- [ ] Add commit cards to session timeline (like claude-code-transcripts)
-- [ ] Support `--repo OWNER/NAME` CLI flag for GitHub commit links
-- [ ] Auto-detect repo from git remote if not specified
-- [ ] Display commits inline in timeline between prompts
-- [ ] Link commit hashes to GitHub when repo is known
+### Phase 7.5: Git Commit Integration (COMPLETED)
+- [x] Extract git commits from bash tool outputs (parse `git commit` and `git push` commands)
+- [x] Parse commit hashes and messages from tool output
+- [x] Add commit cards to session timeline (like claude-code-transcripts)
+- [x] Support `--repo OWNER/NAME` CLI flag for GitHub commit links
+- [x] Auto-detect repo from git remote if not specified
+- [x] Display commits inline in timeline between prompts
+- [x] Link commit hashes to GitHub when repo is known
 
 **Commit Detection Strategy:**
 - Scan bash tool outputs for patterns like:
@@ -751,6 +751,16 @@ export async function serve(options: ServeOptions): Promise<void> {
 - Commit cards styled similar to claude-code-transcripts (orange/amber theme)
 - Show commit hash (monospace, linked if repo known), message, timestamp
 - Position between timeline entries where the commit occurred
+
+**Phase 7.5 Files Created:**
+- `src/render/git-commits.ts` - Git commit parser and extraction module
+- `src/render/git-commits.test.ts` - Comprehensive tests for commit parsing
+
+**Phase 7.5 Files Modified:**
+- `src/index.ts` - Added --repo CLI flag with validation
+- `src/render/html.ts` - Integrated commit extraction into buildTimeline()
+- `src/render/templates/session.ts` - Added commit card rendering in timeline
+- `src/assets/styles.css` - Added ~140 lines of commit card styles with dark mode
 
 ### Phase 8: CLI Polish (COMPLETED)
 - [x] Implement all CLI flags (--all, --auto, --output, --session, --json, --open, --storage, --serve, --port, --no-generate, --quiet, --verbose, --help, --version)
