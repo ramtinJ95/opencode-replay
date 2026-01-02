@@ -5,7 +5,7 @@
   "description": "Generate static HTML transcripts from OpenCode sessions",
   "type": "module",
   "bin": {
-    "opencode-replay": "./dist/index.js"
+    "opencode-replay": "dist/index.js"
   },
   "main": "./dist/index.js",
   "files": [
@@ -36,7 +36,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ramtinj95/opencode-replay"
+    "url": "git+https://github.com/ramtinj95/opencode-replay.git"
   },
   "homepage": "https://github.com/ramtinj95/opencode-replay#readme",
   "bugs": {
