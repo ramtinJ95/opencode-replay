@@ -648,30 +648,53 @@ tests/
 
 ### Implementation Status
 
-#### High Priority (Core Functionality) - COMPLETED
+#### Test Suite Summary
 
-| File | Tests | Assertions | Status |
-|------|-------|------------|--------|
-| `tests/fixtures/index.ts` | - | - | ✅ Factory functions for test data |
-| `src/utils/format.test.ts` | 31 | 73 | ✅ Date/time and number formatting |
-| `src/utils/html.test.ts` | 58 | 84 | ✅ HTML escaping, markdown, URL validation |
-| `src/utils/id.test.ts` | 30 | 37 | ✅ OpenCode ID parsing and validation |
-| `src/storage/types.test.ts` | 27 | 53 | ✅ Type guards for messages and parts |
-| `src/storage/reader.test.ts` | 34 | 70 | ✅ Storage reader with temp dir fixtures |
-| `src/render/components/message.test.ts` | 32 | 63 | ✅ Message rendering |
-| `src/render/html.test.ts` | 28 | 40 | ✅ HTML generation helpers |
+**711 tests, 1301 assertions, all passing in ~950ms**
 
-**Total: 240 tests, 420 assertions, all passing in ~500ms**
+#### Core Functionality Tests - COMPLETED
 
-#### Medium Priority (Templates & Components) - PENDING
+| File | Tests | Description |
+|------|-------|-------------|
+| `tests/fixtures/index.ts` | - | Factory functions for test data |
+| `src/utils/format.test.ts` | 31 | Date/time and number formatting |
+| `src/utils/html.test.ts` | 58 | HTML escaping, markdown, URL validation |
+| `src/utils/id.test.ts` | 30 | OpenCode ID parsing and validation |
+| `src/storage/types.test.ts` | 27 | Type guards for messages and parts |
+| `src/storage/reader.test.ts` | 34 | Storage reader with temp dir fixtures |
+| `src/render/components/message.test.ts` | 32 | Message rendering |
+| `src/render/html.test.ts` | 28 | HTML generation helpers |
 
-- `src/render/templates/*.test.ts` - Page templates
-- `src/render/components/tools/*.test.ts` - Tool renderers
-- `src/server.test.ts` - HTTP routes
+#### Template Tests - COMPLETED
 
-#### Lower Priority (Integration) - PENDING
+| File | Tests | Description |
+|------|-------|-------------|
+| `src/render/templates/base.test.ts` | 31 | Base template, header, footer, FOUC prevention |
+| `src/render/templates/session.test.ts` | 27 | Session page with timeline and stats |
+| `src/render/templates/index-page.test.ts` | 28 | Index page with session cards |
+| `src/render/templates/page.test.ts` | 23 | Conversation pages with pagination |
 
-- `tests/integration/full-render.test.ts` - End-to-end rendering
+#### Tool Renderer Tests - COMPLETED
+
+| File | Tests | Description |
+|------|-------|-------------|
+| `src/render/components/tools/bash.test.ts` | 24 | Bash command rendering, output collapse |
+| `src/render/components/tools/edit.test.ts` | 25 | Side-by-side diff, line counts |
+| `src/render/components/tools/read.test.ts` | 24 | File reading with range info |
+| `src/render/components/tools/write.test.ts` | 24 | File writing with status badges |
+| `src/render/components/tools/glob.test.ts` | 24 | Pattern matching, file icons |
+| `src/render/components/tools/grep.test.ts` | 29 | Search results, match parsing |
+| `src/render/components/tools/batch.test.ts` | 25 | Nested tool calls, tool summaries |
+| `src/render/components/tools/task.test.ts` | 35 | Agent badges, prompt/result sections |
+| `src/render/components/tools/todowrite.test.ts` | 36 | Status icons, priority badges |
+| `src/render/components/tools/webfetch.test.ts` | 39 | URL safety, truncation, format badges |
+
+#### Server & Integration Tests - COMPLETED
+
+| File | Tests | Description |
+|------|-------|-------------|
+| `src/server.test.ts` | 46 | HTTP routes, path traversal security, caching |
+| `tests/integration/full-render.test.ts` | 31 | End-to-end rendering pipeline |
 
 ### Example Test: Storage Reader
 
@@ -879,12 +902,45 @@ bun add -d @types/jsdom
 
 Before writing tests, ensure:
 
-- [ ] Test file follows naming convention (`*.test.ts`)
-- [ ] Tests are co-located with source files
-- [ ] Using AAA pattern (Arrange-Act-Assert)
-- [ ] Tests are isolated (use beforeEach for fresh state)
-- [ ] Mocks are cleaned up in afterEach
-- [ ] Testing behavior, not implementation
-- [ ] Edge cases covered
-- [ ] Snapshots used for regression detection
-- [ ] Coverage targets met (80%+ for core logic)
+- [x] Test file follows naming convention (`*.test.ts`)
+- [x] Tests are co-located with source files
+- [x] Using AAA pattern (Arrange-Act-Assert)
+- [x] Tests are isolated (use beforeEach for fresh state)
+- [x] Mocks are cleaned up in afterEach
+- [x] Testing behavior, not implementation
+- [x] Edge cases covered
+- [x] HTML escaping/XSS tests included
+- [x] Coverage targets met (80%+ for core logic)
+
+## Established Testing Patterns
+
+### Common Test Categories
+
+Every tool renderer should test:
+1. **Basic rendering** - presence of key classes and elements
+2. **Status attribute** - `data-status="completed|error|pending"`
+3. **HTML escaping** - XSS prevention with `<script>` tags
+4. **Collapsing behavior** - long content/lists auto-collapse
+5. **Error handling** - error section rendering
+6. **Interactive elements** - onclick handlers, icons
+7. **Edge cases** - missing input, empty values, malformed data
+
+### Collapse Thresholds
+
+| Tool | Threshold | Behavior |
+|------|-----------|----------|
+| bash/read | 20+ lines | collapsed |
+| edit | 50+ lines | collapsible sections |
+| write | 30+ lines | collapsed |
+| glob | 20+ files | collapsed |
+| grep | 20+ matches | collapsed |
+| batch output | 30+ lines | closed by default |
+| webfetch | 30+ lines | collapsed |
+| task prompt | 5+ lines | collapsed |
+
+### Notes & Gotchas
+
+1. **HTML Escaping**: Apostrophes become `&#39;` not `'`
+2. **Empty strings**: Count as 1 line, not 0 lines
+3. **Port assignment**: Always use `port: 0` in server tests
+4. **Icons**: Each tool has a unique unicode icon
