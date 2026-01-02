@@ -10,6 +10,7 @@ import { getDefaultStoragePath, findProjectByPath, listProjects, listSessions } 
 import { generateHtml, type ProgressInfo, type GenerationStats } from "./render/html"
 import { serve } from "./server"
 import { parseRepoString } from "./render/git-commits"
+import { notifyIfUpdateAvailable } from "./utils/update-notifier"
 
 // =============================================================================
 // TERMINAL COLORS
@@ -285,13 +286,15 @@ Examples:
   process.exit(0)
 }
 
+// Read version from package.json (needed for --version and update check)
+const pkg = await Bun.file(
+  resolve(import.meta.dir, "..", "package.json")
+).json()
+const currentVersion: string = pkg.version
+
 // Show version
 if (values.version) {
-  // Read version from package.json
-  const pkg = await Bun.file(
-    resolve(import.meta.dir, "..", "package.json")
-  ).json()
-  console.log(pkg.version)
+  console.log(currentVersion)
   process.exit(0)
 }
 
@@ -443,6 +446,9 @@ if (values["no-generate"]) {
 
 // Start server if --serve is set
 if (values.serve) {
+  // Check for updates before starting server (since serve blocks)
+  await notifyIfUpdateAvailable(currentVersion)
+  
   await serve({
     directory: resolve(outputDir),
     port,
@@ -454,6 +460,12 @@ if (values.serve) {
   // Just open without serving (cross-platform)
   const indexPath = resolve(outputDir, "index.html")
   openInBrowser(indexPath)
+}
+
+// Check for updates (non-blocking, only shows if update available)
+// Skip if --serve is active since that blocks and we want the notification visible
+if (!values.serve) {
+  await notifyIfUpdateAvailable(currentVersion)
 }
 
 /**
