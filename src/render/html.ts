@@ -262,7 +262,8 @@ async function generateSessionHtml(
   outputDir: string,
   session: Session,
   projectName?: string,
-  repo?: RepoInfo
+  repo?: RepoInfo,
+  includeJson?: boolean
 ): Promise<{ messageCount: number; pageCount: number; firstPrompt?: string }> {
   const sessionDir = join(outputDir, "sessions", session.id)
   await ensureDir(sessionDir)
@@ -334,6 +335,27 @@ async function generateSessionHtml(
     await writeHtml(join(sessionDir, pageFile), pageHtml)
   }
 
+  // Write JSON export if requested
+  if (includeJson) {
+    const jsonData = {
+      session,
+      messages,
+      timeline,
+      stats: {
+        messageCount,
+        pageCount,
+        totalTokensInput,
+        totalTokensOutput,
+        totalCost,
+        model,
+      },
+    }
+    await Bun.write(
+      join(sessionDir, "session.json"),
+      JSON.stringify(jsonData, null, 2)
+    )
+  }
+
   return { messageCount, pageCount, firstPrompt }
 }
 
@@ -345,7 +367,7 @@ async function generateSessionHtml(
  * Generate static HTML transcripts from OpenCode sessions
  */
 export async function generateHtml(options: GenerateHtmlOptions): Promise<GenerationStats> {
-  const { storagePath, outputDir, all = false, sessionId, onProgress, repo } = options
+  const { storagePath, outputDir, all = false, sessionId, includeJson = false, onProgress, repo } = options
 
   // Ensure output directory exists
   await ensureDir(outputDir)
@@ -381,7 +403,8 @@ export async function generateHtml(options: GenerateHtmlOptions): Promise<Genera
       outputDir,
       session,
       project.name,
-      repo
+      repo,
+      includeJson
     )
 
     totalPageCount += result.pageCount
