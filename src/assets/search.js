@@ -167,56 +167,20 @@
   }
 
   /**
-   * Highlight search term in text nodes using TreeWalker
+   * Highlight search term in text by escaping HTML first, then wrapping matches
+   * This prevents XSS by ensuring the query is never directly injected as HTML
    */
-  function highlightTextNodes(element, searchTerm) {
-    if (!searchTerm) return;
-
-    var walker = document.createTreeWalker(
-      element,
-      NodeFilter.SHOW_TEXT,
-      null,
-      false
-    );
-
-    var nodesToReplace = [];
-    while (walker.nextNode()) {
-      var node = walker.currentNode;
-      if (node.nodeValue.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1) {
-        nodesToReplace.push(node);
-      }
-    }
-
-    nodesToReplace.forEach(function(node) {
-      var text = node.nodeValue;
-      var regex = new RegExp('(' + escapeRegex(searchTerm) + ')', 'gi');
-      var parts = text.split(regex);
-
-      if (parts.length > 1) {
-        var span = document.createElement('span');
-        parts.forEach(function(part) {
-          if (part.toLowerCase() === searchTerm.toLowerCase()) {
-            var mark = document.createElement('mark');
-            mark.textContent = part;
-            span.appendChild(mark);
-          } else {
-            span.appendChild(document.createTextNode(part));
-          }
-        });
-        node.parentNode.replaceChild(span, node);
-      }
-    });
-  }
-
-  /**
-   * Fix internal links in cloned content
-   */
-  function fixInternalLinks(element, pageFile) {
-    var links = element.querySelectorAll('a[href^="#"]');
-    links.forEach(function(link) {
-      var href = link.getAttribute('href');
-      link.setAttribute('href', pageFile + href);
-    });
+  function highlightMatches(text, searchTerm) {
+    if (!text || !searchTerm) return escapeHtml(text || '');
+    
+    // First escape the entire text to prevent XSS
+    var escaped = escapeHtml(text);
+    // Also escape the search term for HTML (in case it contains < > etc)
+    var escapedTerm = escapeHtml(searchTerm);
+    
+    // Now highlight matches in the escaped text
+    var regex = new RegExp('(' + escapeRegex(escapedTerm) + ')', 'gi');
+    return escaped.replace(regex, '<mark>$1</mark>');
   }
 
   /**
@@ -378,11 +342,8 @@
     var title = result.title || '';
     var preview = result.preview || '';
 
-    // Highlight matches in preview
-    var highlightedPreview = preview.replace(
-      new RegExp('(' + escapeRegex(query) + ')', 'gi'),
-      '<mark>$1</mark>'
-    );
+    // Highlight matches in preview (XSS-safe: escapes HTML before highlighting)
+    var highlightedPreview = highlightMatches(preview, query);
 
     var html = '<div class="search-result-header">' +
       '<span class="' + roleClass + '">' + roleLabel + '</span>';
@@ -394,10 +355,8 @@
     html += '</div>';
 
     if (title) {
-      var highlightedTitle = title.replace(
-        new RegExp('(' + escapeRegex(query) + ')', 'gi'),
-        '<mark>$1</mark>'
-      );
+      // Highlight matches in title (XSS-safe)
+      var highlightedTitle = highlightMatches(title, query);
       html += '<div class="search-result-title">' + highlightedTitle + '</div>';
     }
 
