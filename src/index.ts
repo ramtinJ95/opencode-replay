@@ -4,7 +4,8 @@
  */
 
 import { parseArgs } from "util"
-import { resolve } from "path"
+import { resolve, join } from "path"
+import { readdir } from "node:fs/promises"
 import { getDefaultStoragePath, findProjectByPath, listProjects, listSessions } from "./storage/reader"
 import { generateHtml, type ProgressInfo, type GenerationStats } from "./render/html"
 import { serve } from "./server"
@@ -151,7 +152,8 @@ async function getAutoOutputDir(
   const project = await findProjectByPath(storagePath, cwd)
   if (project) {
     const name = project.name ?? project.worktree.split("/").pop() ?? "project"
-    return `./${slugify(name)}-replay`
+    const slug = slugify(name) || "project"
+    return `./${slug}-replay`
   }
 
   // Fallback
@@ -303,18 +305,25 @@ if (isNaN(port) || port < 1 || port > 65535) {
 }
 
 // Validate storage path exists
-// First check if the directory exists, then try to list projects
-import { readdir } from "node:fs/promises"
+// First check if the directory exists, then verify it has the expected structure
 try {
   await readdir(storagePath)
-  // If we get here, directory exists - now verify it's an OpenCode storage
-  await listProjects(storagePath)
+  // Directory exists - verify it has the project/ subdirectory (OpenCode storage structure)
+  const projectDir = join(storagePath, "project")
+  try {
+    await readdir(projectDir)
+  } catch {
+    throw new Error("INVALID_STORAGE")
+  }
 } catch (err) {
   const error = err as NodeJS.ErrnoException
   console.error(color("Error:", colors.red, colors.bold) + ` OpenCode storage not found at: ${storagePath}`)
   console.error("")
   if (error.code === "ENOENT") {
     console.error(color("The directory does not exist.", colors.yellow))
+  } else if (error.message === "INVALID_STORAGE") {
+    console.error(color("The directory exists but is not a valid OpenCode storage.", colors.yellow))
+    console.error(color("Missing 'project/' subdirectory.", colors.dim))
   } else {
     console.error(color("The directory exists but is not a valid OpenCode storage.", colors.yellow))
   }
@@ -394,6 +403,14 @@ if (values["no-generate"]) {
 
     // Clear the progress line and print summary
     writeProgress("\r\x1b[K")
+    
+    // Warn if --session was specified but no session was found
+    if (values.session && stats.sessionCount === 0) {
+      console.error(color("Warning:", colors.yellow, colors.bold) + ` Session not found: ${values.session}`)
+      console.error("Use --all to see all available sessions, or check the session ID.")
+      process.exit(1)
+    }
+    
     log(color("Done!", colors.green, colors.bold) + ` Generated ${formatStats(stats)}`)
     // Always output the final path (even in quiet mode for scripting)
     console.log(resolve(outputDir))
