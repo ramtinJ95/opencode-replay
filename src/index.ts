@@ -365,14 +365,12 @@ if (values.output) {
 }
 
 // Parse and validate --repo option
-let repoInfo = values.repo ? parseRepoString(values.repo) : undefined
+const repoInfo = values.repo ? parseRepoString(values.repo) ?? undefined : undefined
 if (values.repo && !repoInfo) {
   console.error(color("Error:", colors.red, colors.bold) + ` Invalid repo format: ${values.repo}`)
   console.error("Expected format: OWNER/NAME (e.g., sst/opencode)")
   process.exit(1)
 }
-// Convert null to undefined for type compatibility
-if (repoInfo === null) repoInfo = undefined
 
 log(color("opencode-replay", colors.bold, colors.cyan))
 log(color("---------------", colors.dim))
