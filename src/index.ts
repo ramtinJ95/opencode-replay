@@ -38,8 +38,9 @@ function color(text: string, ...codes: string[]): string {
   return codes.join("") + text + colors.reset
 }
 
-// Quiet mode flag (set after argument parsing)
+// Output mode flags (set after argument parsing)
 let quietMode = false
+let verboseMode = false
 
 /**
  * Log a message (respects --quiet flag)
@@ -47,6 +48,15 @@ let quietMode = false
 function log(message: string): void {
   if (!quietMode) {
     console.log(message)
+  }
+}
+
+/**
+ * Log a debug message (only shows with --verbose flag)
+ */
+function debug(message: string): void {
+  if (verboseMode && !quietMode) {
+    console.log(color("[debug]", colors.gray) + " " + message)
   }
 }
 
@@ -203,6 +213,11 @@ const { values } = parseArgs({
       default: false,
       description: "Suppress non-essential output",
     },
+    verbose: {
+      type: "boolean",
+      default: false,
+      description: "Show detailed debug output",
+    },
     "no-generate": {
       type: "boolean",
       default: false,
@@ -244,6 +259,7 @@ Options:
   --port <number>        Server port (default: 3000)
   --no-generate          Skip generation, only serve existing output
   -q, --quiet            Suppress non-essential output
+  --verbose              Show detailed debug output
   -h, --help             Show this help message
   -v, --version          Show version
 
@@ -274,6 +290,11 @@ if (values.version) {
 const storagePath = values.storage ?? getDefaultStoragePath()
 const port = parseInt(values.port ?? "3000", 10)
 quietMode = values.quiet ?? false
+verboseMode = values.verbose ?? false
+
+debug(`CLI arguments: ${JSON.stringify(values)}`)
+debug(`Storage path: ${storagePath}`)
+debug(`Working directory: ${process.cwd()}`)
 
 // Validate port
 if (isNaN(port) || port < 1 || port > 65535) {
@@ -315,12 +336,16 @@ let outputDir: string
 if (values.output) {
   // Explicit output directory
   outputDir = values.output
+  debug(`Using explicit output directory: ${outputDir}`)
 } else if (values.auto) {
   // Auto-generate output directory name
+  debug("Auto-generating output directory name...")
   outputDir = await getAutoOutputDir(storagePath, values.session, values.all)
+  debug(`Auto-generated output directory: ${outputDir}`)
 } else {
   // Default
   outputDir = "./opencode-replay-output"
+  debug(`Using default output directory: ${outputDir}`)
 }
 
 log(color("opencode-replay", colors.bold, colors.cyan))
