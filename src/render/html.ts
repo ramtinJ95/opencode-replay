@@ -25,7 +25,7 @@ import {
 // =============================================================================
 
 /** Number of user prompts per conversation page */
-const PROMPTS_PER_PAGE = 5
+export const PROMPTS_PER_PAGE = 5
 
 export interface GenerateHtmlOptions {
   /** Path to OpenCode storage directory */
@@ -95,7 +95,7 @@ console.log("Search not yet implemented");
 /**
  * Extract the first user prompt text from messages
  */
-function getFirstPrompt(messages: MessageWithParts[]): string | undefined {
+export function getFirstPrompt(messages: MessageWithParts[]): string | undefined {
   for (const msg of messages) {
     if (msg.message.role === "user") {
       for (const part of msg.parts) {
@@ -111,7 +111,7 @@ function getFirstPrompt(messages: MessageWithParts[]): string | undefined {
 /**
  * Count tool usage in an assistant message's parts
  */
-function countTools(parts: MessageWithParts["parts"]): Record<string, number> {
+export function countTools(parts: MessageWithParts["parts"]): Record<string, number> {
   const counts: Record<string, number> = {}
   for (const part of parts) {
     if (part.type === "tool") {
@@ -124,7 +124,7 @@ function countTools(parts: MessageWithParts["parts"]): Record<string, number> {
 /**
  * Build timeline entries from messages
  */
-function buildTimeline(messages: MessageWithParts[]): TimelineEntry[] {
+export function buildTimeline(messages: MessageWithParts[]): TimelineEntry[] {
   const timeline: TimelineEntry[] = []
   let promptNumber = 0
 
@@ -174,7 +174,7 @@ function buildTimeline(messages: MessageWithParts[]): TimelineEntry[] {
  * Paginate messages by user prompts
  * Returns array of message groups, each containing up to PROMPTS_PER_PAGE user messages
  */
-function paginateMessages(
+export function paginateMessages(
   messages: MessageWithParts[]
 ): MessageWithParts[][] {
   const pages: MessageWithParts[][] = []
