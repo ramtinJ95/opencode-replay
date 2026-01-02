@@ -202,7 +202,7 @@ export function createAssistantMessageWithParts(
   messageOverrides: Partial<AssistantMessage> = {},
   options: {
     text?: string
-    tools?: Array<{ tool: string; output?: string }>
+    tools?: Array<{ tool: string; output?: string; input?: Record<string, unknown> }>
   } = {}
 ): MessageWithParts {
   const message = createAssistantMessage(messageOverrides)
@@ -231,6 +231,7 @@ export function createAssistantMessageWithParts(
           tool: t.tool,
           state: {
             status: "completed",
+            input: t.input ?? { command: `${t.tool} command` },
             output: t.output ?? "OK",
             time: { start: BASE_TIMESTAMP, end: BASE_TIMESTAMP + 1000 },
           },
