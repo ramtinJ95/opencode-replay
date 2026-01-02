@@ -616,12 +616,12 @@ test("escapes HTML in user content", () => {
 
 Based on the project structure, here's the recommended test organization:
 
-### Test Files to Create
+### Test Files Structure
 
 ```
 src/
 ├── render/
-│   ├── html.test.ts              # Test HTML utilities
+│   ├── html.test.ts              # Test HTML generation helpers
 │   ├── components/
 │   │   ├── message.test.ts       # Test message rendering
 │   │   ├── part.test.ts          # Test part rendering
@@ -633,7 +633,7 @@ src/
 │       └── index-page.test.ts    # Test index page
 ├── storage/
 │   ├── reader.test.ts            # Test storage reader
-│   └── types.test.ts             # Test type guards (if any)
+│   └── types.test.ts             # Test type guards
 ├── utils/
 │   ├── format.test.ts            # Test formatters
 │   ├── html.test.ts              # Test HTML utilities
@@ -643,24 +643,35 @@ tests/
 ├── integration/
 │   └── full-render.test.ts       # Integration: full page renders
 └── fixtures/
-    └── sessions.ts               # Test session data
+    └── index.ts                  # Test fixture factories
 ```
 
-### Priority Order for Implementation
+### Implementation Status
 
-1. **High Priority (Core Functionality)**
-   - `src/storage/reader.test.ts` - Data loading
-   - `src/render/html.test.ts` - HTML generation
-   - `src/render/components/message.test.ts` - Message rendering
-   - `src/utils/format.test.ts` - Formatting utilities
+#### High Priority (Core Functionality) - COMPLETED
 
-2. **Medium Priority (Templates & Components)**
-   - `src/render/templates/*.test.ts` - Page templates
-   - `src/render/components/tools/*.test.ts` - Tool renderers
-   - `src/server.test.ts` - HTTP routes
+| File | Tests | Assertions | Status |
+|------|-------|------------|--------|
+| `tests/fixtures/index.ts` | - | - | ✅ Factory functions for test data |
+| `src/utils/format.test.ts` | 31 | 73 | ✅ Date/time and number formatting |
+| `src/utils/html.test.ts` | 58 | 84 | ✅ HTML escaping, markdown, URL validation |
+| `src/utils/id.test.ts` | 30 | 37 | ✅ OpenCode ID parsing and validation |
+| `src/storage/types.test.ts` | 27 | 53 | ✅ Type guards for messages and parts |
+| `src/storage/reader.test.ts` | 34 | 70 | ✅ Storage reader with temp dir fixtures |
+| `src/render/components/message.test.ts` | 32 | 63 | ✅ Message rendering |
+| `src/render/html.test.ts` | 28 | 40 | ✅ HTML generation helpers |
 
-3. **Lower Priority (Integration)**
-   - `tests/integration/full-render.test.ts` - End-to-end rendering
+**Total: 240 tests, 420 assertions, all passing in ~500ms**
+
+#### Medium Priority (Templates & Components) - PENDING
+
+- `src/render/templates/*.test.ts` - Page templates
+- `src/render/components/tools/*.test.ts` - Tool renderers
+- `src/server.test.ts` - HTTP routes
+
+#### Lower Priority (Integration) - PENDING
+
+- `tests/integration/full-render.test.ts` - End-to-end rendering
 
 ### Example Test: Storage Reader
 
