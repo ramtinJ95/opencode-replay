@@ -227,9 +227,12 @@ export function isGitCommitCommand(command: string): boolean {
 
 /**
  * Check if a bash command is a git push command
+ * Matches actual git push invocations, not strings containing "git push"
  */
 export function isGitPushCommand(command: string): boolean {
-  return /\bgit\s+push\b/i.test(command)
+  // Must start with git (possibly with env vars) or be part of a command chain
+  // This avoids matching echo 'git push' or similar
+  return /(?:^|&&|\|\||;|\$\()\s*(?:[A-Z_]+=\S+\s+)*git\s+push\b/i.test(command)
 }
 
 // =============================================================================
