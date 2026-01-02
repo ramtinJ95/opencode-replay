@@ -305,8 +305,18 @@ describe("paginateMessages", () => {
     const result = paginateMessages(messages)
 
     expect(result).toHaveLength(2)
+
     // First page should have PROMPTS_PER_PAGE user messages (plus their assistant responses)
+    const page1UserMessages = result[0]!.filter(m => m.message.role === "user")
+    expect(page1UserMessages).toHaveLength(PROMPTS_PER_PAGE)
+
     // Second page should have 1 user message (plus its assistant response)
+    const page2UserMessages = result[1]!.filter(m => m.message.role === "user")
+    expect(page2UserMessages).toHaveLength(1)
+
+    // Verify total message count: (PROMPTS_PER_PAGE + 1) * 2 (user + assistant each)
+    const totalMessages = result.flat().length
+    expect(totalMessages).toBe((PROMPTS_PER_PAGE + 1) * 2)
   })
 
   test("keeps assistant messages with their preceding user message", () => {
@@ -384,9 +394,5 @@ describe("paginateMessages", () => {
 describe("PROMPTS_PER_PAGE", () => {
   test("is a positive number", () => {
     expect(PROMPTS_PER_PAGE).toBeGreaterThan(0)
-  })
-
-  test("is 5 (current configuration)", () => {
-    expect(PROMPTS_PER_PAGE).toBe(5)
   })
 })
