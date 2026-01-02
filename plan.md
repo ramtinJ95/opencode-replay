@@ -700,11 +700,17 @@ export async function serve(options: ServeOptions): Promise<void> {
 - [ ] Add search UI (modal)
 - [ ] URL fragment support
 
-### Phase 8: CLI Polish
-- [ ] Implement all CLI flags
-- [ ] Add progress output
-- [ ] Add `--open` browser launch
-- [ ] Error handling and helpful messages
+### Phase 8: CLI Polish (COMPLETED)
+- [x] Implement all CLI flags (--all, --auto, --output, --session, --json, --open, --storage, --serve, --port, --no-generate, --quiet, --verbose, --help, --version)
+- [x] Add progress output with session counts ([3/15] Session Title)
+- [x] Add `--open` browser launch (cross-platform: macOS, Windows, Linux)
+- [x] Error handling and helpful messages with actionable suggestions
+- [x] Add -a/--auto flag for auto-naming output directory from project/session
+- [x] Add colored terminal output (respects NO_COLOR env var)
+- [x] Add -q/--quiet flag to suppress non-essential output
+- [x] Add --verbose flag for detailed debug output
+- [x] Add summary statistics at end of generation (sessions, pages, messages)
+- [x] Storage path validation with helpful error messages
 
 ### Phase 9: Testing & Documentation
 - [ ] Test with real OpenCode sessions
