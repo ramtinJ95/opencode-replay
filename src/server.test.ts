@@ -4,26 +4,14 @@
  */
 
 import { describe, test, expect, beforeAll, afterAll } from "bun:test"
-import { resolve, join, sep } from "node:path"
+import { join } from "node:path"
 import { mkdtemp, rm, writeFile, mkdir } from "node:fs/promises"
 import { tmpdir } from "node:os"
+import { isPathSafe, createRequestHandler } from "./server"
 
 // =============================================================================
-// Test isPathSafe directly by recreating the logic
+// Test isPathSafe directly (now using the actual exported function)
 // =============================================================================
-
-/**
- * Check if a path is safe (no directory traversal)
- * Mirrors the implementation in server.ts for direct testing
- */
-function isPathSafe(rootDir: string, targetPath: string): boolean {
-  const resolvedRoot = resolve(rootDir)
-  const resolvedTarget = resolve(targetPath)
-  return (
-    resolvedTarget.startsWith(resolvedRoot + sep) ||
-    resolvedTarget === resolvedRoot
-  )
-}
 
 describe("isPathSafe", () => {
   const rootDir = "/home/user/project"
@@ -95,7 +83,7 @@ describe("isPathSafe", () => {
 })
 
 // =============================================================================
-// Integration tests with actual server
+// Integration tests using the actual createRequestHandler
 // =============================================================================
 
 describe("Server HTTP handling", () => {
@@ -115,100 +103,14 @@ describe("Server HTTP handling", () => {
     await mkdir(join(tempDir, "subdir"))
     await writeFile(join(tempDir, "subdir", "index.html"), "<html><body>Subdir</body></html>")
     await writeFile(join(tempDir, "subdir", "page.html"), "<html><body>Page</body></html>")
+    // Create a file for null byte test that demonstrates the security behavior
+    await writeFile(join(tempDir, "secret.txt"), "secret content")
 
-    // Start server on random port
+    // Start server using the actual createRequestHandler from server.ts
+    const handleRequest = createRequestHandler(tempDir)
     server = Bun.serve({
       port: 0,
-      async fetch(req) {
-        const url = new URL(req.url)
-        const ROOT_DIR = resolve(tempDir)
-
-        // Only allow GET and HEAD methods
-        if (req.method !== "GET" && req.method !== "HEAD") {
-          return new Response("Method Not Allowed", {
-            status: 405,
-            headers: { Allow: "GET, HEAD" },
-          })
-        }
-
-        // Decode and validate pathname
-        let pathname: string
-        try {
-          pathname = decodeURIComponent(url.pathname)
-        } catch {
-          return new Response("Bad Request", { status: 400 })
-        }
-
-        // Security: remove null bytes
-        pathname = pathname.replace(/\0/g, "")
-
-        // Compute target path
-        const targetPath = join(ROOT_DIR, pathname)
-
-        // PATH TRAVERSAL PROTECTION
-        if (!isPathSafe(ROOT_DIR, targetPath)) {
-          return new Response("Forbidden", { status: 403 })
-        }
-
-        // Try to serve the file, or index.html for directories
-        let file = Bun.file(targetPath)
-        let fileExists = await file.exists()
-
-        // For paths ending with / or non-existent paths, try index.html
-        if (pathname.endsWith("/") || !fileExists) {
-          const indexPath = join(targetPath, "index.html")
-          const indexFile = Bun.file(indexPath)
-
-          if (await indexFile.exists()) {
-            file = indexFile
-            fileExists = true
-          }
-        }
-
-        // Return 404 if file doesn't exist
-        if (!fileExists) {
-          return new Response("Not Found", {
-            status: 404,
-            headers: { "Content-Type": "text/plain" },
-          })
-        }
-
-        // Read file for ETag computation
-        const content = await file.arrayBuffer()
-        const etag = `W/"${Bun.hash(new Uint8Array(content)).toString(16)}"`
-
-        // Check If-None-Match for 304 response
-        const ifNoneMatch = req.headers.get("If-None-Match")
-        if (ifNoneMatch === etag) {
-          return new Response(null, {
-            status: 304,
-            headers: { ETag: etag },
-          })
-        }
-
-        // Determine cache strategy (hashed assets get long cache)
-        const isHashed =
-          /\.[a-f0-9]{8,}\.(js|css|png|jpg|jpeg|gif|svg|woff2?)$/i.test(
-            targetPath
-          )
-
-        const responseHeaders: Record<string, string> = {
-          "Content-Type": file.type,
-          "Content-Length": String(content.byteLength),
-          ETag: etag,
-          "Cache-Control": isHashed
-            ? "public, max-age=31536000, immutable"
-            : "public, max-age=3600",
-        }
-
-        // HEAD request - no body
-        if (req.method === "HEAD") {
-          return new Response(null, { headers: responseHeaders })
-        }
-
-        return new Response(content, { headers: responseHeaders })
-      },
-
+      fetch: handleRequest,
       error(error) {
         console.error("Server error:", error)
         return new Response("Internal Server Error", { status: 500 })
@@ -334,11 +236,32 @@ describe("Server HTTP handling", () => {
   })
 
   describe("null byte injection", () => {
-    test("strips null bytes from pathname", async () => {
+    test("strips null bytes and serves correct file", async () => {
+      // Request "test.txt" with null byte embedded: "test%00.txt"
+      // After stripping null byte, becomes "test.txt" which exists
       const response = await fetch(`${baseUrl}/test%00.txt`)
-      // After stripping null byte, becomes /test.txt which doesn't exist
-      // or /test which doesn't exist
-      expect([200, 404]).toContain(response.status)
+      expect(response.status).toBe(200)
+      const text = await response.text()
+      expect(text).toBe("Hello World")
+    })
+
+    test("null byte cannot be used to truncate filename", async () => {
+      // Attempt to access "secret" by requesting "secret%00.ignored"
+      // Without null byte stripping, this could truncate to "secret"
+      // With proper stripping, it becomes "secret.ignored" which doesn't exist
+      const response = await fetch(`${baseUrl}/secret%00.ignored`)
+      // Should serve secret.txt since null byte is stripped -> "secret.ignored" not found
+      // Actually, "secret" + null + ".ignored" -> stripped to "secret.ignored" -> 404
+      expect(response.status).toBe(404)
+    })
+
+    test("null byte in directory path is stripped", async () => {
+      // Request "sub%00dir/page.html"
+      // After stripping, becomes "subdir/page.html" which exists
+      const response = await fetch(`${baseUrl}/sub%00dir/page.html`)
+      expect(response.status).toBe(200)
+      const text = await response.text()
+      expect(text).toContain("Page")
     })
   })
 
