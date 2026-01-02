@@ -1828,6 +1828,146 @@ pre code {
 }
 
 /* ============================================================================
+   Git Commit Cards
+   ============================================================================ */
+
+.commit-cards {
+  margin-top: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.commit-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: linear-gradient(135deg, #fff8e1, #ffe0b2);
+  border: 1px solid #ffcc80;
+  border-radius: var(--radius-md);
+  border-left: 3px solid #ff9800;
+}
+
+.commit-icon {
+  flex-shrink: 0;
+  color: #e65100;
+  margin-top: 2px;
+}
+
+.commit-icon svg {
+  display: block;
+}
+
+.commit-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.commit-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+  margin-bottom: 2px;
+}
+
+.commit-hash {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: #e65100;
+  text-decoration: none;
+}
+
+.commit-hash:hover {
+  text-decoration: underline;
+}
+
+a.commit-hash {
+  color: #bf360c;
+}
+
+a.commit-hash:hover {
+  color: #e65100;
+}
+
+.commit-branch {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  padding: 1px 6px;
+  background: rgba(255, 152, 0, 0.2);
+  border-radius: var(--radius-sm);
+  color: #e65100;
+}
+
+.commit-time {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.commit-message {
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  word-break: break-word;
+}
+
+/* Dark mode for commit cards */
+:root[data-theme="dark"] .commit-card {
+  background: linear-gradient(135deg, #3d2800, #2d1a00);
+  border-color: #5d3a00;
+}
+
+:root[data-theme="dark"] .commit-icon {
+  color: #ffb74d;
+}
+
+:root[data-theme="dark"] .commit-hash {
+  color: #ffb74d;
+}
+
+:root[data-theme="dark"] a.commit-hash {
+  color: #ffa726;
+}
+
+:root[data-theme="dark"] a.commit-hash:hover {
+  color: #ffb74d;
+}
+
+:root[data-theme="dark"] .commit-branch {
+  background: rgba(255, 167, 38, 0.2);
+  color: #ffb74d;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .commit-card {
+    background: linear-gradient(135deg, #3d2800, #2d1a00);
+    border-color: #5d3a00;
+  }
+
+  :root:not([data-theme="light"]) .commit-icon {
+    color: #ffb74d;
+  }
+
+  :root:not([data-theme="light"]) .commit-hash {
+    color: #ffb74d;
+  }
+
+  :root:not([data-theme="light"]) a.commit-hash {
+    color: #ffa726;
+  }
+
+  :root:not([data-theme="light"]) a.commit-hash:hover {
+    color: #ffb74d;
+  }
+
+  :root:not([data-theme="light"]) .commit-branch {
+    background: rgba(255, 167, 38, 0.2);
+    color: #ffb74d;
+  }
+}
+
+/* ============================================================================
    Stats & Badges
    ============================================================================ */
 

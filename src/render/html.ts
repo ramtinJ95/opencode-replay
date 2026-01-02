@@ -19,7 +19,12 @@ import {
   type SessionCardData,
   type TimelineEntry,
 } from "./templates"
-import type { RepoInfo } from "./git-commits"
+import {
+  extractCommitsFromMessages,
+  detectRepoFromMessages,
+  type RepoInfo,
+  type CommitInfo,
+} from "./git-commits"
 
 // =============================================================================
 // CONFIGURATION
@@ -147,10 +152,27 @@ export function countTools(parts: MessageWithParts["parts"]): Record<string, num
 
 /**
  * Build timeline entries from messages
+ * Optionally includes git commits if repoInfo is provided or detected
  */
-export function buildTimeline(messages: MessageWithParts[]): TimelineEntry[] {
+export function buildTimeline(
+  messages: MessageWithParts[],
+  repoOverride?: RepoInfo
+): TimelineEntry[] {
   const timeline: TimelineEntry[] = []
   let promptNumber = 0
+
+  // Extract commits from messages
+  // First try to detect repo from messages if not provided
+  const detectedRepo = repoOverride ?? detectRepoFromMessages(messages) ?? undefined
+  const commitsWithPrompts = extractCommitsFromMessages(messages, detectedRepo)
+  
+  // Group commits by prompt number for efficient lookup
+  const commitsByPrompt = new Map<number, CommitInfo[]>()
+  for (const { commit, afterPromptNumber } of commitsWithPrompts) {
+    const existing = commitsByPrompt.get(afterPromptNumber) ?? []
+    existing.push(commit)
+    commitsByPrompt.set(afterPromptNumber, existing)
+  }
 
   for (let i = 0; i < messages.length; i++) {
     const msg = messages[i]!
@@ -181,6 +203,9 @@ export function buildTimeline(messages: MessageWithParts[]): TimelineEntry[] {
     // Calculate page number
     const pageNumber = Math.ceil(promptNumber / PROMPTS_PER_PAGE)
 
+    // Get commits for this prompt
+    const commits = commitsByPrompt.get(promptNumber)
+
     timeline.push({
       promptNumber,
       messageId: msg.message.id,
@@ -188,6 +213,7 @@ export function buildTimeline(messages: MessageWithParts[]): TimelineEntry[] {
       timestamp: msg.message.time.created,
       toolCounts,
       pageNumber,
+      commits,
     })
   }
 
@@ -235,7 +261,8 @@ async function generateSessionHtml(
   storagePath: string,
   outputDir: string,
   session: Session,
-  projectName?: string
+  projectName?: string,
+  repo?: RepoInfo
 ): Promise<{ messageCount: number; pageCount: number; firstPrompt?: string }> {
   const sessionDir = join(outputDir, "sessions", session.id)
   await ensureDir(sessionDir)
@@ -245,8 +272,8 @@ async function generateSessionHtml(
   const messageCount = messages.length
   const firstPrompt = getFirstPrompt(messages)
 
-  // Build timeline
-  const timeline = buildTimeline(messages)
+  // Build timeline (includes git commit extraction)
+  const timeline = buildTimeline(messages, repo)
 
   // Calculate totals
   let totalTokensInput = 0
@@ -318,7 +345,7 @@ async function generateSessionHtml(
  * Generate static HTML transcripts from OpenCode sessions
  */
 export async function generateHtml(options: GenerateHtmlOptions): Promise<GenerationStats> {
-  const { storagePath, outputDir, all = false, sessionId, onProgress } = options
+  const { storagePath, outputDir, all = false, sessionId, onProgress, repo } = options
 
   // Ensure output directory exists
   await ensureDir(outputDir)
@@ -353,7 +380,8 @@ export async function generateHtml(options: GenerateHtmlOptions): Promise<Genera
       storagePath,
       outputDir,
       session,
-      project.name
+      project.name,
+      repo
     )
 
     totalPageCount += result.pageCount

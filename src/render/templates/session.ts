@@ -3,13 +3,15 @@
  */
 
 import type { Session } from "../../storage/types"
-import { escapeHtml, truncate } from "../../utils/html"
+import type { CommitInfo } from "../git-commits"
+import { escapeHtml, truncate, isSafeUrl } from "../../utils/html"
 import {
   formatDateTime,
   formatDuration,
   formatTokens,
   formatCost,
   formatDiff,
+  formatTime,
 } from "../../utils/format"
 import { renderBasePage, renderHeader, renderFooter } from "./base"
 
@@ -26,6 +28,8 @@ export interface TimelineEntry {
   toolCounts: Record<string, number>
   /** Which page this prompt appears on */
   pageNumber: number
+  /** Commits made after this prompt */
+  commits?: CommitInfo[]
 }
 
 export interface SessionPageData {
@@ -50,16 +54,69 @@ export interface SessionPageData {
 }
 
 /**
+ * Render a single commit card
+ */
+function renderCommitCard(commit: CommitInfo): string {
+  const { hash, message, branch, timestamp, url } = commit
+
+  // Format the commit hash as a link if URL is available and safe
+  const hashDisplay = url && isSafeUrl(url)
+    ? `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" class="commit-hash">${escapeHtml(hash)}</a>`
+    : `<span class="commit-hash">${escapeHtml(hash)}</span>`
+
+  // Format branch if available
+  const branchHtml = branch
+    ? `<span class="commit-branch">${escapeHtml(branch)}</span>`
+    : ""
+
+  // Format timestamp
+  const timeHtml = timestamp
+    ? `<span class="commit-time">${formatTime(timestamp)}</span>`
+    : ""
+
+  return `<div class="commit-card">
+  <div class="commit-icon">
+    <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+      <path d="M11.75 7.5a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0zm1.5 0a5.25 5.25 0 1 1-10.5 0 5.25 5.25 0 0 1 10.5 0zm-1.5 0a3.75 3.75 0 1 0-7.5 0 3.75 3.75 0 0 0 7.5 0z"/>
+      <path d="M8 4.5a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
+    </svg>
+  </div>
+  <div class="commit-content">
+    <div class="commit-header">
+      ${hashDisplay}
+      ${branchHtml}
+      ${timeHtml}
+    </div>
+    <div class="commit-message">${escapeHtml(message)}</div>
+  </div>
+</div>`
+}
+
+/**
+ * Render commit cards for a timeline entry
+ */
+function renderCommitCards(commits: CommitInfo[]): string {
+  if (!commits || commits.length === 0) return ""
+  
+  return `<div class="commit-cards">
+  ${commits.map(renderCommitCard).join("\n")}
+</div>`
+}
+
+/**
  * Render a timeline entry
  */
 function renderTimelineEntry(entry: TimelineEntry): string {
-  const { promptNumber, messageId, promptPreview, toolCounts, pageNumber } = entry
+  const { promptNumber, messageId, promptPreview, toolCounts, pageNumber, commits } = entry
 
   // Format tool counts
   const toolStats = Object.entries(toolCounts)
     .filter(([_, count]) => count > 0)
     .map(([tool, count]) => `<span>${count} ${tool}</span>`)
     .join("")
+
+  // Render commits if any
+  const commitsHtml = renderCommitCards(commits ?? [])
 
   return `<div class="timeline-entry">
   <div class="timeline-marker">${promptNumber}</div>
@@ -68,6 +125,7 @@ function renderTimelineEntry(entry: TimelineEntry): string {
       ${escapeHtml(truncate(promptPreview, 150))}
     </a>
     ${toolStats ? `<div class="timeline-stats">${toolStats}</div>` : ""}
+    ${commitsHtml}
   </div>
 </div>`
 }
