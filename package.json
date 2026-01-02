@@ -1,6 +1,6 @@
 {
   "name": "opencode-replay",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Generate static HTML transcripts from OpenCode sessions",
   "type": "module",
   "bin": {
@@ -11,9 +11,10 @@
     "dist"
   ],
   "scripts": {
-    "build": "bun build ./src/index.ts --outdir ./dist --target bun",
+    "build": "bun build ./src/index.ts --outdir ./dist --target bun && rm -rf ./dist/assets && cp -r ./src/assets ./dist/assets",
     "dev": "bun run ./src/index.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "bun run build"
   },
   "devDependencies": {
     "@types/bun": "latest",
@@ -35,5 +36,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/ramtinj95/opencode-replay"
+  },
+  "homepage": "https://github.com/ramtinj95/opencode-replay#readme",
+  "bugs": {
+    "url": "https://github.com/ramtinj95/opencode-replay/issues"
   }
 }
