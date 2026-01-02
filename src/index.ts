@@ -10,6 +10,35 @@ import { generateHtml, type ProgressInfo, type GenerationStats } from "./render/
 import { serve } from "./server"
 
 // =============================================================================
+// TERMINAL COLORS
+// =============================================================================
+
+// ANSI color codes for terminal output
+const colors = {
+  reset: "\x1b[0m",
+  bold: "\x1b[1m",
+  dim: "\x1b[2m",
+  
+  // Foreground colors
+  red: "\x1b[31m",
+  green: "\x1b[32m",
+  yellow: "\x1b[33m",
+  blue: "\x1b[34m",
+  magenta: "\x1b[35m",
+  cyan: "\x1b[36m",
+  white: "\x1b[37m",
+  gray: "\x1b[90m",
+}
+
+// Check if colors should be used (respects NO_COLOR env var and TTY)
+const useColors = !process.env.NO_COLOR && process.stdout.isTTY
+
+function color(text: string, ...codes: string[]): string {
+  if (!useColors) return text
+  return codes.join("") + text + colors.reset
+}
+
+// =============================================================================
 // OUTPUT HELPERS
 // =============================================================================
 
@@ -18,7 +47,7 @@ import { serve } from "./server"
  */
 function formatProgress(progress: ProgressInfo): string {
   if (progress.phase === "scanning") {
-    return `Scanning: ${progress.title}`
+    return color("Scanning: ", colors.cyan) + color(progress.title, colors.dim)
   }
   if (progress.phase === "complete") {
     return "" // Handled separately
@@ -28,7 +57,8 @@ function formatProgress(progress: ProgressInfo): string {
   const title = progress.title.length > maxTitleLength 
     ? progress.title.slice(0, maxTitleLength - 3) + "..."
     : progress.title
-  return `[${progress.current}/${progress.total}] ${title}`
+  const counter = color(`[${progress.current}/${progress.total}]`, colors.cyan)
+  return `${counter} ${title}`
 }
 
 /**
@@ -222,24 +252,32 @@ if (isNaN(port) || port < 1 || port > 65535) {
   process.exit(1)
 }
 
-// Validate storage path exists by trying to list projects
+// Validate storage path exists
+// First check if the directory exists, then try to list projects
+import { readdir } from "node:fs/promises"
 try {
-  const projects = await listProjects(storagePath)
-  // If we get here without an error, storage path is valid
-  // (empty array is ok - just means no projects yet)
-  void projects
-} catch {
-  console.error(`Error: OpenCode storage not found at: ${storagePath}`)
+  await readdir(storagePath)
+  // If we get here, directory exists - now verify it's an OpenCode storage
+  await listProjects(storagePath)
+} catch (err) {
+  const error = err as NodeJS.ErrnoException
+  console.error(color("Error:", colors.red, colors.bold) + ` OpenCode storage not found at: ${storagePath}`)
   console.error("")
-  console.error("This could mean:")
+  if (error.code === "ENOENT") {
+    console.error(color("The directory does not exist.", colors.yellow))
+  } else {
+    console.error(color("The directory exists but is not a valid OpenCode storage.", colors.yellow))
+  }
+  console.error("")
+  console.error(color("This could mean:", colors.dim))
   console.error("  1. OpenCode has not been used on this machine yet")
   console.error("  2. The storage path is incorrect")
   console.error("")
-  console.error("Solutions:")
+  console.error(color("Solutions:", colors.green))
   console.error("  - Run OpenCode at least once to create the storage directory")
   console.error("  - Use --storage <path> to specify a custom storage location")
   console.error("")
-  console.error(`Expected path: ${storagePath}`)
+  console.error(color("Expected path:", colors.dim) + ` ${storagePath}`)
   process.exit(1)
 }
 
@@ -256,10 +294,10 @@ if (values.output) {
   outputDir = "./opencode-replay-output"
 }
 
-console.log("opencode-replay")
-console.log("---------------")
-console.log(`Storage path: ${storagePath}`)
-console.log(`Output directory: ${resolve(outputDir)}`)
+console.log(color("opencode-replay", colors.bold, colors.cyan))
+console.log(color("---------------", colors.dim))
+console.log(color("Storage:", colors.dim) + ` ${storagePath}`)
+console.log(color("Output:", colors.dim) + ` ${resolve(outputDir)}`)
 
 // Skip generation if --no-generate is set
 if (values["no-generate"]) {
@@ -267,17 +305,19 @@ if (values["no-generate"]) {
   const indexFile = Bun.file(resolve(outputDir, "index.html"))
   if (!(await indexFile.exists())) {
     console.error(
-      `Error: Output directory not found or missing index.html: ${resolve(outputDir)}`
+      color("Error:", colors.red, colors.bold) + 
+      ` Output directory not found or missing index.html: ${resolve(outputDir)}`
     )
     console.error("Run without --no-generate to generate output first.")
     process.exit(1)
   }
-  console.log("Skipping generation (--no-generate)")
+  console.log(color("Skipping generation (--no-generate)", colors.yellow))
   console.log("")
 } else {
-  console.log(`Mode: ${values.all ? "all projects" : "current project"}`)
+  const modeText = values.all ? "all projects" : "current project"
+  console.log(color("Mode:", colors.dim) + ` ${modeText}`)
   if (values.session) {
-    console.log(`Session filter: ${values.session}`)
+    console.log(color("Session:", colors.dim) + ` ${values.session}`)
   }
   console.log("")
 
@@ -300,12 +340,12 @@ if (values["no-generate"]) {
 
     // Clear the progress line and print summary
     process.stdout.write("\r\x1b[K")
-    console.log(`Generated ${formatStats(stats)}`)
-    console.log(`Output: ${resolve(outputDir)}`)
+    console.log(color("Done!", colors.green, colors.bold) + ` Generated ${formatStats(stats)}`)
+    console.log(color("Output:", colors.dim) + ` ${resolve(outputDir)}`)
   } catch (error) {
     // Clear any progress output before showing error
     process.stdout.write("\r\x1b[K")
-    console.error("Error:", error instanceof Error ? error.message : error)
+    console.error(color("Error:", colors.red, colors.bold) + " " + (error instanceof Error ? error.message : error))
     process.exit(1)
   }
 }
