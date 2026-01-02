@@ -38,6 +38,30 @@ export interface GenerateHtmlOptions {
   sessionId?: string
   /** Include raw JSON export */
   includeJson?: boolean
+  /** Progress callback for reporting generation progress */
+  onProgress?: (progress: ProgressInfo) => void
+}
+
+export interface ProgressInfo {
+  /** Current session being processed (1-indexed) */
+  current: number
+  /** Total number of sessions to process */
+  total: number
+  /** Session title */
+  title: string
+  /** Phase of processing */
+  phase: "scanning" | "generating" | "complete"
+}
+
+export interface GenerationStats {
+  /** Number of sessions generated */
+  sessionCount: number
+  /** Total number of conversation pages generated */
+  pageCount: number
+  /** Total number of messages processed */
+  messageCount: number
+  /** Project name (if single project mode) */
+  projectName?: string
 }
 
 // =============================================================================
@@ -212,7 +236,7 @@ async function generateSessionHtml(
   outputDir: string,
   session: Session,
   projectName?: string
-): Promise<{ messageCount: number; firstPrompt?: string }> {
+): Promise<{ messageCount: number; pageCount: number; firstPrompt?: string }> {
   const sessionDir = join(outputDir, "sessions", session.id)
   await ensureDir(sessionDir)
 
@@ -283,7 +307,7 @@ async function generateSessionHtml(
     await writeHtml(join(sessionDir, pageFile), pageHtml)
   }
 
-  return { messageCount, firstPrompt }
+  return { messageCount, pageCount, firstPrompt }
 }
 
 // =============================================================================
@@ -293,8 +317,8 @@ async function generateSessionHtml(
 /**
  * Generate static HTML transcripts from OpenCode sessions
  */
-export async function generateHtml(options: GenerateHtmlOptions): Promise<void> {
-  const { storagePath, outputDir, all = false, sessionId } = options
+export async function generateHtml(options: GenerateHtmlOptions): Promise<GenerationStats> {
+  const { storagePath, outputDir, all = false, sessionId, onProgress } = options
 
   // Ensure output directory exists
   await ensureDir(outputDir)
@@ -307,55 +331,80 @@ export async function generateHtml(options: GenerateHtmlOptions): Promise<void> 
   let title = "OpenCode Sessions"
   let projectName: string | undefined
 
+  // Track generation statistics
+  let totalPageCount = 0
+  let totalMessageCount = 0
+
+  // Helper to process a session and update stats
+  async function processSession(
+    session: Session,
+    project: { id: string; name?: string; worktree: string; time: { created: number; updated: number } },
+    index: number,
+    total: number
+  ) {
+    onProgress?.({
+      current: index + 1,
+      total,
+      title: session.title,
+      phase: "generating",
+    })
+
+    const result = await generateSessionHtml(
+      storagePath,
+      outputDir,
+      session,
+      project.name
+    )
+
+    totalPageCount += result.pageCount
+    totalMessageCount += result.messageCount
+
+    sessionCards.push({
+      session,
+      project,
+      messageCount: result.messageCount,
+      firstPrompt: result.firstPrompt,
+    })
+  }
+
   if (sessionId) {
     // Single session mode
+    onProgress?.({ current: 0, total: 1, title: "Scanning...", phase: "scanning" })
     const projects = await listProjects(storagePath)
     for (const project of projects) {
       const sessions = await listSessions(storagePath, project.id)
       const session = sessions.find((s) => s.id === sessionId)
       if (session) {
-        const result = await generateSessionHtml(
-          storagePath,
-          outputDir,
-          session,
-          project.name
-        )
-        sessionCards.push({
-          session,
-          project,
-          messageCount: result.messageCount,
-          firstPrompt: result.firstPrompt,
-        })
+        await processSession(session, project, 0, 1)
         title = session.title
         projectName = project.name
         break
       }
     }
   } else if (all) {
-    // All projects mode
+    // All projects mode - first scan to count total sessions
+    onProgress?.({ current: 0, total: 0, title: "Scanning projects...", phase: "scanning" })
     const projects = await listProjects(storagePath)
+    
+    // Collect all sessions first to know the total count
+    const allSessions: Array<{ session: Session; project: typeof projects[0] }> = []
     for (const project of projects) {
       const sessions = await listSessions(storagePath, project.id)
       for (const session of sessions) {
-        console.log(`Processing: ${session.title}`)
-        const result = await generateSessionHtml(
-          storagePath,
-          outputDir,
-          session,
-          project.name
-        )
-        sessionCards.push({
-          session,
-          project,
-          messageCount: result.messageCount,
-          firstPrompt: result.firstPrompt,
-        })
+        allSessions.push({ session, project })
       }
+    }
+
+    // Now process with accurate progress
+    for (let i = 0; i < allSessions.length; i++) {
+      const { session, project } = allSessions[i]!
+      await processSession(session, project, i, allSessions.length)
     }
     title = "All OpenCode Sessions"
   } else {
     // Current project mode
     const cwd = process.cwd()
+    onProgress?.({ current: 0, total: 0, title: "Finding project...", phase: "scanning" })
     const project = await findProjectByPath(storagePath, cwd)
 
     if (!project) {
@@ -370,20 +419,9 @@ export async function generateHtml(options: GenerateHtmlOptions): Promise<void> 
     title = projectName ?? "OpenCode Sessions"
 
     const sessions = await listSessions(storagePath, project.id)
-    for (const session of sessions) {
-      console.log(`Processing: ${session.title}`)
-      const result = await generateSessionHtml(
-        storagePath,
-        outputDir,
-        session,
-        projectName
-      )
-      sessionCards.push({
-        session,
-        project,
-        messageCount: result.messageCount,
-        firstPrompt: result.firstPrompt,
-      })
+    for (let i = 0; i < sessions.length; i++) {
+      const session = sessions[i]!
+      await processSession(session, project, i, sessions.length)
     }
   }
 
@@ -397,5 +435,17 @@ export async function generateHtml(options: GenerateHtmlOptions): Promise<void> 
   })
   await writeHtml(join(outputDir, "index.html"), indexHtml)
 
-  console.log(`Generated ${sessionCards.length} session(s) in ${outputDir}`)
+  onProgress?.({
+    current: sessionCards.length,
+    total: sessionCards.length,
+    title: "Complete",
+    phase: "complete",
+  })
+
+  return {
+    sessionCount: sessionCards.length,
+    pageCount: totalPageCount,
+    messageCount: totalMessageCount,
+    projectName,
+  }
 }

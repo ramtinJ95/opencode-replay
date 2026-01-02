@@ -6,8 +6,41 @@
 import { parseArgs } from "util"
 import { resolve } from "path"
 import { getDefaultStoragePath } from "./storage/reader"
-import { generateHtml } from "./render/html"
+import { generateHtml, type ProgressInfo, type GenerationStats } from "./render/html"
 import { serve } from "./server"
+
+// =============================================================================
+// OUTPUT HELPERS
+// =============================================================================
+
+/**
+ * Format a progress message for display
+ */
+function formatProgress(progress: ProgressInfo): string {
+  if (progress.phase === "scanning") {
+    return `Scanning: ${progress.title}`
+  }
+  if (progress.phase === "complete") {
+    return "" // Handled separately
+  }
+  // Truncate long titles
+  const maxTitleLength = 50
+  const title = progress.title.length > maxTitleLength 
+    ? progress.title.slice(0, maxTitleLength - 3) + "..."
+    : progress.title
+  return `[${progress.current}/${progress.total}] ${title}`
+}
+
+/**
+ * Format generation statistics summary
+ */
+function formatStats(stats: GenerationStats): string {
+  const parts: string[] = []
+  parts.push(`${stats.sessionCount} session${stats.sessionCount !== 1 ? "s" : ""}`)
+  parts.push(`${stats.pageCount} page${stats.pageCount !== 1 ? "s" : ""}`)
+  parts.push(`${stats.messageCount} message${stats.messageCount !== 1 ? "s" : ""}`)
+  return parts.join(", ")
+}
 
 // Parse CLI arguments
 const { values } = parseArgs({
@@ -128,6 +161,27 @@ if (isNaN(port) || port < 1 || port > 65535) {
   process.exit(1)
 }
 
+// Validate storage path exists
+try {
+  const projectDirExists = await Bun.file(storagePath + "/project").exists()
+  if (!projectDirExists) {
+    throw new Error("not a valid storage directory")
+  }
+} catch {
+  console.error(`Error: OpenCode storage not found at: ${storagePath}`)
+  console.error("")
+  console.error("This could mean:")
+  console.error("  1. OpenCode has not been used on this machine yet")
+  console.error("  2. The storage path is incorrect")
+  console.error("")
+  console.error("Solutions:")
+  console.error("  - Run OpenCode at least once to create the storage directory")
+  console.error("  - Use --storage <path> to specify a custom storage location")
+  console.error("")
+  console.error(`Expected path: ${storagePath}`)
+  process.exit(1)
+}
+
 console.log("opencode-replay")
 console.log("---------------")
 console.log(`Storage path: ${storagePath}`)
@@ -154,16 +208,29 @@ if (values["no-generate"]) {
   console.log("")
 
   try {
-    await generateHtml({
+    const stats = await generateHtml({
       storagePath,
       outputDir: resolve(outputDir),
       all: values.all ?? false,
       sessionId: values.session,
       includeJson: values.json ?? false,
+      onProgress: (progress) => {
+        const msg = formatProgress(progress)
+        if (msg) {
+          // Use process.stdout.write for cleaner output (no newline)
+          // Clear line and write new progress
+          process.stdout.write(`\r\x1b[K${msg}`)
+        }
+      },
     })
 
-    console.log(`\nGenerated HTML transcripts in ${resolve(outputDir)}`)
+    // Clear the progress line and print summary
+    process.stdout.write("\r\x1b[K")
+    console.log(`Generated ${formatStats(stats)}`)
+    console.log(`Output: ${resolve(outputDir)}`)
   } catch (error) {
+    // Clear any progress output before showing error
+    process.stdout.write("\r\x1b[K")
     console.error("Error:", error instanceof Error ? error.message : error)
     process.exit(1)
   }
