@@ -5,7 +5,7 @@
 
 import { parseArgs } from "util"
 import { resolve } from "path"
-import { getDefaultStoragePath } from "./storage/reader"
+import { getDefaultStoragePath, findProjectByPath, listProjects, listSessions } from "./storage/reader"
 import { generateHtml, type ProgressInfo, type GenerationStats } from "./render/html"
 import { serve } from "./server"
 
@@ -42,15 +42,75 @@ function formatStats(stats: GenerationStats): string {
   return parts.join(", ")
 }
 
+/**
+ * Slugify a string for use as a directory name
+ * Converts to lowercase, replaces spaces with hyphens, removes special characters
+ */
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, "") // Remove special characters
+    .replace(/\s+/g, "-") // Replace spaces with hyphens
+    .replace(/-+/g, "-") // Replace multiple hyphens with single
+    .replace(/^-|-$/g, "") // Remove leading/trailing hyphens
+    .slice(0, 50) // Limit length
+}
+
+/**
+ * Generate auto-named output directory based on mode
+ */
+async function getAutoOutputDir(
+  storagePath: string,
+  sessionId?: string,
+  all?: boolean
+): Promise<string> {
+  if (all) {
+    // All projects mode - use generic name with timestamp
+    const date = new Date().toISOString().split("T")[0]
+    return `./opencode-all-${date}`
+  }
+
+  if (sessionId) {
+    // Single session mode - find session and use its title
+    const projects = await listProjects(storagePath)
+    for (const project of projects) {
+      const sessions = await listSessions(storagePath, project.id)
+      const session = sessions.find((s) => s.id === sessionId)
+      if (session) {
+        const name = slugify(session.title) || sessionId.slice(0, 12)
+        return `./${name}-replay`
+      }
+    }
+    // Session not found, use ID
+    return `./${sessionId.slice(0, 12)}-replay`
+  }
+
+  // Current project mode - use project name
+  const cwd = process.cwd()
+  const project = await findProjectByPath(storagePath, cwd)
+  if (project) {
+    const name = project.name ?? project.worktree.split("/").pop() ?? "project"
+    return `./${slugify(name)}-replay`
+  }
+
+  // Fallback
+  return "./opencode-replay-output"
+}
+
 // Parse CLI arguments
 const { values } = parseArgs({
   args: Bun.argv.slice(2),
   options: {
     all: {
       type: "boolean",
-      short: "a",
       default: false,
       description: "Generate for all projects",
+    },
+    auto: {
+      type: "boolean",
+      short: "a",
+      default: false,
+      description: "Auto-name output directory from project/session",
     },
     output: {
       type: "string",
@@ -116,7 +176,8 @@ Usage:
   opencode-replay [options]
 
 Options:
-  -a, --all              Generate for all projects (default: current project only)
+  --all                  Generate for all projects (default: current project only)
+  -a, --auto             Auto-name output directory from project/session name
   -o, --output <dir>     Output directory (default: ./opencode-replay-output)
   -s, --session <id>     Generate for specific session only
   --json                 Include raw JSON export alongside HTML
@@ -131,6 +192,7 @@ Options:
 Examples:
   opencode-replay                     # Current project's sessions
   opencode-replay --all               # All projects
+  opencode-replay -a                  # Auto-name output (e.g., ./my-project-replay)
   opencode-replay -o ./my-transcripts # Custom output directory
   opencode-replay --session ses_xxx   # Specific session only
   opencode-replay --serve             # Generate and serve via HTTP
@@ -152,7 +214,6 @@ if (values.version) {
 
 // Main execution
 const storagePath = values.storage ?? getDefaultStoragePath()
-const outputDir = values.output ?? "./opencode-replay-output"
 const port = parseInt(values.port ?? "3000", 10)
 
 // Validate port
@@ -161,12 +222,12 @@ if (isNaN(port) || port < 1 || port > 65535) {
   process.exit(1)
 }
 
-// Validate storage path exists
+// Validate storage path exists by trying to list projects
 try {
-  const projectDirExists = await Bun.file(storagePath + "/project").exists()
-  if (!projectDirExists) {
-    throw new Error("not a valid storage directory")
-  }
+  const projects = await listProjects(storagePath)
+  // If we get here without an error, storage path is valid
+  // (empty array is ok - just means no projects yet)
+  void projects
 } catch {
   console.error(`Error: OpenCode storage not found at: ${storagePath}`)
   console.error("")
@@ -180,6 +241,19 @@ try {
   console.error("")
   console.error(`Expected path: ${storagePath}`)
   process.exit(1)
+}
+
+// Determine output directory (explicit, auto, or default)
+let outputDir: string
+if (values.output) {
+  // Explicit output directory
+  outputDir = values.output
+} else if (values.auto) {
+  // Auto-generate output directory name
+  outputDir = await getAutoOutputDir(storagePath, values.session, values.all)
+} else {
+  // Default
+  outputDir = "./opencode-replay-output"
 }
 
 console.log("opencode-replay")
