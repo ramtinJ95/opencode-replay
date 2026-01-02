@@ -19,6 +19,7 @@ import {
   type SessionCardData,
   type TimelineEntry,
 } from "./templates"
+import type { RepoInfo } from "./git-commits"
 
 // =============================================================================
 // CONFIGURATION
@@ -40,6 +41,8 @@ export interface GenerateHtmlOptions {
   includeJson?: boolean
   /** Progress callback for reporting generation progress */
   onProgress?: (progress: ProgressInfo) => void
+  /** GitHub repository info for commit links */
+  repo?: RepoInfo
 }
 
 export interface ProgressInfo {

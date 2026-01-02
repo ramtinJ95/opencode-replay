@@ -9,6 +9,7 @@ import { readdir } from "node:fs/promises"
 import { getDefaultStoragePath, findProjectByPath, listProjects, listSessions } from "./storage/reader"
 import { generateHtml, type ProgressInfo, type GenerationStats } from "./render/html"
 import { serve } from "./server"
+import { parseRepoString } from "./render/git-commits"
 
 // =============================================================================
 // TERMINAL COLORS
@@ -225,6 +226,10 @@ const { values } = parseArgs({
       default: false,
       description: "Skip generation, only serve existing output",
     },
+    repo: {
+      type: "string",
+      description: "GitHub repo (OWNER/NAME) for commit links",
+    },
     help: {
       type: "boolean",
       short: "h",
@@ -260,6 +265,7 @@ Options:
   --serve                Start HTTP server after generation
   --port <number>        Server port (default: 3000)
   --no-generate          Skip generation, only serve existing output
+  --repo <owner/name>    GitHub repo for commit links (e.g., sst/opencode)
   -q, --quiet            Suppress non-essential output
   --verbose              Show detailed debug output
   -h, --help             Show this help message
@@ -274,6 +280,7 @@ Examples:
   opencode-replay --serve             # Generate and serve via HTTP
   opencode-replay --serve --port 8080 # Serve on custom port
   opencode-replay --serve --no-generate -o ./existing  # Serve existing output
+  opencode-replay --repo sst/opencode   # Add GitHub links to git commits
 `)
   process.exit(0)
 }
@@ -357,10 +364,23 @@ if (values.output) {
   debug(`Using default output directory: ${outputDir}`)
 }
 
+// Parse and validate --repo option
+let repoInfo = values.repo ? parseRepoString(values.repo) : undefined
+if (values.repo && !repoInfo) {
+  console.error(color("Error:", colors.red, colors.bold) + ` Invalid repo format: ${values.repo}`)
+  console.error("Expected format: OWNER/NAME (e.g., sst/opencode)")
+  process.exit(1)
+}
+// Convert null to undefined for type compatibility
+if (repoInfo === null) repoInfo = undefined
+
 log(color("opencode-replay", colors.bold, colors.cyan))
 log(color("---------------", colors.dim))
 log(color("Storage:", colors.dim) + ` ${storagePath}`)
 log(color("Output:", colors.dim) + ` ${resolve(outputDir)}`)
+if (repoInfo) {
+  log(color("Repo:", colors.dim) + ` ${repoInfo.fullName}`)
+}
 
 // Skip generation if --no-generate is set
 if (values["no-generate"]) {
@@ -391,6 +411,7 @@ if (values["no-generate"]) {
       all: values.all ?? false,
       sessionId: values.session,
       includeJson: values.json ?? false,
+      repo: repoInfo,
       onProgress: (progress) => {
         const msg = formatProgress(progress)
         if (msg) {
