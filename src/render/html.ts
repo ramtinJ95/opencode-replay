@@ -104,12 +104,9 @@ async function copyAssets(outputDir: string): Promise<void> {
   const highlightJsSource = join(import.meta.dir, "../assets/highlight.js")
   await copyFile(highlightJsSource, join(assetsDir, "highlight.js"))
 
-  // Create placeholder search.js for now
-  const searchJs = `// OpenCode Replay - Search functionality
-// Will be implemented in Phase 7
-console.log("Search not yet implemented");
-`
-  await Bun.write(join(assetsDir, "search.js"), searchJs)
+  // Copy search.js
+  const searchJsSource = join(import.meta.dir, "../assets/search.js")
+  await copyFile(searchJsSource, join(assetsDir, "search.js"))
 }
 
 // =============================================================================

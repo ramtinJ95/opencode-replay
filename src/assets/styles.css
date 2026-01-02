@@ -1885,88 +1885,195 @@ pre code {
    Search Modal
    ============================================================================ */
 
+/* Dialog element reset */
 .search-modal {
+  padding: 0;
+  border: none;
+  background: transparent;
+  max-width: none;
+  max-height: none;
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: 15vh;
   z-index: 1000;
 }
 
-.search-modal-content {
-  width: 100%;
-  max-width: 600px;
-  background: var(--color-bg);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
-  overflow: hidden;
+.search-modal::backdrop {
+  background: rgba(0, 0, 0, 0.5);
 }
 
-.search-header {
+.search-modal[open] {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 10vh;
+}
+
+.search-modal-content {
+  width: 90%;
+  max-width: 700px;
+  background: var(--color-bg);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-height: 70vh;
+}
+
+.search-modal-header {
   display: flex;
   align-items: center;
+  gap: var(--spacing-sm);
   padding: var(--spacing-md);
   border-bottom: 1px solid var(--color-border);
 }
 
-.search-header input {
+.search-input-wrapper {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: var(--spacing-sm);
+}
+
+.search-input-icon {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-muted);
+}
+
+.search-modal-header input {
   flex: 1;
   padding: var(--spacing-sm);
   border: none;
   font-size: var(--font-size-lg);
+  background: transparent;
+  color: var(--color-text);
   outline: none;
 }
 
-.search-close {
-  padding: var(--spacing-sm);
-  background: none;
-  border: none;
+.search-modal-header input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.search-modal-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
   font-size: var(--font-size-lg);
   cursor: pointer;
   color: var(--color-text-secondary);
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.search-modal-close:hover {
+  background: var(--color-bg-tertiary);
+  border-color: var(--color-text-muted);
+}
+
+.search-status {
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-border-light);
+  background: var(--color-bg-secondary);
 }
 
 .search-results {
-  max-height: 400px;
+  flex: 1;
   overflow-y: auto;
+  min-height: 0;
 }
 
 .search-result {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-md);
+  display: block;
   padding: var(--spacing-md);
   border-bottom: 1px solid var(--color-border-light);
   text-decoration: none;
   color: inherit;
+  transition: background-color 0.15s;
 }
 
 .search-result:hover {
   background: var(--color-bg-secondary);
+  text-decoration: none;
 }
 
-.result-type {
+.search-result:last-child {
+  border-bottom: none;
+}
+
+.search-result-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
+}
+
+.search-result-role {
   font-size: var(--font-size-xs);
-  padding: 2px 6px;
-  background: var(--color-bg-secondary);
+  font-weight: 600;
+  padding: 2px 8px;
   border-radius: var(--radius-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.search-result-role-user {
+  background: var(--user-bg);
+  color: #1565c0;
+}
+
+.search-result-role-assistant {
+  background: var(--assistant-bg);
+  color: #424242;
+}
+
+.search-result-role-session {
+  background: var(--color-info);
+  color: white;
+}
+
+.search-result-page {
+  font-size: var(--font-size-xs);
   color: var(--color-text-muted);
+  font-family: var(--font-mono);
 }
 
-.result-title {
-  flex: 1;
+.search-result-title {
+  font-weight: 500;
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-text);
+}
+
+.search-result-preview {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  line-height: 1.5;
 }
 
-.no-results {
+/* Search highlight */
+.search-result mark,
+mark {
+  background: #fff59d;
+  color: inherit;
+  padding: 1px 2px;
+  border-radius: 2px;
+}
+
+.search-no-results {
   padding: var(--spacing-xl);
   text-align: center;
   color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
 }
 
 /* ============================================================================
@@ -1986,12 +2093,18 @@ pre code {
     grid-template-columns: 1fr;
   }
 
-  .search-modal {
+  .search-modal[open] {
     padding-top: var(--spacing-md);
+    align-items: flex-start;
   }
 
   .search-modal-content {
-    margin: 0 var(--spacing-md);
+    width: calc(100% - var(--spacing-md) * 2);
+    max-height: calc(100vh - var(--spacing-xl));
+  }
+  
+  .search-trigger kbd {
+    display: none;
   }
 }
 
@@ -2210,29 +2323,47 @@ pre code {
 }
 
 /* Search modal */
-:root[data-theme="dark"] .search-modal {
+:root[data-theme="dark"] .search-modal::backdrop {
   background: rgba(0, 0, 0, 0.7);
 }
 
 :root[data-theme="dark"] .search-modal-content {
   background: var(--color-bg-secondary);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
 }
 
-:root[data-theme="dark"] .search-header input {
-  background: var(--color-bg);
-  color: var(--color-text);
+:root[data-theme="dark"] .search-result-role-user {
+  color: #58a6ff;
+}
+
+:root[data-theme="dark"] .search-result-role-assistant {
+  color: #8b949e;
+}
+
+:root[data-theme="dark"] mark,
+:root[data-theme="dark"] .search-result mark {
+  background: #634c00;
+  color: #fff;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .search-modal {
+  :root:not([data-theme="light"]) .search-modal::backdrop {
     background: rgba(0, 0, 0, 0.7);
   }
   :root:not([data-theme="light"]) .search-modal-content {
     background: var(--color-bg-secondary);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
   }
-  :root:not([data-theme="light"]) .search-header input {
-    background: var(--color-bg);
-    color: var(--color-text);
+  :root:not([data-theme="light"]) .search-result-role-user {
+    color: #58a6ff;
+  }
+  :root:not([data-theme="light"]) .search-result-role-assistant {
+    color: #8b949e;
+  }
+  :root:not([data-theme="light"]) mark,
+  :root:not([data-theme="light"]) .search-result mark {
+    background: #634c00;
+    color: #fff;
   }
 }
 
