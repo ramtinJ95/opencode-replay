@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="opencode-replay">
+  <meta name="color-scheme" content="light dark">
+  <title>Updating tokenscope.js README for subagent costs - Page 3 - OpenCode Replay</title>
+  <script>
+(function() {
+  var theme = localStorage.getItem('opencode-replay-theme');
+  if (!theme) {
+    theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  document.documentElement.setAttribute('data-theme', theme);
+})();
+</script>
+  <link rel="stylesheet" href="../../assets/styles.css">
+  <link rel="stylesheet" href="../../assets/prism.css">
+  
+</head>
+<body class="conversation-page" data-total-pages="5">
+  <div class="container">
+    
+<header class="page-header">
+  <div class="header-top">
+    <nav class="breadcrumbs">
+        <a href="../../index.html" class="breadcrumb-item">Sessions</a><span class="breadcrumb-separator">/</span><a href="index.html" class="breadcrumb-item">Updating tokenscope.js README for subagent costs</a><span class="breadcrumb-separator">/</span><span class="breadcrumb-item current">Page 3</span>
+      </nav>
+    <div class="header-actions">
+    <button class="search-trigger" type="button" aria-label="Search">
+      <span class="search-icon">&#128269;</span>
+      <span class="search-text">Search...</span>
+      <kbd>Ctrl+K</kbd>
+    </button>
+    <button 
+  id="theme-toggle" 
+  class="theme-toggle" 
+  type="button"
+  aria-label="Toggle dark mode"
+  aria-pressed="false"
+  title="Toggle theme"
+>
+  <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"/>
+    <line x1="12" y1="1" x2="12" y2="3"/>
+    <line x1="12" y1="21" x2="12" y2="23"/>
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+    <line x1="1" y1="12" x2="3" y2="12"/>
+    <line x1="21" y1="12" x2="23" y2="12"/>
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+  </svg>
+  <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </svg>
+</button>
+  </div>
+  </div>
+  <h1>Updating tokenscope.js README for subagent costs</h1>
+  <p class="subtitle">Page 3 of 5</p>
+</header>
+<nav class="pagination">
+  <a href="page-002.html" class="pagination-prev">&larr; Previous</a>
+  <a href="page-001.html" class="pagination-page">1</a>
+  <a href="page-002.html" class="pagination-page">2</a>
+  <span class="pagination-page current">3</span>
+  <a href="page-004.html" class="pagination-page">4</a>
+  <a href="page-005.html" class="pagination-page">5</a>
+  <a href="page-004.html" class="pagination-next">Next &rarr;</a>
+</nav>
+<div class="messages">
+  <div class="message message-user" id="msg_af3c313d5001X7bZYuJ2muBiAH">
+  <div class="message-header">
+    <span class="message-role">User</span>
+    <span class="message-time">02:03 PM</span>
+    <span class="message-model">anthropic/claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-text">
+  <p>what should the release title be</p>
+</div>
+  </div>
+</div>
+<div class="message message-assistant" id="msg_af3c313ea002cZjqkggzAl1Z7F">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">02:03 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>Based on the changes in this release, I&#39;d suggest:</p>
+<p><div class="code-block-wrapper"><br><span class="code-language">text</span><br><pre><code class="language-text">v1.2.0 - Subagent Cost Tracking</code></pre><br></div></p>
+<p>This is concise and highlights the main new feature. Alternatively, if you want something slightly more descriptive:</p>
+<p><div class="code-block-wrapper"><br><span class="code-language">text</span><br><pre><code class="language-text">v1.2.0 - Subagent Cost &amp; API Call Tracking</code></pre><br></div></p>
+<p>Which do you prefer?</p>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 1 in / 88 out</span>
+<span class="stat">Cache: 53.4k read</span>
+<span class="stat">Finish: stop</span></div>
+</div>
+<div class="message message-user" id="msg_af3ccf554001J7MDBu21gs60NQ">
+  <div class="message-header">
+    <span class="message-role">User</span>
+    <span class="message-time">02:14 PM</span>
+    <span class="message-model">anthropic/claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-text">
+  <p>if i want to now test this update how do i update my plugin?</p>
+</div>
+  </div>
+</div>
+<div class="message message-assistant" id="msg_af3ccf565002H46t5Yk82GQaXs">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">02:14 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>Based on your install script, you can update by running:</p>
+<p><div class="code-block-wrapper"><br><span class="code-language">bash</span><br><pre><code class="language-bash">curl -sSL https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/install.sh | bash -s -- --update</code></pre><br></div></p>
+<p>This will download the latest plugin files while skipping dependency installation (faster since you already have the tokenizer dependencies installed).</p>
+<p>Alternatively, for a full reinstall:</p>
+<p><div class="code-block-wrapper"><br><span class="code-language">bash</span><br><pre><code class="language-bash">curl -sSL https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/install.sh | bash</code></pre><br></div></p>
+<p>After running either command, restart OpenCode and run <code>/tokenscope</code> to test the new features.</p>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 1 in / 155 out</span>
+<span class="stat">Finish: stop</span></div>
+</div>
+<div class="message message-user" id="msg_af3cdb3d1001EvQjJ32VD1HpJ6">
+  <div class="message-header">
+    <span class="message-role">User</span>
+    <span class="message-time">02:15 PM</span>
+    <span class="message-model">anthropic/claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-text">
+  <p>is there no easier way of being able to just run install.sh --update if we add the installer script to the plugin folder or something?</p>
+</div>
+  </div>
+</div>
+<div class="message message-assistant" id="msg_af3cdb3ee002OHVkni7aR7tfRG">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">02:15 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>Good idea! The plugin is already installed at <code>~/.config/opencode/plugin/</code>, and the install script is downloaded there during installation. So you can simply run:</p>
+<p><div class="code-block-wrapper"><br><span class="code-language">bash</span><br><pre><code class="language-bash">~/.config/opencode/plugin/install.sh --update</code></pre><br></div></p>
+<p>Let me check if the install script is already being copied to the plugin folder during installation:</p>
+</div>
+<div class="tool-call tool-read" data-status="completed">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="tool-icon">&#128196;</span>
+    <span class="read-file-path" title="/home/ramtinj/personal-workspace/opencode-tokenscope/install.sh">install.sh</span>
+    <span class="read-full-path">/home/ramtinj/personal-workspace/opencode-tokenscope/install.sh</span>
+    
+    <span class="read-lines">201 lines</span>
+    <span class="tool-toggle">+</span>
+  </div>
+  <div class="tool-body collapsed">
+    <div class="read-content">
+      <pre><code>&lt;file&gt;
+00001| #!/usr/bin/env bash
+00002| set -euo pipefail
+00003| 
+00004| # OpenCode Token Analyzer Plugin - One-Line Installer
+00005| # This script downloads and installs the plugin from GitHub
+00006| 
+00007| # Parse arguments
+00008| UPDATE_MODE=false
+00009| for arg in &quot;$@&quot;; do
+00010|     case $arg in
+00011|         --update)
+00012|             UPDATE_MODE=true
+00013|             shift
+00014|             ;;
+00015|     esac
+00016| done
+00017| 
+00018| # Color output for better readability
+00019| RED=&#39;\033[0;31m&#39;
+00020| GREEN=&#39;\033[0;32m&#39;
+00021| YELLOW=&#39;\033[1;33m&#39;
+00022| BLUE=&#39;\033[0;34m&#39;
+00023| NC=&#39;\033[0m&#39; # No Color
+00024| 
+00025| echo_info() {
+00026|     echo -e &quot;${GREEN}[INFO]${NC} $1&quot;
+00027| }
+00028| 
+00029| echo_warn() {
+00030|     echo -e &quot;${YELLOW}[WARN]${NC} $1&quot;
+00031| }
+00032| 
+00033| echo_error() {
+00034|     echo -e &quot;${RED}[ERROR]${NC} $1&quot; &gt;&amp;2
+00035| }
+00036| 
+00037| echo_step() {
+00038|     echo -e &quot;${BLUE}[STEP]${NC} $1&quot;
+00039| }
+00040| 
+00041| # Configuration
+00042| REPO_URL=&quot;https://github.com/ramtinJ95/opencode-tokenscope&quot;
+00043| OPENCODE_DIR=&quot;${HOME}/.config/opencode&quot;
+00044| TEMP_DIR=$(mktemp -d)
+00045| 
+00046| cleanup() {
+00047|     if [ -d &quot;$TEMP_DIR&quot; ]; then
+00048|         rm -rf &quot;$TEMP_DIR&quot;
+00049|     fi
+00050| }
+00051| 
+00052| trap cleanup EXIT
+00053| 
+00054| echo &quot;&quot;
+00055| echo &quot;╔════════════════════════════════════════════════════════════╗&quot;
+00056| if [ &quot;$UPDATE_MODE&quot; = true ]; then
+00057| echo &quot;║   OpenCode Token Analyzer Plugin - Updater                ║&quot;
+00058| else
+00059| echo &quot;║   OpenCode Token Analyzer Plugin - Installer              ║&quot;
+00060| fi
+00061| echo &quot;╚════════════════════════════════════════════════════════════╝&quot;
+00062| echo &quot;&quot;
+00063| 
+00064| # Check prerequisites
+00065| echo_step &quot;1/5 Checking prerequisites...&quot;
+00066| 
+00067| if [ ! -d &quot;$OPENCODE_DIR&quot; ]; then
+00068|     echo_error &quot;OpenCode directory not found at $OPENCODE_DIR&quot;
+00069|     echo_error &quot;Please ensure OpenCode is installed&quot;
+00070|     exit 1
+00071| fi
+00072| 
+00073| if ! command -v npm &gt;/dev/null 2&gt;&amp;1; then
+00074|     echo_error &quot;npm is required but not installed&quot;
+00075|     echo_error &quot;Please install Node.js and npm first&quot;
+00076|     exit 1
+00077| fi
+00078| 
+00079| if ! command -v curl &gt;/dev/null 2&gt;&amp;1; then
+00080|     echo_error &quot;curl is required but not installed&quot;
+00081|     exit 1
+00082| fi
+00083| 
+00084| echo_info &quot;All prerequisites met&quot;
+00085| 
+00086| # Create plugin and command directories
+00087| echo_step &quot;2/5 Preparing directories...&quot;
+00088| mkdir -p &quot;$OPENCODE_DIR/plugin&quot;
+00089| mkdir -p &quot;$OPENCODE_DIR/command&quot;
+00090| echo_info &quot;Directories ready&quot;
+00091| 
+00092| # Download files
+00093| echo_step &quot;3/5 Downloading plugin files...&quot;
+00094| 
+00095| FILES=(
+00096|     &quot;plugin/tokenscope.ts&quot;
+00097|     &quot;plugin/models.json&quot;
+00098|     &quot;plugin/package.json&quot;
+00099|     &quot;command/tokenscope.md&quot;
+00100| )
+00101| 
+00102| for file in &quot;${FILES[@]}&quot;; do
+00103|     filename=$(basename &quot;$file&quot;)
+00104|     dir=$(dirname &quot;$file&quot;)
+00105|     
+00106|     echo_info &quot;Downloading $filename...&quot;
+00107|     
+00108|     if curl -fsSL &quot;$REPO_URL/raw/main/$file&quot; -o &quot;$TEMP_DIR/$filename&quot; 2&gt;/dev/null; then
+00109|         # Move to appropriate directory
+00110|         if [ &quot;$dir&quot; = &quot;plugin&quot; ]; then
+00111|             mv &quot;$TEMP_DIR/$filename&quot; &quot;$OPENCODE_DIR/plugin/$filename&quot;
+00112|         else
+00113|             mv &quot;$TEMP_DIR/$filename&quot; &quot;$OPENCODE_DIR/command/$filename&quot;
+00114|         fi
+00115|     else
+00116|         echo_error &quot;Failed to download $file&quot;
+00117|         echo_error &quot;Please check your internet connection and try again&quot;
+00118|         exit 1
+00119|     fi
+00120| done
+00121| 
+00122| echo_info &quot;All files downloaded successfully&quot;
+00123| 
+00124| # Install dependencies
+00125| echo_step &quot;4/5 Installing dependencies...&quot;
+00126| 
+00127| DEPS_EXIST=false
+00128| if [ -d &quot;$OPENCODE_DIR/plugin/node_modules/js-tiktoken&quot; ] &amp;&amp; [ -d &quot;$OPENCODE_DIR/plugin/node_modules/@huggingface/transformers&quot; ]; then
+00129|     DEPS_EXIST=true
+00130| fi
+00131| 
+00132| if [ &quot;$UPDATE_MODE&quot; = true ] &amp;&amp; [ &quot;$DEPS_EXIST&quot; = true ]; then
+00133|     echo_info &quot;Update mode: Dependencies already installed, skipping...&quot;
+00134| else
+00135|     echo_info &quot;This may take 1-2 minutes...&quot;
+00136|     cd &quot;$OPENCODE_DIR/plugin&quot;
+00137|     if npm install --prefix &quot;$OPENCODE_DIR/plugin&quot; js-tiktoken@1.0.15 @huggingface/transformers@3.1.2 --save; then
+00138|         echo_info &quot;Dependencies installed successfully&quot;
+00139|     else
+00140|         echo_error &quot;Failed to install dependencies&quot;
+00141|         echo_error &quot;You can try running manually: cd ~/.config/opencode/plugin &amp;&amp; npm install&quot;
+00142|         exit 1
+00143|     fi
+00144| fi
+00145| 
+00146| # Verify installation
+00147| echo_step &quot;5/5 Verifying installation...&quot;
+00148| 
+00149| REQUIRED_FILES=(
+00150|     &quot;$OPENCODE_DIR/plugin/tokenscope.ts&quot;
+00151|     &quot;$OPENCODE_DIR/plugin/models.json&quot;
+00152|     &quot;$OPENCODE_DIR/plugin/node_modules/js-tiktoken&quot;
+00153|     &quot;$OPENCODE_DIR/plugin/node_modules/@huggingface/transformers&quot;
+00154|     &quot;$OPENCODE_DIR/command/tokenscope.md&quot;
+00155| )
+00156| 
+00157| all_present=true
+00158| for file in &quot;${REQUIRED_FILES[@]}&quot;; do
+00159|     if [ ! -e &quot;$file&quot; ]; then
+00160|         echo_warn &quot;Missing: $file&quot;
+00161|         all_present=false
+00162|     fi
+00163| done
+00164| 
+00165| if [ &quot;$all_present&quot; = true ]; then
+00166|     echo_info &quot;All files verified&quot;
+00167| else
+00168|     echo_error &quot;Some files are missing&quot;
+00169|     exit 1
+00170| fi
+00171| 
+00172| # Get installed version
+00173| INSTALLED_VERSION=$(grep -o &#39;&quot;version&quot;: *&quot;[^&quot;]*&quot;&#39; &quot;$OPENCODE_DIR/plugin/package.json&quot; | cut -d&#39;&quot;&#39; -f4)
+00174| 
+00175| echo &quot;&quot;
+00176| echo &quot;╔════════════════════════════════════════════════════════════╗&quot;
+00177| if [ &quot;$UPDATE_MODE&quot; = true ]; then
+00178| echo &quot;║   Update Complete!                                         ║&quot;
+00179| else
+00180| echo &quot;║   Installation Complete!                                   ║&quot;
+00181| fi
+00182| echo &quot;╚════════════════════════════════════════════════════════════╝&quot;
+00183| echo &quot;&quot;
+00184| echo_info &quot;Version: $INSTALLED_VERSION&quot;
+00185| echo_info &quot;Plugin installed at: $OPENCODE_DIR/plugin/tokenscope.ts&quot;
+00186| echo_info &quot;Command installed at: $OPENCODE_DIR/command/tokenscope.md&quot;
+00187| echo &quot;&quot;
+00188| echo_step &quot;Next steps:&quot;
+00189| echo &quot;  1. Restart OpenCode&quot;
+00190| echo &quot;  2. Type /tokenscope in any session&quot;
+00191| echo &quot;  3. View full report: cat token-usage-output.txt&quot;
+00192| echo &quot;&quot;
+00193| echo_info &quot;For help and documentation, visit:&quot;
+00194| echo_info &quot;$REPO_URL&quot;
+00195| echo &quot;&quot;
+00196| 
+00197| 
+
+(End of file - total 197 lines)
+&lt;/file&gt;</code></pre>
+    </div>
+    
+  </div>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 1 in / 149 out</span>
+<span class="stat">Cache: 54.5k read</span>
+<span class="stat">Finish: tool-calls</span></div>
+</div>
+<div class="message message-assistant" id="msg_af3cdc9bc002WhooSD5M0PqCta">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">02:15 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>The install script is currently downloaded to <code>$OPENCODE_DIR/plugin/</code> but <code>install.sh</code> itself is not in the <code>FILES</code> array that gets downloaded. Let me add it:</p>
+</div>
+<div class="tool-call tool-edit" data-status="completed">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="tool-icon">&#9998;</span>
+    <span class="edit-file-path" title="/home/ramtinj/personal-workspace/opencode-tokenscope/install.sh">install.sh</span>
+    <span class="edit-full-path">/home/ramtinj/personal-workspace/opencode-tokenscope/install.sh</span>
+    
+    <span class="edit-stats">
+    <span class="edit-old-lines">6 lines</span>
+    <span class="edit-arrow">&#8594;</span>
+    <span class="edit-new-lines">7 lines</span>
+  </span>
+    <span class="tool-toggle">-</span>
+  </div>
+  <div class="tool-body">
+    <div class="edit-diff">
+      <div class="diff-old">
+        <div class="diff-label">Old</div>
+        <pre><code class="diff-removed">FILES=(
+    &quot;plugin/tokenscope.ts&quot;
+    &quot;plugin/models.json&quot;
+    &quot;plugin/package.json&quot;
+    &quot;command/tokenscope.md&quot;
+)</code></pre>
+      </div>
+      <div class="diff-new">
+        <div class="diff-label">New</div>
+        <pre><code class="diff-added">FILES=(
+    &quot;plugin/tokenscope.ts&quot;
+    &quot;plugin/models.json&quot;
+    &quot;plugin/package.json&quot;
+    &quot;plugin/install.sh&quot;
+    &quot;command/tokenscope.md&quot;
+)</code></pre>
+      </div>
+    </div>
+    
+  </div>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+<div class="part part-patch">
+  <div class="patch-header">
+    <span class="patch-icon">&#128190;</span>
+    <span class="patch-label">File changes</span>
+    <span class="patch-file-count">1 file</span>
+    <span class="patch-hash">60a8c50a</span>
+  </div>
+  <ul class="patch-files">
+        <li class="patch-file-item">
+          <span class="patch-file-icon">&#128196;</span>
+          <span class="patch-file-name">/home/ramtinj/personal-workspace/opencode-tokenscope/install.sh</span>
+        </li>
+      </ul>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 0 in / 245 out</span>
+<span class="stat">Cache: 54.8k read</span>
+<span class="stat">Finish: tool-calls</span></div>
+</div>
+<div class="message message-assistant" id="msg_af3cde93b002C2gmKsTaZDycLG">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">02:15 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>Now I need to also copy the install.sh to the plugin folder in the repo so it can be downloaded from there:</p>
+</div>
+<div class="tool-call tool-bash" data-status="completed">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="tool-icon">$</span>
+    <span class="bash-command">cp /home/ramtinj/personal-workspace/opencode-tokenscope/install.sh /home/ramtinj/personal-workspace/opencode-tokenscope/plugin/install.sh</span>
+    <span class="bash-description">Copy install.sh to plugin folder</span>
+    
+    <span class="tool-toggle">-</span>
+  </div>
+  <div class="tool-body ">
+    
+    
+  </div>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+<div class="part part-patch">
+  <div class="patch-header">
+    <span class="patch-icon">&#128190;</span>
+    <span class="patch-label">File changes</span>
+    <span class="patch-file-count">1 file</span>
+    <span class="patch-hash">77334a7f</span>
+  </div>
+  <ul class="patch-files">
+        <li class="patch-file-item">
+          <span class="patch-file-icon">&#128196;</span>
+          <span class="patch-file-name">/home/ramtinj/personal-workspace/opencode-tokenscope/plugin/install.sh</span>
+        </li>
+      </ul>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 0 in / 146 out</span>
+<span class="stat">Cache: 57.3k read</span>
+<span class="stat">Finish: tool-calls</span></div>
+</div>
+<div class="message message-assistant" id="msg_af3cdfa01002N0q7FoPT2fP2jj">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">02:15 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>Wait, there&#39;s already an <code>install.sh</code> in the plugin folder. Let me check what it contains:</p>
+</div>
+<div class="tool-call tool-read" data-status="completed">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="tool-icon">&#128196;</span>
+    <span class="read-file-path" title="/home/ramtinj/personal-workspace/opencode-tokenscope/plugin/install.sh">install.sh</span>
+    <span class="read-full-path">/home/ramtinj/personal-workspace/opencode-tokenscope/plugin/install.sh</span>
+    
+    <span class="read-lines">202 lines</span>
+    <span class="tool-toggle">+</span>
+  </div>
+  <div class="tool-body collapsed">
+    <div class="read-content">
+      <pre><code>&lt;file&gt;
+00001| #!/usr/bin/env bash
+00002| set -euo pipefail
+00003| 
+00004| # OpenCode Token Analyzer Plugin - One-Line Installer
+00005| # This script downloads and installs the plugin from GitHub
+00006| 
+00007| # Parse arguments
+00008| UPDATE_MODE=false
+00009| for arg in &quot;$@&quot;; do
+00010|     case $arg in
+00011|         --update)
+00012|             UPDATE_MODE=true
+00013|             shift
+00014|             ;;
+00015|     esac
+00016| done
+00017| 
+00018| # Color output for better readability
+00019| RED=&#39;\033[0;31m&#39;
+00020| GREEN=&#39;\033[0;32m&#39;
+00021| YELLOW=&#39;\033[1;33m&#39;
+00022| BLUE=&#39;\033[0;34m&#39;
+00023| NC=&#39;\033[0m&#39; # No Color
+00024| 
+00025| echo_info() {
+00026|     echo -e &quot;${GREEN}[INFO]${NC} $1&quot;
+00027| }
+00028| 
+00029| echo_warn() {
+00030|     echo -e &quot;${YELLOW}[WARN]${NC} $1&quot;
+00031| }
+00032| 
+00033| echo_error() {
+00034|     echo -e &quot;${RED}[ERROR]${NC} $1&quot; &gt;&amp;2
+00035| }
+00036| 
+00037| echo_step() {
+00038|     echo -e &quot;${BLUE}[STEP]${NC} $1&quot;
+00039| }
+00040| 
+00041| # Configuration
+00042| REPO_URL=&quot;https://github.com/ramtinJ95/opencode-tokenscope&quot;
+00043| OPENCODE_DIR=&quot;${HOME}/.config/opencode&quot;
+00044| TEMP_DIR=$(mktemp -d)
+00045| 
+00046| cleanup() {
+00047|     if [ -d &quot;$TEMP_DIR&quot; ]; then
+00048|         rm -rf &quot;$TEMP_DIR&quot;
+00049|     fi
+00050| }
+00051| 
+00052| trap cleanup EXIT
+00053| 
+00054| echo &quot;&quot;
+00055| echo &quot;╔════════════════════════════════════════════════════════════╗&quot;
+00056| if [ &quot;$UPDATE_MODE&quot; = true ]; then
+00057| echo &quot;║   OpenCode Token Analyzer Plugin - Updater                ║&quot;
+00058| else
+00059| echo &quot;║   OpenCode Token Analyzer Plugin - Installer              ║&quot;
+00060| fi
+00061| echo &quot;╚════════════════════════════════════════════════════════════╝&quot;
+00062| echo &quot;&quot;
+00063| 
+00064| # Check prerequisites
+00065| echo_step &quot;1/5 Checking prerequisites...&quot;
+00066| 
+00067| if [ ! -d &quot;$OPENCODE_DIR&quot; ]; then
+00068|     echo_error &quot;OpenCode directory not found at $OPENCODE_DIR&quot;
+00069|     echo_error &quot;Please ensure OpenCode is installed&quot;
+00070|     exit 1
+00071| fi
+00072| 
+00073| if ! command -v npm &gt;/dev/null 2&gt;&amp;1; then
+00074|     echo_error &quot;npm is required but not installed&quot;
+00075|     echo_error &quot;Please install Node.js and npm first&quot;
+00076|     exit 1
+00077| fi
+00078| 
+00079| if ! command -v curl &gt;/dev/null 2&gt;&amp;1; then
+00080|     echo_error &quot;curl is required but not installed&quot;
+00081|     exit 1
+00082| fi
+00083| 
+00084| echo_info &quot;All prerequisites met&quot;
+00085| 
+00086| # Create plugin and command directories
+00087| echo_step &quot;2/5 Preparing directories...&quot;
+00088| mkdir -p &quot;$OPENCODE_DIR/plugin&quot;
+00089| mkdir -p &quot;$OPENCODE_DIR/command&quot;
+00090| echo_info &quot;Directories ready&quot;
+00091| 
+00092| # Download files
+00093| echo_step &quot;3/5 Downloading plugin files...&quot;
+00094| 
+00095| FILES=(
+00096|     &quot;plugin/tokenscope.ts&quot;
+00097|     &quot;plugin/models.json&quot;
+00098|     &quot;plugin/package.json&quot;
+00099|     &quot;plugin/install.sh&quot;
+00100|     &quot;command/tokenscope.md&quot;
+00101| )
+00102| 
+00103| for file in &quot;${FILES[@]}&quot;; do
+00104|     filename=$(basename &quot;$file&quot;)
+00105|     dir=$(dirname &quot;$file&quot;)
+00106|     
+00107|     echo_info &quot;Downloading $filename...&quot;
+00108|     
+00109|     if curl -fsSL &quot;$REPO_URL/raw/main/$file&quot; -o &quot;$TEMP_DIR/$filename&quot; 2&gt;/dev/null; then
+00110|         # Move to appropriate directory
+00111|         if [ &quot;$dir&quot; = &quot;plugin&quot; ]; then
+00112|             mv &quot;$TEMP_DIR/$filename&quot; &quot;$OPENCODE_DIR/plugin/$filename&quot;
+00113|         else
+00114|             mv &quot;$TEMP_DIR/$filename&quot; &quot;$OPENCODE_DIR/command/$filename&quot;
+00115|         fi
+00116|     else
+00117|         echo_error &quot;Failed to download $file&quot;
+00118|         echo_error &quot;Please check your internet connection and try again&quot;
+00119|         exit 1
+00120|     fi
+00121| done
+00122| 
+00123| echo_info &quot;All files downloaded successfully&quot;
+00124| 
+00125| # Install dependencies
+00126| echo_step &quot;4/5 Installing dependencies...&quot;
+00127| 
+00128| DEPS_EXIST=false
+00129| if [ -d &quot;$OPENCODE_DIR/plugin/node_modules/js-tiktoken&quot; ] &amp;&amp; [ -d &quot;$OPENCODE_DIR/plugin/node_modules/@huggingface/transformers&quot; ]; then
+00130|     DEPS_EXIST=true
+00131| fi
+00132| 
+00133| if [ &quot;$UPDATE_MODE&quot; = true ] &amp;&amp; [ &quot;$DEPS_EXIST&quot; = true ]; then
+00134|     echo_info &quot;Update mode: Dependencies already installed, skipping...&quot;
+00135| else
+00136|     echo_info &quot;This may take 1-2 minutes...&quot;
+00137|     cd &quot;$OPENCODE_DIR/plugin&quot;
+00138|     if npm install --prefix &quot;$OPENCODE_DIR/plugin&quot; js-tiktoken@1.0.15 @huggingface/transformers@3.1.2 --save; then
+00139|         echo_info &quot;Dependencies installed successfully&quot;
+00140|     else
+00141|         echo_error &quot;Failed to install dependencies&quot;
+00142|         echo_error &quot;You can try running manually: cd ~/.config/opencode/plugin &amp;&amp; npm install&quot;
+00143|         exit 1
+00144|     fi
+00145| fi
+00146| 
+00147| # Verify installation
+00148| echo_step &quot;5/5 Verifying installation...&quot;
+00149| 
+00150| REQUIRED_FILES=(
+00151|     &quot;$OPENCODE_DIR/plugin/tokenscope.ts&quot;
+00152|     &quot;$OPENCODE_DIR/plugin/models.json&quot;
+00153|     &quot;$OPENCODE_DIR/plugin/node_modules/js-tiktoken&quot;
+00154|     &quot;$OPENCODE_DIR/plugin/node_modules/@huggingface/transformers&quot;
+00155|     &quot;$OPENCODE_DIR/command/tokenscope.md&quot;
+00156| )
+00157| 
+00158| all_present=true
+00159| for file in &quot;${REQUIRED_FILES[@]}&quot;; do
+00160|     if [ ! -e &quot;$file&quot; ]; then
+00161|         echo_warn &quot;Missing: $file&quot;
+00162|         all_present=false
+00163|     fi
+00164| done
+00165| 
+00166| if [ &quot;$all_present&quot; = true ]; then
+00167|     echo_info &quot;All files verified&quot;
+00168| else
+00169|     echo_error &quot;Some files are missing&quot;
+00170|     exit 1
+00171| fi
+00172| 
+00173| # Get installed version
+00174| INSTALLED_VERSION=$(grep -o &#39;&quot;version&quot;: *&quot;[^&quot;]*&quot;&#39; &quot;$OPENCODE_DIR/plugin/package.json&quot; | cut -d&#39;&quot;&#39; -f4)
+00175| 
+00176| echo &quot;&quot;
+00177| echo &quot;╔════════════════════════════════════════════════════════════╗&quot;
+00178| if [ &quot;$UPDATE_MODE&quot; = true ]; then
+00179| echo &quot;║   Update Complete!                                         ║&quot;
+00180| else
+00181| echo &quot;║   Installation Complete!                                   ║&quot;
+00182| fi
+00183| echo &quot;╚════════════════════════════════════════════════════════════╝&quot;
+00184| echo &quot;&quot;
+00185| echo_info &quot;Version: $INSTALLED_VERSION&quot;
+00186| echo_info &quot;Plugin installed at: $OPENCODE_DIR/plugin/tokenscope.ts&quot;
+00187| echo_info &quot;Command installed at: $OPENCODE_DIR/command/tokenscope.md&quot;
+00188| echo &quot;&quot;
+00189| echo_step &quot;Next steps:&quot;
+00190| echo &quot;  1. Restart OpenCode&quot;
+00191| echo &quot;  2. Type /tokenscope in any session&quot;
+00192| echo &quot;  3. View full report: cat token-usage-output.txt&quot;
+00193| echo &quot;&quot;
+00194| echo_info &quot;For help and documentation, visit:&quot;
+00195| echo_info &quot;$REPO_URL&quot;
+00196| echo &quot;&quot;
+00197| 
+00198| 
+
+(End of file - total 198 lines)
+&lt;/file&gt;</code></pre>
+    </div>
+    
+  </div>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 0 in / 99 out</span>
+<span class="stat">Cache: 9.8k read</span>
+<span class="stat">Finish: tool-calls</span></div>
+</div>
+<div class="message message-assistant" id="msg_af3ce1604002IcXbVt74oLC873">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">02:16 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>The <code>plugin/install.sh</code> already has the update with <code>&quot;plugin/install.sh&quot;</code> in the FILES array. Now the two files need to be in sync. Let me also make sure the plugin/install.sh is executable and then commit these changes:</p>
+</div>
+<div class="tool-call tool-bash" data-status="completed">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="tool-icon">$</span>
+    <span class="bash-command">cd /home/ramtinj/personal-workspace/opencode-tokenscope &amp;&amp; chmod +x plugin/install.sh &amp;&amp; git status</span>
+    <span class="bash-description">Make install.sh executable and check status</span>
+    
+    <span class="tool-toggle">-</span>
+  </div>
+  <div class="tool-body ">
+    <div class="bash-output">
+      <pre><code>On branch main
+Your branch is up to date with &#39;origin/main&#39;.
+
+Changes not staged for commit:
+  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
+  (use &quot;git restore &lt;file&gt;...&quot; to discard changes in working directory)
+	modified:   install.sh
+
+Untracked files:
+  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)
+	plugin/install.sh
+
+no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)
+</code></pre>
+    </div>
+    
+  </div>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 0 in / 162 out</span>
+<span class="stat">Cache: 57.8k read</span>
+<span class="stat">Finish: tool-calls</span></div>
+</div>
+<div class="message message-assistant" id="msg_af3ce2bab0028fC7DHCu9RiRE7">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">02:16 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>I see - <code>plugin/install.sh</code> is a new file (untracked). Let me check what&#39;s different between the two install scripts and sync them:</p>
+</div>
+<div class="tool-call tool-bash" data-status="completed">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="tool-icon">$</span>
+    <span class="bash-command">cd /home/ramtinj/personal-workspace/opencode-tokenscope &amp;&amp; diff install.sh plugin/install.sh</span>
+    <span class="bash-description">Compare the two install scripts</span>
+    
+    <span class="tool-toggle">-</span>
+  </div>
+  <div class="tool-body ">
+    
+    
+  </div>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 0 in / 135 out</span>
+<span class="stat">Cache: 60.3k read</span>
+<span class="stat">Finish: tool-calls</span></div>
+</div>
+<div class="message message-assistant" id="msg_af3ce4095002DrNF6Rzhr5Dvc0">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">02:16 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>Good, they&#39;re identical now. Let me commit and push these changes:</p>
+</div>
+<div class="tool-call tool-bash" data-status="completed">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="tool-icon">$</span>
+    <span class="bash-command">cd /home/ramtinj/personal-workspace/opencode-tokenscope &amp;&amp; git add install.sh plugin/install.sh &amp;&amp; git commit -m &quot;Add install.sh to plugin folder for easier updates&quot; &amp;&amp; git push origin main</span>
+    <span class="bash-description">Commit and push install.sh changes</span>
+    
+    <span class="tool-toggle">-</span>
+  </div>
+  <div class="tool-body ">
+    <div class="bash-output">
+      <pre><code>[main c7ccd31] Add install.sh to plugin folder for easier updates
+ 2 files changed, 198 insertions(+)
+ create mode 100755 plugin/install.sh
+To github.com:ramtinJ95/opencode-tokenscope.git
+   ce7ae7b..c7ccd31  main -&gt; main
+</code></pre>
+    </div>
+    
+  </div>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 0 in / 142 out</span>
+<span class="stat">Cache: 60.6k read</span>
+<span class="stat">Finish: tool-calls</span></div>
+</div>
+<div class="message message-assistant" id="msg_af3ce5704002iVzGBtVsctCpEW">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">02:16 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>Done! Now after installing/updating the plugin, users can run:</p>
+<p><div class="code-block-wrapper"><br><span class="code-language">bash</span><br><pre><code class="language-bash">~/.config/opencode/plugin/install.sh --update</code></pre><br></div></p>
+<p><strong>Note:</strong> You haven&#39;t created the release yet, so this change will be included in v1.2.0 when you create it. Would you like me to also update the README to mention this easier update method?</p>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 0 in / 84 out</span>
+<span class="stat">Cache: 60.8k read</span>
+<span class="stat">Finish: stop</span></div>
+</div>
+<div class="message message-user" id="msg_af3cea8b2001fKRwz6IB8aJl8s">
+  <div class="message-header">
+    <span class="message-role">User</span>
+    <span class="message-time">02:16 PM</span>
+    <span class="message-model">anthropic/claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-text">
+  <p>I have already created the new release </p>
+</div>
+  </div>
+</div>
+<div class="message message-assistant" id="msg_af3cea8d10020Kh8NMcb6QoxdL">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">02:16 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>Ah, so the release was created before this last commit. That means the <code>v1.2.0</code> release doesn&#39;t include the <code>plugin/install.sh</code> file for easier updates.</p>
+<p>You have two options:</p>
+<p>### Option 1: Include it in v1.2.1 (recommended)<br>Leave v1.2.0 as-is and make a small patch release later with this improvement. Users who install v1.2.0 can still update using the curl method.</p>
+<p>### Option 2: Update v1.2.0 to include this change<br>Delete and re-create the release again (same steps as before) to include the <code>plugin/install.sh</code> file.</p>
+<p>---</p>
+<p>Which would you prefer? If you go with Option 1, I can update the README now to document the easier update method, and it&#39;ll be ready for users who install after this commit.</p>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 1 in / 197 out</span>
+<span class="stat">Cache: 11.8k read</span>
+<span class="stat">Finish: stop</span></div>
+</div>
+<div class="message message-user" id="msg_af3cef80b001TG9el1lboDc660">
+  <div class="message-header">
+    <span class="message-role">User</span>
+    <span class="message-time">02:16 PM</span>
+    <span class="message-model">anthropic/claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-text">
+  <p>yeah option 1 sounds great</p>
+</div>
+  </div>
+</div>
+<div class="message message-assistant" id="msg_af3cef82d001MWE7J5XPLakWPl">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">02:16 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>Got it! Let me update the README to document the easier update method:</p>
+</div>
+<div class="tool-call tool-read" data-status="completed">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="tool-icon">&#128196;</span>
+    <span class="read-file-path" title="/home/ramtinj/personal-workspace/opencode-tokenscope/README.md">README.md</span>
+    <span class="read-full-path">/home/ramtinj/personal-workspace/opencode-tokenscope/README.md</span>
+    <span class="read-range">(from line 88, 30 lines)</span>
+    <span class="read-lines">34 lines</span>
+    <span class="tool-toggle">-</span>
+  </div>
+  <div class="tool-body ">
+    <div class="read-content">
+      <pre><code>&lt;file&gt;
+00089| 
+00090| To update to the latest version, run the install script with the `--update` flag:
+00091| 
+00092| ```bash
+00093| curl -sSL https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/install.sh | bash -s -- --update
+00094| ```
+00095| 
+00096| This will download the latest plugin files while skipping dependency installation (faster).
+00097| 
+00098| For a full reinstall (if you&#39;re having issues):
+00099| 
+00100| ```bash
+00101| curl -sSL https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/install.sh | bash
+00102| ```
+00103| 
+00104| ## Usage
+00105| 
+00106| ### Basic Command
+00107| 
+00108| Simply type in OpenCode:
+00109| ```
+00110| /tokenscope
+00111| ```
+00112| 
+00113| The plugin will:
+00114| 1. Analyze the current session
+00115| 2. Count tokens across all categories
+00116| 3. Analyze all subagent (Task tool) child sessions recursively
+00117| 4. Calculate costs based on API telemetry
+00118| 5. Display results in terminal
+
+(File has more lines. Use &#39;offset&#39; parameter to read beyond line 118)
+&lt;/file&gt;</code></pre>
+    </div>
+    
+  </div>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 1 in / 123 out</span>
+<span class="stat">Cache: 61.0k read</span>
+<span class="stat">Finish: tool-calls</span></div>
+</div>
+<div class="message message-assistant" id="msg_af3cf08b7002EuJc8Ah42Y7cOi">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">02:17 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="tool-call tool-edit" data-status="completed">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="tool-icon">&#9998;</span>
+    <span class="edit-file-path" title="/home/ramtinj/personal-workspace/opencode-tokenscope/README.md">README.md</span>
+    <span class="edit-full-path">/home/ramtinj/personal-workspace/opencode-tokenscope/README.md</span>
+    
+    <span class="edit-stats">
+    <span class="edit-old-lines">15 lines</span>
+    <span class="edit-arrow">&#8594;</span>
+    <span class="edit-new-lines">21 lines</span>
+  </span>
+    <span class="tool-toggle">-</span>
+  </div>
+  <div class="tool-body">
+    <div class="edit-diff">
+      <div class="diff-old">
+        <div class="diff-label">Old</div>
+        <pre><code class="diff-removed">## Updating
+
+To update to the latest version, run the install script with the `--update` flag:
+
+```bash
+curl -sSL https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/install.sh | bash -s -- --update
+```
+
+This will download the latest plugin files while skipping dependency installation (faster).
+
+For a full reinstall (if you&#39;re having issues):
+
+```bash
+curl -sSL https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/install.sh | bash
+```</code></pre>
+      </div>
+      <div class="diff-new">
+        <div class="diff-label">New</div>
+        <pre><code class="diff-added">## Updating
+
+If you already have the plugin installed, run the local update script:
+
+```bash
+~/.config/opencode/plugin/install.sh --update
+```
+
+Or use the remote script:
+
+```bash
+curl -sSL https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/install.sh | bash -s -- --update
+```
+
+Both methods download the latest plugin files while skipping dependency installation (faster).
+
+For a full reinstall (if you&#39;re having issues):
+
+```bash
+curl -sSL https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/install.sh | bash
+```</code></pre>
+      </div>
+    </div>
+    
+  </div>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+<div class="part part-patch">
+  <div class="patch-header">
+    <span class="patch-icon">&#128190;</span>
+    <span class="patch-label">File changes</span>
+    <span class="patch-file-count">1 file</span>
+    <span class="patch-hash">184b3159</span>
+  </div>
+  <ul class="patch-files">
+        <li class="patch-file-item">
+          <span class="patch-file-icon">&#128196;</span>
+          <span class="patch-file-name">/home/ramtinj/personal-workspace/opencode-tokenscope/README.md</span>
+        </li>
+      </ul>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 0 in / 399 out</span>
+<span class="stat">Cache: 61.3k read</span>
+<span class="stat">Finish: tool-calls</span></div>
+</div>
+<div class="message message-assistant" id="msg_af3cf24b4002dXLim3FgysCPp5">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">02:17 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="tool-call tool-bash" data-status="completed">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="tool-icon">$</span>
+    <span class="bash-command">cd /home/ramtinj/personal-workspace/opencode-tokenscope &amp;&amp; git add README.md &amp;&amp; git commit -m &quot;Document local update script in README&quot; &amp;&amp; git push origin main</span>
+    <span class="bash-description">Commit and push README update</span>
+    
+    <span class="tool-toggle">-</span>
+  </div>
+  <div class="tool-body ">
+    <div class="bash-output">
+      <pre><code>[main 9861778] Document local update script in README
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+To github.com:ramtinJ95/opencode-tokenscope.git
+   c7ccd31..9861778  main -&gt; main
+</code></pre>
+    </div>
+    
+  </div>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 0 in / 115 out</span>
+<span class="stat">Cache: 61.8k read</span>
+<span class="stat">Finish: tool-calls</span></div>
+</div>
+<div class="message message-assistant" id="msg_af3cf397a002DS2YdDxtGCGPVG">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">02:17 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>Done! The README now documents both update methods:</p>
+<p>1. <strong>Local script</strong> (easier): <code>~/.config/opencode/plugin/install.sh --update</code><br>2. <strong>Remote script</strong> (curl method): for users who don&#39;t have the local script yet</p>
+<p>Users who installed v1.2.0 will need to use the curl method once, which will then install the local <code>install.sh</code> for future updates.</p>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 0 in / 95 out</span>
+<span class="stat">Cache: 62.2k read</span>
+<span class="stat">Finish: stop</span></div>
+</div>
+</div>
+<nav class="pagination">
+  <a href="page-002.html" class="pagination-prev">&larr; Previous</a>
+  <a href="page-001.html" class="pagination-page">1</a>
+  <a href="page-002.html" class="pagination-page">2</a>
+  <span class="pagination-page current">3</span>
+  <a href="page-004.html" class="pagination-page">4</a>
+  <a href="page-005.html" class="pagination-page">5</a>
+  <a href="page-004.html" class="pagination-next">Next &rarr;</a>
+</nav>
+<footer class="page-footer">
+  <p>Generated by <a href="https://github.com/opencode-replay" target="_blank" rel="noopener">opencode-replay</a></p>
+</footer>
+
+  </div>
+  <script src="../../assets/theme.js"></script>
+  <script src="../../assets/highlight.js"></script>
+  <script src="../../assets/search.js"></script>
+</body>
+</html>

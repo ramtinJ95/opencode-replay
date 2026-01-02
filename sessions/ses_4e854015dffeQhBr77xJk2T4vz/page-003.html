@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="opencode-replay">
+  <meta name="color-scheme" content="light dark">
+  <title>Splitting tokenscope.ts into multiple files - Page 3 - OpenCode Replay</title>
+  <script>
+(function() {
+  var theme = localStorage.getItem('opencode-replay-theme');
+  if (!theme) {
+    theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  document.documentElement.setAttribute('data-theme', theme);
+})();
+</script>
+  <link rel="stylesheet" href="../../assets/styles.css">
+  <link rel="stylesheet" href="../../assets/prism.css">
+  
+</head>
+<body class="conversation-page" data-total-pages="4">
+  <div class="container">
+    
+<header class="page-header">
+  <div class="header-top">
+    <nav class="breadcrumbs">
+        <a href="../../index.html" class="breadcrumb-item">Sessions</a><span class="breadcrumb-separator">/</span><a href="index.html" class="breadcrumb-item">Splitting tokenscope.ts into multiple files</a><span class="breadcrumb-separator">/</span><span class="breadcrumb-item current">Page 3</span>
+      </nav>
+    <div class="header-actions">
+    <button class="search-trigger" type="button" aria-label="Search">
+      <span class="search-icon">&#128269;</span>
+      <span class="search-text">Search...</span>
+      <kbd>Ctrl+K</kbd>
+    </button>
+    <button 
+  id="theme-toggle" 
+  class="theme-toggle" 
+  type="button"
+  aria-label="Toggle dark mode"
+  aria-pressed="false"
+  title="Toggle theme"
+>
+  <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"/>
+    <line x1="12" y1="1" x2="12" y2="3"/>
+    <line x1="12" y1="21" x2="12" y2="23"/>
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+    <line x1="1" y1="12" x2="3" y2="12"/>
+    <line x1="21" y1="12" x2="23" y2="12"/>
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+  </svg>
+  <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </svg>
+</button>
+  </div>
+  </div>
+  <h1>Splitting tokenscope.ts into multiple files</h1>
+  <p class="subtitle">Page 3 of 4</p>
+</header>
+<nav class="pagination">
+  <a href="page-002.html" class="pagination-prev">&larr; Previous</a>
+  <a href="page-001.html" class="pagination-page">1</a>
+  <a href="page-002.html" class="pagination-page">2</a>
+  <span class="pagination-page current">3</span>
+  <a href="page-004.html" class="pagination-page">4</a>
+  <a href="page-004.html" class="pagination-next">Next &rarr;</a>
+</nav>
+<div class="messages">
+  <div class="message message-user" id="msg_b17c8d963001nUCHmkaFocVpS6">
+  <div class="message-header">
+    <span class="message-role">User</span>
+    <span class="message-time">01:56 PM</span>
+    <span class="message-model">anthropic/claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-text">
+  <p>how can users update to this new version?<br></p>
+</div>
+  </div>
+</div>
+<div class="message message-assistant" id="msg_b17c8d9c1001ktLzva2X0NYpKB">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">01:56 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>Good catch - the update process needs some thought here because the file structure changed significantly.</p>
+<p><strong>The problem:</strong><br>- Users on v1.2.1 have <code>plugin/lib/</code> (old structure)<br>- v1.3.0 uses <code>plugin/tokenscope-lib/</code> (new structure)<br>- Running <code>install.sh --update</code> will download the new files but <strong>leave the old <code>lib/</code> folder behind</strong></p>
+<p><strong>Solutions:</strong></p>
+<p>### Option 1: Clean Install (Recommended for this release)<br>Tell users to do a fresh install which will get the new structure:<br><div class="code-block-wrapper"><br><span class="code-language">bash</span><br><pre><code class="language-bash"># Remove old files first<br>rm -rf ~/.config/opencode/plugin/lib<br>rm -f ~/.config/opencode/plugin/tokenscope.ts</p>
+<p># Fresh install<br>curl -sSL https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/install.sh | bash</code></pre><br></div></p>
+<p>### Option 2: Update install.sh to clean up old structure<br>Add cleanup logic to <code>install.sh</code> that removes <code>lib/</code> if it exists:</p>
+<p><div class="code-block-wrapper"><br><span class="code-language">bash</span><br><pre><code class="language-bash"># Clean up old lib/ directory from v1.2.x<br>if [ -d &quot;$OPENCODE_DIR/plugin/lib&quot; ]; then<br>    echo_info &quot;Removing old lib/ directory from previous version...&quot;<br>    rm -rf &quot;$OPENCODE_DIR/plugin/lib&quot;<br>fi</code></pre><br></div></p>
+<p>---</p>
+<p>Would you like me to add the cleanup logic to <code>install.sh</code>? That way users can just run the normal update command and it will handle the migration automatically.</p>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 1 in / 358 out</span>
+<span class="stat">Cache: 122.7k read</span>
+<span class="stat">Finish: stop</span></div>
+</div>
+<div class="message message-user" id="msg_b17c9f2b0001scthse3UKURK1h">
+  <div class="message-header">
+    <span class="message-role">User</span>
+    <span class="message-time">01:57 PM</span>
+    <span class="message-model">anthropic/claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-text">
+  <p>no we never had lib/ i dont think we should tell people to remove it that could be dangerous</p>
+</div>
+  </div>
+</div>
+<div class="message message-assistant" id="msg_b17c9f2fa001Z4w4F8ew6XSKuZ">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">01:57 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>You&#39;re absolutely right - that&#39;s a good safety concern. If someone else&#39;s plugin uses <code>lib/</code>, we&#39;d be deleting their files. Bad idea.</p>
+<p>Looking back at the commit history, you&#39;re correct - the <code>lib/</code> directory only existed briefly on this branch and was never released. v1.2.1 (the current released version) has the single-file <code>tokenscope.ts</code>.</p>
+<p>So for users updating from v1.2.1 to v1.3.0:</p>
+<p><strong>The update is straightforward:</strong><br><div class="code-block-wrapper"><br><span class="code-language">bash</span><br><pre><code class="language-bash">curl -sSL https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/install.sh | bash</code></pre><br></div></p>
+<p>Or if they have the local script:<br><div class="code-block-wrapper"><br><span class="code-language">bash</span><br><pre><code class="language-bash">~/.config/opencode/plugin/install.sh --update</code></pre><br></div></p>
+<p>This will:<br>1. Create the new <code>tokenscope-lib/</code> directory<br>2. Download all the new module files<br>3. Overwrite <code>tokenscope.ts</code> with the new slim version<br>4. Skip dependency installation (already have them)</p>
+<p>No cleanup needed since there&#39;s nothing to clean up from v1.2.1.</p>
+<p>Want me to update the release notes to reflect this simple upgrade path?</p>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 1 in / 280 out</span>
+<span class="stat">Cache: 123.5k read</span>
+<span class="stat">Finish: stop</span></div>
+</div>
+<div class="message message-user" id="msg_b17cbada8001rTFSlKMpRYuJGh">
+  <div class="message-header">
+    <span class="message-role">User</span>
+    <span class="message-time">01:59 PM</span>
+    <span class="message-model">anthropic/claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-text">
+  <p>I think we should have a curl for the update also, i cant run the install.sh for example myself because command not found and it requries sudo to even get that error</p>
+</div>
+  </div>
+</div>
+<div class="message message-assistant" id="msg_b17cbade2001iIwES2BsMTbGw2">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">01:59 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>Ah, good point - the local <code>install.sh</code> might not be executable or have path issues. Let&#39;s keep it simple and just use the curl command for both install and update.</p>
+<p>For the release notes, the upgrade section should just be:</p>
+<p><div class="code-block-wrapper"><br><span class="code-language">markdown</span><br><pre><code class="language-markdown">### Upgrading</code></pre><br></div>bash<br>curl -sSL https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/install.sh | bash<br><div class="code-block-wrapper"><br><span class="code-language">text</span><br><pre><code class="language-text">For faster updates (skips dependency installation):</code></pre><br></div>bash<br>curl -sSL https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/install.sh | bash -s -- --update<br><div class="code-block-wrapper"><br><span class="code-language">text</span><br><pre><code class="language-text"></code></pre><br></div></p>
+<p>The <code>bash -s -- --update</code> passes the <code>--update</code> flag through curl to the script.</p>
+<p>Would you also like me to update the README to use this curl-based update command instead of referencing the local script?</p>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 1 in / 211 out</span>
+<span class="stat">Cache: 123.8k read</span>
+<span class="stat">Finish: stop</span></div>
+</div>
+<div class="message message-user" id="msg_b17cd2bb2001vfhZKQEqBRuVFV">
+  <div class="message-header">
+    <span class="message-role">User</span>
+    <span class="message-time">02:01 PM</span>
+    <span class="message-model">anthropic/claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-text">
+  <p>yes please and bring the install and update sections further up in the readme</p>
+</div>
+  </div>
+</div>
+<div class="message message-assistant" id="msg_b17cd2bf4001UTMaWtA3JGS7ph">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">02:01 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="tool-call tool-read" data-status="completed">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="tool-icon">&#128196;</span>
+    <span class="read-file-path" title="/home/ramtinj/personal-workspace/opencode-tokenscope/README.md">README.md</span>
+    <span class="read-full-path">/home/ramtinj/personal-workspace/opencode-tokenscope/README.md</span>
+    
+    <span class="read-lines">472 lines</span>
+    <span class="tool-toggle">+</span>
+  </div>
+  <div class="tool-body collapsed">
+    <div class="read-content">
+      <pre><code>&lt;file&gt;
+00001| # OpenCode-Tokenscope, Token Analyzer Plugin
+00002| 
+00003| &gt; Comprehensive token usage analysis and cost tracking for OpenCode AI sessions
+00004| 
+00005| Track and optimize your token usage across system prompts, user messages, tool outputs, and more. Get detailed breakdowns, accurate cost estimates, and visual insights for your AI development workflow.
+00006| 
+00007| ## Features
+00008| 
+00009| ### Comprehensive Token Analysis
+00010| - **5 Category Breakdown**: System prompts, user messages, assistant responses, tool outputs, and reasoning traces
+00011| - **Visual Charts**: Easy-to-read ASCII bar charts with percentages and token counts
+00012| - **Smart Inference**: Automatically infers system prompts from API telemetry (since they&#39;re not exposed in session messages)
+00013| 
+00014| ### Accurate Cost Tracking
+00015| - **41+ Models Supported**: Comprehensive pricing database for Claude, GPT, DeepSeek, Llama, Mistral, and more
+00016| - **Cache-Aware Pricing**: Properly handles cache read/write tokens with discounted rates
+00017| - **Session-Wide Billing**: Aggregates costs across all API calls in your session
+00018| 
+00019| ### Subagent Cost Tracking
+00020| - **Child Session Analysis**: Recursively analyzes all subagent sessions spawned by the Task tool
+00021| - **Aggregated Totals**: Shows combined tokens, costs, and API calls across main session and all subagents
+00022| - **Per-Agent Breakdown**: Lists each subagent with its type, token usage, cost, and API call count
+00023| - **Optional Toggle**: Enable/disable subagent analysis with the `includeSubagents` parameter
+00024| 
+00025| ### Advanced Features
+00026| - **Tool Usage Stats**: Track which tools consume the most tokens and how many times each is called
+00027| - **API Call Tracking**: See total API calls for main session and subagents
+00028| - **Top Contributors**: Identify the biggest token consumers
+00029| - **Model Normalization**: Handles `provider/model` format automatically
+00030| - **Multi-Tokenizer Support**: Uses official tokenizers (tiktoken for OpenAI, transformers for others)
+00031| 
+00032| ## Quick Install
+00033| 
+00034| ### One-Line Install (Recommended)
+00035| 
+00036| ```bash
+00037| curl -sSL https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/install.sh | bash
+00038| ```
+00039| 
+00040| Then restart OpenCode and run `/tokenscope`
+00041| 
+00042| ## Manual Installation
+00043| 
+00044| &lt;details&gt;
+00045| &lt;summary&gt;Click to expand manual installation steps&lt;/summary&gt;
+00046| 
+00047| ### Requirements
+00048| - OpenCode installed (`~/.config/opencode` directory exists)
+00049| - npm (for tokenizer dependencies)
+00050| - ~50MB disk space (for tokenizer models)
+00051| 
+00052| ### Installation Steps
+00053| 
+00054| 1. **Navigate to OpenCode config**:
+00055|    ```bash
+00056|    cd ~/.config/opencode
+00057|    ```
+00058| 
+00059| 2. **Download plugin files**:
+00060|    ```bash
+00061|    # Download to plugin directory
+00062|    cd plugin
+00063|    curl -O https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/tokenscope.ts
+00064|    curl -O https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/models.json
+00065|    curl -O https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/install.sh
+00066|    curl -O https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/package.json
+00067|    ```
+00068| 
+00069| 3. **Download command file**:
+00070|    ```bash
+00071|    cd ../command
+00072|    curl -O https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/command/tokenscope.md
+00073|    ```
+00074| 
+00075| 4. **Install dependencies**:
+00076|    ```bash
+00077|    cd ../plugin
+00078|    chmod +x install.sh
+00079|    ./install.sh
+00080|    ```
+00081| 
+00082| 5. **Restart OpenCode**
+00083| 
+00084| 6. **Test**: Run `/tokenscope` in any session
+00085| 
+00086| &lt;/details&gt;
+00087| 
+00088| ## Updating
+00089| 
+00090| ### Quick Update (v1.2.1+)
+00091| 
+00092| If you have v1.2.1 or later installed, use the local update script:
+00093| 
+00094| ```bash
+00095| ~/.config/opencode/plugin/install.sh --update
+00096| ```
+00097| 
+00098| ### Update from v1.2.0 or Earlier
+00099| 
+00100| Use the remote script (this will also install the local update script for future use):
+00101| 
+00102| ```bash
+00103| curl -sSL https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/install.sh | bash -s -- --update
+00104| ```
+00105| 
+00106| Both methods download the latest plugin files while skipping dependency installation (faster).
+00107| 
+00108| ### Full Reinstall
+00109| 
+00110| For a full reinstall (if you&#39;re having issues):
+00111| 
+00112| ```bash
+00113| curl -sSL https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/install.sh | bash
+00114| ```
+00115| 
+00116| ## Usage
+00117| 
+00118| ### Basic Command
+00119| 
+00120| Simply type in OpenCode:
+00121| ```
+00122| /tokenscope
+00123| ```
+00124| 
+00125| The plugin will:
+00126| 1. Analyze the current session
+00127| 2. Count tokens across all categories
+00128| 3. Analyze all subagent (Task tool) child sessions recursively
+00129| 4. Calculate costs based on API telemetry
+00130| 5. Display results in terminal
+00131| 6. Save detailed report to `token-usage-output.txt`
+00132| 
+00133| ### Options
+00134| 
+00135| The tool accepts optional parameters:
+00136| 
+00137| - **sessionID**: Analyze a specific session instead of the current one
+00138| - **limitMessages**: Limit entries shown per category (1-10, default: 3)
+00139| - **includeSubagents**: Include subagent child session costs (default: true)
+00140| 
+00141| ### Reading the Full Report
+00142| 
+00143| ```bash
+00144| cat token-usage-output.txt
+00145| ```
+00146| 
+00147| ### Example Output
+00148| 
+00149| ```
+00150| ═══════════════════════════════════════════════════════════════════════════
+00151| Token Analysis: Session ses_50c712089ffeshuuuJPmOoXCPX
+00152| Model: claude-opus-4-5
+00153| ═══════════════════════════════════════════════════════════════════════════
+00154| 
+00155| TOKEN BREAKDOWN BY CATEGORY
+00156| ─────────────────────────────────────────────────────────────────────────
+00157| Estimated using tokenizer analysis of message content:
+00158| 
+00159| Input Categories:
+00160|   SYSTEM    ██████████████░░░░░░░░░░░░░░░░    45.8% (22,367)
+00161|   USER      ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░        0.8% (375)
+00162|   TOOLS     ████████████████░░░░░░░░░░░░░░    53.5% (26,146)
+00163| 
+00164|   Subtotal: 48,888 estimated input tokens
+00165| 
+00166| Output Categories:
+00167|   ASSISTANT ██████████████████████████████     100.0% (1,806)
+00168| 
+00169|   Subtotal: 1,806 estimated output tokens
+00170| 
+00171| Local Total: 50,694 tokens (estimated)
+00172| 
+00173| TOOL USAGE BREAKDOWN
+00174| ─────────────────────────────────────────────────────────────────────────
+00175| bash                 ██████████░░░░░░░░░░░░░░░░░░░░     34.0% (8,886)    4x
+00176| read                 ██████████░░░░░░░░░░░░░░░░░░░░     33.1% (8,643)    3x
+00177| task                 ████████░░░░░░░░░░░░░░░░░░░░░░     27.7% (7,245)    4x
+00178| webfetch             █░░░░░░░░░░░░░░░░░░░░░░░░░░░░░      4.9% (1,286)    1x
+00179| tokenscope           ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░         0.3% (75)    2x
+00180| batch                ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░         0.0% (11)    1x
+00181| 
+00182| TOP CONTRIBUTORS
+00183| ─────────────────────────────────────────────────────────────────────────
+00184| • System (inferred from API)   22,367 tokens (44.1%)
+00185| • bash                         8,886 tokens (17.5%)
+00186| • read                         8,643 tokens (17.0%)
+00187| • task                         7,245 tokens (14.3%)
+00188| • webfetch                     1,286 tokens (2.5%)
+00189| 
+00190| ═══════════════════════════════════════════════════════════════════════════
+00191| MOST RECENT API CALL
+00192| ─────────────────────────────────────────────────────────────────────────
+00193| 
+00194| Raw telemetry from last API response:
+00195|   Input (fresh):              2 tokens
+00196|   Cache read:            48,886 tokens
+00197|   Cache write:               54 tokens
+00198|   Output:                   391 tokens
+00199|   ───────────────────────────────────
+00200|   Total:                 49,333 tokens
+00201| 
+00202| ═══════════════════════════════════════════════════════════════════════════
+00203| SESSION TOTALS (All 15 API calls)
+00204| ─────────────────────────────────────────────────────────────────────────
+00205| 
+00206| Total tokens processed across the entire session (for cost calculation):
+00207| 
+00208|   Input tokens:              10 (fresh tokens across all calls)
+00209|   Cache read:           320,479 (cached tokens across all calls)
+00210|   Cache write:           51,866 (tokens written to cache)
+00211|   Output tokens:          3,331 (all model responses)
+00212|   ───────────────────────────────────
+00213|   Session Total:        375,686 tokens (for billing)
+00214| 
+00215| ═══════════════════════════════════════════════════════════════════════════
+00216| ESTIMATED SESSION COST (API Key Pricing)
+00217| ─────────────────────────────────────────────────────────────────────────
+00218| 
+00219| You appear to be on a subscription plan (API cost is $0).
+00220| Here&#39;s what this session would cost with direct API access:
+00221| 
+00222|   Input tokens:              10 × $5.00/M  = $0.0001
+00223|   Output tokens:          3,331 × $25.00/M  = $0.0833
+00224|   Cache read:           320,479 × $0.50/M  = $0.1602
+00225|   Cache write:           51,866 × $6.25/M  = $0.3242
+00226| ─────────────────────────────────────────────────────────────────────────
+00227| ESTIMATED TOTAL: $0.5677
+00228| 
+00229| Note: This estimate uses standard API pricing from models.json.
+00230| Actual API costs may vary based on provider and context size.
+00231| 
+00232| ═══════════════════════════════════════════════════════════════════════════
+00233| SUBAGENT COSTS (4 child sessions, 23 API calls)
+00234| ─────────────────────────────────────────────────────────────────────────
+00235| 
+00236|   docs                         $0.3190  (194,701 tokens, 8 calls)
+00237|   general                      $0.2957  (104,794 tokens, 4 calls)
+00238|   docs                         $0.2736  (69,411 tokens, 4 calls)
+00239|   general                      $0.5006  (197,568 tokens, 7 calls)
+00240| ─────────────────────────────────────────────────────────────────────────
+00241| Subagent Total:            $1.3888  (566,474 tokens, 23 calls)
+00242| 
+00243| ═══════════════════════════════════════════════════════════════════════════
+00244| SUMMARY
+00245| ─────────────────────────────────────────────────────────────────────────
+00246| 
+00247|                           Cost        Tokens          API Calls
+00248|   Main session:      $    0.5677       375,686            15
+00249|   Subagents:         $    1.3888       566,474            23
+00250| ─────────────────────────────────────────────────────────────────────────
+00251|   TOTAL:             $    1.9565       942,160            38
+00252| 
+00253| ═══════════════════════════════════════════════════════════════════════════
+00254| 
+00255| ```
+00256| ## Supported Models
+00257| 
+00258| **41+ models with accurate pricing:**
+00259| 
+00260| ### Claude Models
+00261| - Claude Opus 4.5, 4.1, 4
+00262| - Claude Sonnet 4, 4-5, 3.7, 3.5, 3
+00263| - Claude Haiku 4-5, 3.5, 3
+00264| 
+00265| ### OpenAI Models
+00266| - GPT-4, GPT-4 Turbo, GPT-4o, GPT-4o Mini
+00267| - GPT-3.5 Turbo
+00268| - GPT-5 and all its variations
+00269| 
+00270| ### Other Models
+00271| - DeepSeek (R1, V2, V3)
+00272| - Llama (3.1, 3.2, 3.3)
+00273| - Mistral (Large, Small)
+00274| - Qwen, Kimi, GLM, Grok
+00275| - And more...
+00276| 
+00277| **Free/Open models** are marked with zero pricing.
+00278| 
+00279| ## Customization
+00280| 
+00281| ### Add New Model Pricing
+00282| 
+00283| Edit `~/.config/opencode/plugin/models.json`:
+00284| 
+00285| ```json
+00286| {
+00287|   &quot;your-model-name&quot;: {
+00288|     &quot;input&quot;: 1.50,
+00289|     &quot;output&quot;: 5.00,
+00290|     &quot;cacheWrite&quot;: 0.50,
+00291|     &quot;cacheRead&quot;: 0.10
+00292|   }
+00293| }
+00294| ```
+00295| 
+00296| Save the file and restart OpenCode. The plugin will automatically use the new pricing.
+00297| 
+00298| ### Update Existing Model Pricing
+00299| 
+00300| Simply edit the values in `models.json` and restart OpenCode. No code changes needed!
+00301| 
+00302| ## How It Works
+00303| 
+00304| ### System Prompt Inference
+00305| OpenCode doesn&#39;t expose system prompts in the session messages API. The plugin intelligently infers them using:
+00306| 
+00307| ```
+00308| System Tokens = (API Input + Cache Read) - (User Tokens + Tool Tokens)
+00309| ```
+00310| 
+00311| This works because the API input includes everything sent to the model.
+00312| 
+00313| ### Dual Tracking
+00314| - **Current Context**: Uses the most recent API call with non-zero tokens (matches TUI)
+00315| - **Session Total**: Aggregates all API calls for accurate billing
+00316| 
+00317| ### Subagent Analysis
+00318| The plugin uses OpenCode&#39;s session API to:
+00319| 1. Fetch all child sessions spawned by the Task tool
+00320| 2. Recursively analyze nested subagents (subagents can spawn their own subagents)
+00321| 3. Aggregate tokens, costs, and API call counts
+00322| 4. Calculate estimated costs using the same pricing as the main session
+00323| 
+00324| ### Model Name Normalization
+00325| Automatically handles `provider/model` format (e.g., `qwen/qwen3-coder` → `qwen3-coder`)
+00326| 
+00327| ## Troubleshooting
+00328| 
+00329| ### &quot;Dependencies missing&quot; Error
+00330| 
+00331| Run the installer:
+00332| ```bash
+00333| cd ~/.config/opencode/plugin
+00334| ./install.sh
+00335| ```
+00336| 
+00337| ### Command Not Appearing
+00338| 
+00339| 1. Verify `tokenscope.md` exists:
+00340|    ```bash
+00341|    ls ~/.config/opencode/command/tokenscope.md
+00342|    ```
+00343| 2. Restart OpenCode completely
+00344| 3. Check OpenCode logs for plugin errors
+00345| 
+00346| ### Wrong Token Counts
+00347| 
+00348| The plugin uses API telemetry (ground truth). If counts seem off:
+00349| - **Expected ~2K difference from TUI**: Plugin analyzes before its own response is added
+00350| - **Model detection**: Check that the model name is recognized in the output
+00351| - **Tokenizer not installed**: Re-run `install.sh`
+00352| 
+00353| ### New Model Not Showing Correct Pricing
+00354| 
+00355| 1. Check if model exists in `models.json`
+00356| 2. Try exact match or prefix match (e.g., `claude-sonnet-4` matches `claude-sonnet-4-20250514`)
+00357| 3. Add entry to `models.json` if missing
+00358| 4. Restart OpenCode after editing `models.json`
+00359| 
+00360| ### Plugin Fails to Load
+00361| 
+00362| 1. Validate JSON syntax:
+00363|    ```bash
+00364|    cd ~/.config/opencode/plugin
+00365|    node -e &quot;JSON.parse(require(&#39;fs&#39;).readFileSync(&#39;models.json&#39;, &#39;utf8&#39;))&quot;
+00366|    ```
+00367| 2. Check for trailing commas or syntax errors
+00368| 3. Plugin falls back to default pricing if file is invalid
+00369| 
+00370| ## Understanding the Numbers
+00371| 
+00372| ### Current Context vs Session Total
+00373| 
+00374| - **Current Context**: What&#39;s in your context window right now
+00375|   - Based on most recent API call
+00376|   - Used to understand current memory usage
+00377| 
+00378| - **Session Total**: All tokens processed in this session
+00379|   - Sum of all API calls in the main session
+00380|   - What you&#39;re billed for (main session only)
+00381|   - Used for cost calculation
+00382| 
+00383| ### Subagent Totals
+00384| 
+00385| When using the Task tool, OpenCode spawns subagent sessions. These are tracked separately:
+00386| 
+00387| - **Subagent Tokens**: Combined tokens from all child sessions
+00388| - **Subagent API Calls**: Total API calls made by all subagents
+00389| - **Grand Total**: Main session + all subagents combined
+00390| 
+00391| The summary section shows a breakdown:
+00392| ```
+00393|                           Cost        Tokens          API Calls
+00394|   Main session:      $    0.5677       375,686            15
+00395|   Subagents:         $    1.3888       566,474            23
+00396| ─────────────────────────────────────────────────────────────────────────
+00397|   TOTAL:             $    1.9565       942,160            38
+00398| ```
+00399| 
+00400| ### Cache Tokens
+00401| 
+00402| - **Cache Read**: Tokens retrieved from cache (discounted rate ~90% off)
+00403| - **Cache Write**: Tokens written to cache (slight premium ~25% more)
+00404| - **Note**: Cache write is a billing charge, not additional context tokens
+00405| 
+00406| ## Architecture
+00407| 
+00408| ### File Structure
+00409| 
+00410| ```
+00411| plugin/
+00412| ├── tokenscope.ts        # Main entry point - Plugin export
+00413| ├── tokenscope-lib/
+00414| │   ├── types.ts         # All interfaces and type definitions
+00415| │   ├── config.ts        # Constants, model maps, pricing loader
+00416| │   ├── tokenizer.ts     # TokenizerManager class
+00417| │   ├── analyzer.ts      # ModelResolver, ContentCollector, TokenAnalysisEngine
+00418| │   ├── cost.ts          # CostCalculator class
+00419| │   ├── subagent.ts      # SubagentAnalyzer class
+00420| │   └── formatter.ts     # OutputFormatter class
+00421| ├── models.json          # Pricing data for 41+ models
+00422| ├── package.json         # Plugin metadata
+00423| └── install.sh           # Installation script
+00424| ```
+00425| 
+00426| ### Core Components
+00427| 
+00428| 1. **TokenizerManager** (`tokenscope-lib/tokenizer.ts`): Loads and caches tokenizers (tiktoken, transformers)
+00429| 2. **ModelResolver** (`tokenscope-lib/analyzer.ts`): Detects model and selects appropriate tokenizer
+00430| 3. **ContentCollector** (`tokenscope-lib/analyzer.ts`): Extracts content from session messages, including tool call counts
+00431| 4. **TokenAnalysisEngine** (`tokenscope-lib/analyzer.ts`): Counts tokens and applies API telemetry adjustments
+00432| 5. **CostCalculator** (`tokenscope-lib/cost.ts`): Calculates costs from pricing database with cache-aware pricing
+00433| 6. **SubagentAnalyzer** (`tokenscope-lib/subagent.ts`): Recursively fetches and analyzes child sessions from Task tool calls
+00434| 7. **OutputFormatter** (`tokenscope-lib/formatter.ts`): Generates visual reports with charts and summaries
+00435| 
+00436| ## Privacy &amp; Security
+00437| 
+00438| - **All processing is local**: No session data sent to external services
+00439| - **Tokenizers from official sources**:
+00440|   - OpenAI tokenizers: npm registry
+00441|   - Transformers: Hugging Face Hub
+00442| - **Open source**: Audit the code yourself
+00443| 
+00444| ## Performance
+00445| 
+00446| - **Fast**: Tokenizers cached after first load
+00447| - **Parallel**: Categories processed concurrently
+00448| - **Efficient**: Only analyzes on demand
+00449| - **First-run download**: Transformers models download on demand (5-50MB per model)
+00450| - **Subsequent runs**: Instant (uses cache)
+00451| 
+00452| ## Contributing
+00453| 
+00454| Contributions welcome! Ideas for enhancement:
+00455| 
+00456| - Historical trend analysis
+00457| - Export to CSV/JSON/PDF
+00458| - Optimization suggestions
+00459| - Custom categorization rules
+00460| - Real-time monitoring with alerts
+00461| - Compare sessions
+00462| - Token burn rate calculation
+00463| 
+00464| ## Support
+00465| 
+00466| - **Issues**: [GitHub Issues](https://github.com/ramtinJ95/opencode-tokenscope/issues)
+00467| - **Discussions**: [GitHub Discussions](https://github.com/ramtinJ95/opencode-tokenscope/discussions)
+00468| 
+
+(End of file - total 468 lines)
+&lt;/file&gt;</code></pre>
+    </div>
+    
+  </div>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 1 in / 73 out</span>
+<span class="stat">Cache: 124.2k read</span>
+<span class="stat">Finish: tool-calls</span></div>
+</div>
+<div class="message message-assistant" id="msg_b17cd41e40016ix143cWkRPn7F">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">02:01 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="tool-call tool-write" data-status="completed">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="tool-icon">&#128221;</span>
+    <span class="write-badge badge-success">Created</span>
+    <span class="write-file-path" title="/home/ramtinj/personal-workspace/opencode-tokenscope/README.md">README.md</span>
+    <span class="write-full-path">/home/ramtinj/personal-workspace/opencode-tokenscope/README.md</span>
+    <span class="write-lines">438 lines</span>
+    <span class="write-chars">15.6 KB</span>
+    <span class="tool-toggle">+</span>
+  </div>
+  <div class="tool-body collapsed">
+    <div class="write-content">
+      <pre><code># OpenCode-Tokenscope, Token Analyzer Plugin
+
+&gt; Comprehensive token usage analysis and cost tracking for OpenCode AI sessions
+
+Track and optimize your token usage across system prompts, user messages, tool outputs, and more. Get detailed breakdowns, accurate cost estimates, and visual insights for your AI development workflow.
+
+## Installation
+
+```bash
+curl -sSL https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/install.sh | bash
+```
+
+Then restart OpenCode and run `/tokenscope`
+
+## Updating
+
+```bash
+curl -sSL https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/install.sh | bash -s -- --update
+```
+
+The `--update` flag skips dependency installation for faster updates.
+
+## Usage
+
+Simply type in OpenCode:
+```
+/tokenscope
+```
+
+The plugin will:
+1. Analyze the current session
+2. Count tokens across all categories
+3. Analyze all subagent (Task tool) child sessions recursively
+4. Calculate costs based on API telemetry
+5. Save detailed report to `token-usage-output.txt`
+
+### Options
+
+- **sessionID**: Analyze a specific session instead of the current one
+- **limitMessages**: Limit entries shown per category (1-10, default: 3)
+- **includeSubagents**: Include subagent child session costs (default: true)
+
+### Reading the Full Report
+
+```bash
+cat token-usage-output.txt
+```
+
+## Features
+
+### Comprehensive Token Analysis
+- **5 Category Breakdown**: System prompts, user messages, assistant responses, tool outputs, and reasoning traces
+- **Visual Charts**: Easy-to-read ASCII bar charts with percentages and token counts
+- **Smart Inference**: Automatically infers system prompts from API telemetry (since they&#39;re not exposed in session messages)
+
+### Accurate Cost Tracking
+- **41+ Models Supported**: Comprehensive pricing database for Claude, GPT, DeepSeek, Llama, Mistral, and more
+- **Cache-Aware Pricing**: Properly handles cache read/write tokens with discounted rates
+- **Session-Wide Billing**: Aggregates costs across all API calls in your session
+
+### Subagent Cost Tracking
+- **Child Session Analysis**: Recursively analyzes all subagent sessions spawned by the Task tool
+- **Aggregated Totals**: Shows combined tokens, costs, and API calls across main session and all subagents
+- **Per-Agent Breakdown**: Lists each subagent with its type, token usage, cost, and API call count
+- **Optional Toggle**: Enable/disable subagent analysis with the `includeSubagents` parameter
+
+### Advanced Features
+- **Tool Usage Stats**: Track which tools consume the most tokens and how many times each is called
+- **API Call Tracking**: See total API calls for main session and subagents
+- **Top Contributors**: Identify the biggest token consumers
+- **Model Normalization**: Handles `provider/model` format automatically
+- **Multi-Tokenizer Support**: Uses official tokenizers (tiktoken for OpenAI, transformers for others)
+
+## Example Output
+
+```
+═══════════════════════════════════════════════════════════════════════════
+Token Analysis: Session ses_50c712089ffeshuuuJPmOoXCPX
+Model: claude-opus-4-5
+═══════════════════════════════════════════════════════════════════════════
+
+TOKEN BREAKDOWN BY CATEGORY
+─────────────────────────────────────────────────────────────────────────
+Estimated using tokenizer analysis of message content:
+
+Input Categories:
+  SYSTEM    ██████████████░░░░░░░░░░░░░░░░    45.8% (22,367)
+  USER      ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░        0.8% (375)
+  TOOLS     ████████████████░░░░░░░░░░░░░░    53.5% (26,146)
+
+  Subtotal: 48,888 estimated input tokens
+
+Output Categories:
+  ASSISTANT ██████████████████████████████     100.0% (1,806)
+
+  Subtotal: 1,806 estimated output tokens
+
+Local Total: 50,694 tokens (estimated)
+
+TOOL USAGE BREAKDOWN
+─────────────────────────────────────────────────────────────────────────
+bash                 ██████████░░░░░░░░░░░░░░░░░░░░     34.0% (8,886)    4x
+read                 ██████████░░░░░░░░░░░░░░░░░░░░     33.1% (8,643)    3x
+task                 ████████░░░░░░░░░░░░░░░░░░░░░░     27.7% (7,245)    4x
+webfetch             █░░░░░░░░░░░░░░░░░░░░░░░░░░░░░      4.9% (1,286)    1x
+tokenscope           ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░         0.3% (75)    2x
+batch                ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░         0.0% (11)    1x
+
+TOP CONTRIBUTORS
+─────────────────────────────────────────────────────────────────────────
+• System (inferred from API)   22,367 tokens (44.1%)
+• bash                         8,886 tokens (17.5%)
+• read                         8,643 tokens (17.0%)
+• task                         7,245 tokens (14.3%)
+• webfetch                     1,286 tokens (2.5%)
+
+═══════════════════════════════════════════════════════════════════════════
+MOST RECENT API CALL
+─────────────────────────────────────────────────────────────────────────
+
+Raw telemetry from last API response:
+  Input (fresh):              2 tokens
+  Cache read:            48,886 tokens
+  Cache write:               54 tokens
+  Output:                   391 tokens
+  ───────────────────────────────────
+  Total:                 49,333 tokens
+
+═══════════════════════════════════════════════════════════════════════════
+SESSION TOTALS (All 15 API calls)
+─────────────────────────────────────────────────────────────────────────
+
+Total tokens processed across the entire session (for cost calculation):
+
+  Input tokens:              10 (fresh tokens across all calls)
+  Cache read:           320,479 (cached tokens across all calls)
+  Cache write:           51,866 (tokens written to cache)
+  Output tokens:          3,331 (all model responses)
+  ───────────────────────────────────
+  Session Total:        375,686 tokens (for billing)
+
+═══════════════════════════════════════════════════════════════════════════
+ESTIMATED SESSION COST (API Key Pricing)
+─────────────────────────────────────────────────────────────────────────
+
+You appear to be on a subscription plan (API cost is $0).
+Here&#39;s what this session would cost with direct API access:
+
+  Input tokens:              10 × $5.00/M  = $0.0001
+  Output tokens:          3,331 × $25.00/M  = $0.0833
+  Cache read:           320,479 × $0.50/M  = $0.1602
+  Cache write:           51,866 × $6.25/M  = $0.3242
+─────────────────────────────────────────────────────────────────────────
+ESTIMATED TOTAL: $0.5677
+
+Note: This estimate uses standard API pricing from models.json.
+Actual API costs may vary based on provider and context size.
+
+═══════════════════════════════════════════════════════════════════════════
+SUBAGENT COSTS (4 child sessions, 23 API calls)
+─────────────────────────────────────────────────────────────────────────
+
+  docs                         $0.3190  (194,701 tokens, 8 calls)
+  general                      $0.2957  (104,794 tokens, 4 calls)
+  docs                         $0.2736  (69,411 tokens, 4 calls)
+  general                      $0.5006  (197,568 tokens, 7 calls)
+─────────────────────────────────────────────────────────────────────────
+Subagent Total:            $1.3888  (566,474 tokens, 23 calls)
+
+═══════════════════════════════════════════════════════════════════════════
+SUMMARY
+─────────────────────────────────────────────────────────────────────────
+
+                          Cost        Tokens          API Calls
+  Main session:      $    0.5677       375,686            15
+  Subagents:         $    1.3888       566,474            23
+─────────────────────────────────────────────────────────────────────────
+  TOTAL:             $    1.9565       942,160            38
+
+═══════════════════════════════════════════════════════════════════════════
+
+```
+
+## Supported Models
+
+**41+ models with accurate pricing:**
+
+### Claude Models
+- Claude Opus 4.5, 4.1, 4
+- Claude Sonnet 4, 4-5, 3.7, 3.5, 3
+- Claude Haiku 4-5, 3.5, 3
+
+### OpenAI Models
+- GPT-4, GPT-4 Turbo, GPT-4o, GPT-4o Mini
+- GPT-3.5 Turbo
+- GPT-5 and all its variations
+
+### Other Models
+- DeepSeek (R1, V2, V3)
+- Llama (3.1, 3.2, 3.3)
+- Mistral (Large, Small)
+- Qwen, Kimi, GLM, Grok
+- And more...
+
+**Free/Open models** are marked with zero pricing.
+
+## Customization
+
+### Add New Model Pricing
+
+Edit `~/.config/opencode/plugin/models.json`:
+
+```json
+{
+  &quot;your-model-name&quot;: {
+    &quot;input&quot;: 1.50,
+    &quot;output&quot;: 5.00,
+    &quot;cacheWrite&quot;: 0.50,
+    &quot;cacheRead&quot;: 0.10
+  }
+}
+```
+
+Save the file and restart OpenCode. The plugin will automatically use the new pricing.
+
+### Update Existing Model Pricing
+
+Simply edit the values in `models.json` and restart OpenCode. No code changes needed!
+
+## How It Works
+
+### System Prompt Inference
+OpenCode doesn&#39;t expose system prompts in the session messages API. The plugin intelligently infers them using:
+
+```
+System Tokens = (API Input + Cache Read) - (User Tokens + Tool Tokens)
+```
+
+This works because the API input includes everything sent to the model.
+
+### Dual Tracking
+- **Current Context**: Uses the most recent API call with non-zero tokens (matches TUI)
+- **Session Total**: Aggregates all API calls for accurate billing
+
+### Subagent Analysis
+The plugin uses OpenCode&#39;s session API to:
+1. Fetch all child sessions spawned by the Task tool
+2. Recursively analyze nested subagents (subagents can spawn their own subagents)
+3. Aggregate tokens, costs, and API call counts
+4. Calculate estimated costs using the same pricing as the main session
+
+### Model Name Normalization
+Automatically handles `provider/model` format (e.g., `qwen/qwen3-coder` → `qwen3-coder`)
+
+## Understanding the Numbers
+
+### Current Context vs Session Total
+
+- **Current Context**: What&#39;s in your context window right now
+  - Based on most recent API call
+  - Used to understand current memory usage
+
+- **Session Total**: All tokens processed in this session
+  - Sum of all API calls in the main session
+  - What you&#39;re billed for (main session only)
+  - Used for cost calculation
+
+### Subagent Totals
+
+When using the Task tool, OpenCode spawns subagent sessions. These are tracked separately:
+
+- **Subagent Tokens**: Combined tokens from all child sessions
+- **Subagent API Calls**: Total API calls made by all subagents
+- **Grand Total**: Main session + all subagents combined
+
+### Cache Tokens
+
+- **Cache Read**: Tokens retrieved from cache (discounted rate ~90% off)
+- **Cache Write**: Tokens written to cache (slight premium ~25% more)
+- **Note**: Cache write is a billing charge, not additional context tokens
+
+## Troubleshooting
+
+### &quot;Dependencies missing&quot; Error
+
+Run the installer:
+```bash
+curl -sSL https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/install.sh | bash
+```
+
+### Command Not Appearing
+
+1. Verify `tokenscope.md` exists:
+   ```bash
+   ls ~/.config/opencode/command/tokenscope.md
+   ```
+2. Restart OpenCode completely
+3. Check OpenCode logs for plugin errors
+
+### Wrong Token Counts
+
+The plugin uses API telemetry (ground truth). If counts seem off:
+- **Expected ~2K difference from TUI**: Plugin analyzes before its own response is added
+- **Model detection**: Check that the model name is recognized in the output
+- **Tokenizer not installed**: Re-run the installer
+
+### New Model Not Showing Correct Pricing
+
+1. Check if model exists in `models.json`
+2. Try exact match or prefix match (e.g., `claude-sonnet-4` matches `claude-sonnet-4-20250514`)
+3. Add entry to `models.json` if missing
+4. Restart OpenCode after editing `models.json`
+
+### Plugin Fails to Load
+
+1. Validate JSON syntax:
+   ```bash
+   cd ~/.config/opencode/plugin
+   node -e &quot;JSON.parse(require(&#39;fs&#39;).readFileSync(&#39;models.json&#39;, &#39;utf8&#39;))&quot;
+   ```
+2. Check for trailing commas or syntax errors
+3. Plugin falls back to default pricing if file is invalid
+
+## Architecture
+
+### File Structure
+
+```
+plugin/
+├── tokenscope.ts        # Main entry point - Plugin export
+├── tokenscope-lib/
+│   ├── types.ts         # All interfaces and type definitions
+│   ├── config.ts        # Constants, model maps, pricing loader
+│   ├── tokenizer.ts     # TokenizerManager class
+│   ├── analyzer.ts      # ModelResolver, ContentCollector, TokenAnalysisEngine
+│   ├── cost.ts          # CostCalculator class
+│   ├── subagent.ts      # SubagentAnalyzer class
+│   └── formatter.ts     # OutputFormatter class
+├── models.json          # Pricing data for 41+ models
+├── package.json         # Plugin metadata
+└── install.sh           # Installation script
+```
+
+### Core Components
+
+1. **TokenizerManager** (`tokenscope-lib/tokenizer.ts`): Loads and caches tokenizers (tiktoken, transformers)
+2. **ModelResolver** (`tokenscope-lib/analyzer.ts`): Detects model and selects appropriate tokenizer
+3. **ContentCollector** (`tokenscope-lib/analyzer.ts`): Extracts content from session messages, including tool call counts
+4. **TokenAnalysisEngine** (`tokenscope-lib/analyzer.ts`): Counts tokens and applies API telemetry adjustments
+5. **CostCalculator** (`tokenscope-lib/cost.ts`): Calculates costs from pricing database with cache-aware pricing
+6. **SubagentAnalyzer** (`tokenscope-lib/subagent.ts`): Recursively fetches and analyzes child sessions from Task tool calls
+7. **OutputFormatter** (`tokenscope-lib/formatter.ts`): Generates visual reports with charts and summaries
+
+## Privacy &amp; Security
+
+- **All processing is local**: No session data sent to external services
+- **Tokenizers from official sources**:
+  - OpenAI tokenizers: npm registry
+  - Transformers: Hugging Face Hub
+- **Open source**: Audit the code yourself
+
+## Performance
+
+- **Fast**: Tokenizers cached after first load
+- **Parallel**: Categories processed concurrently
+- **Efficient**: Only analyzes on demand
+- **First-run download**: Transformers models download on demand (5-50MB per model)
+- **Subsequent runs**: Instant (uses cache)
+
+## Manual Installation
+
+&lt;details&gt;
+&lt;summary&gt;Click to expand manual installation steps&lt;/summary&gt;
+
+### Requirements
+- OpenCode installed (`~/.config/opencode` directory exists)
+- npm (for tokenizer dependencies)
+- ~50MB disk space (for tokenizer models)
+
+### Installation Steps
+
+1. **Navigate to OpenCode config**:
+   ```bash
+   cd ~/.config/opencode
+   ```
+
+2. **Download plugin files**:
+   ```bash
+   mkdir -p plugin/tokenscope-lib
+   cd plugin
+   curl -O https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/tokenscope.ts
+   curl -O https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/models.json
+   curl -O https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/package.json
+   cd tokenscope-lib
+   curl -O https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/tokenscope-lib/types.ts
+   curl -O https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/tokenscope-lib/config.ts
+   curl -O https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/tokenscope-lib/tokenizer.ts
+   curl -O https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/tokenscope-lib/analyzer.ts
+   curl -O https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/tokenscope-lib/cost.ts
+   curl -O https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/tokenscope-lib/subagent.ts
+   curl -O https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/tokenscope-lib/formatter.ts
+   ```
+
+3. **Download command file**:
+   ```bash
+   cd ../../command
+   curl -O https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/command/tokenscope.md
+   ```
+
+4. **Install dependencies**:
+   ```bash
+   cd ../plugin
+   npm install js-tiktoken@1.0.15 @huggingface/transformers@3.1.2
+   ```
+
+5. **Restart OpenCode**
+
+6. **Test**: Run `/tokenscope` in any session
+
+&lt;/details&gt;
+
+## Contributing
+
+Contributions welcome! Ideas for enhancement:
+
+- Historical trend analysis
+- Export to CSV/JSON/PDF
+- Optimization suggestions
+- Custom categorization rules
+- Real-time monitoring with alerts
+- Compare sessions
+- Token burn rate calculation
+
+## Support
+
+- **Issues**: [GitHub Issues](https://github.com/ramtinJ95/opencode-tokenscope/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/ramtinJ95/opencode-tokenscope/discussions)
+</code></pre>
+    </div>
+    
+  </div>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+<div class="part part-patch">
+  <div class="patch-header">
+    <span class="patch-icon">&#128190;</span>
+    <span class="patch-label">File changes</span>
+    <span class="patch-file-count">1 file</span>
+    <span class="patch-hash">2b06b41f</span>
+  </div>
+  <ul class="patch-files">
+        <li class="patch-file-item">
+          <span class="patch-file-icon">&#128196;</span>
+          <span class="patch-file-name">/home/ramtinj/personal-workspace/opencode-tokenscope/README.md</span>
+        </li>
+      </ul>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 0 in / 4.9k out</span>
+<span class="stat">Cache: 124.4k read</span>
+<span class="stat">Finish: tool-calls</span></div>
+</div>
+<div class="message message-assistant" id="msg_b17ce7d6b001YD61gQahcUQLL0">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">02:02 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="tool-call tool-bash" data-status="completed">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="tool-icon">$</span>
+    <span class="bash-command">git -C /home/ramtinj/personal-workspace/opencode-tokenscope add README.md &amp;&amp; git -C /home/ramtinj/personal-workspace/opencode-tokenscope commit -m &quot;docs: reorganize README, simplify install/update instructions&quot;</span>
+    <span class="bash-description">Commit README changes</span>
+    
+    <span class="tool-toggle">-</span>
+  </div>
+  <div class="tool-body ">
+    <div class="bash-output">
+      <pre><code>[refactor-the-code 5b7aaa8] docs: reorganize README, simplify install/update instructions
+ 1 file changed, 138 insertions(+), 168 deletions(-)
+</code></pre>
+    </div>
+    
+  </div>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 0 in / 134 out</span>
+<span class="stat">Cache: 131.0k read</span>
+<span class="stat">Finish: tool-calls</span></div>
+</div>
+<div class="message message-assistant" id="msg_b17ce93b90014znHMdnbxx5V4H">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">02:02 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>Done! The README has been reorganized with:</p>
+<p>1. <strong>Installation and Updating at the top</strong> - right after the intro<br>2. <strong>Simplified update command</strong> using curl:<br>   <div class="code-block-wrapper"><br><span class="code-language">bash</span><br><pre><code class="language-bash">curl -sSL https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/install.sh | bash -s -- --update</code></pre><br></div><br>3. <strong>Usage section moved up</strong> - before the detailed features<br>4. <strong>Manual installation moved to bottom</strong> - collapsed in a details section<br>5. <strong>Updated manual installation</strong> to include the new <code>tokenscope-lib/</code> files<br>6. <strong>Removed references to local <code>./install.sh</code></strong> script</p>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 0 in / 159 out</span>
+<span class="stat">Cache: 135.9k read</span>
+<span class="stat">Finish: stop</span></div>
+</div>
+<div class="message message-user" id="msg_b17cf147d001gtIiZdV9NEXNRI">
+  <div class="message-header">
+    <span class="message-role">User</span>
+    <span class="message-time">02:03 PM</span>
+    <span class="message-model">anthropic/claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-text">
+  <p>Is there no way we can make the install.sh --update work for people? </p>
+</div>
+  </div>
+</div>
+<div class="message message-assistant" id="msg_b17cf14ce001TSVf2ioWtL1ugh">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">02:03 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>The issue is that <code>~/.config/opencode/plugin/install.sh --update</code> doesn&#39;t work because:</p>
+<p>1. The file isn&#39;t executable by default (no <code>chmod +x</code>)<br>2. Even if it were, it&#39;s not in the PATH</p>
+<p>But there are solutions:</p>
+<p>### Option 1: Use <code>bash</code> explicitly<br><div class="code-block-wrapper"><br><span class="code-language">bash</span><br><pre><code class="language-bash">bash ~/.config/opencode/plugin/install.sh --update</code></pre><br></div></p>
+<p>This works without needing execute permissions or PATH changes.</p>
+<p>### Option 2: Make it executable during install<br>We could add this to the end of <code>install.sh</code>:<br><div class="code-block-wrapper"><br><span class="code-language">bash</span><br><pre><code class="language-bash">chmod +x &quot;$OPENCODE_DIR/plugin/install.sh&quot;</code></pre><br></div></p>
+<p>Then users could run:<br><div class="code-block-wrapper"><br><span class="code-language">bash</span><br><pre><code class="language-bash">~/.config/opencode/plugin/install.sh --update</code></pre><br></div></p>
+<p>---</p>
+<p><strong>My recommendation:</strong> Do both - add the <code>chmod +x</code> to the install script, and document the <code>bash</code> approach as an alternative.</p>
+<p>Want me to:<br>1. Add <code>chmod +x</code> to <code>install.sh</code> so future installs make it executable?<br>2. Update the README to show <code>bash ~/.config/opencode/plugin/install.sh --update</code> as the local update option?</p>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 2 in / 272 out</span>
+<span class="stat">Cache: 136.1k read</span>
+<span class="stat">Finish: stop</span></div>
+</div>
+</div>
+<nav class="pagination">
+  <a href="page-002.html" class="pagination-prev">&larr; Previous</a>
+  <a href="page-001.html" class="pagination-page">1</a>
+  <a href="page-002.html" class="pagination-page">2</a>
+  <span class="pagination-page current">3</span>
+  <a href="page-004.html" class="pagination-page">4</a>
+  <a href="page-004.html" class="pagination-next">Next &rarr;</a>
+</nav>
+<footer class="page-footer">
+  <p>Generated by <a href="https://github.com/opencode-replay" target="_blank" rel="noopener">opencode-replay</a></p>
+</footer>
+
+  </div>
+  <script src="../../assets/theme.js"></script>
+  <script src="../../assets/highlight.js"></script>
+  <script src="../../assets/search.js"></script>
+</body>
+</html>

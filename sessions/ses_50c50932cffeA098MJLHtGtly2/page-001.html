@@ -1,0 +1,3425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="opencode-replay">
+  <meta name="color-scheme" content="light dark">
+  <title>Updating tokenscope.js README for subagent costs - Page 1 - OpenCode Replay</title>
+  <script>
+(function() {
+  var theme = localStorage.getItem('opencode-replay-theme');
+  if (!theme) {
+    theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  document.documentElement.setAttribute('data-theme', theme);
+})();
+</script>
+  <link rel="stylesheet" href="../../assets/styles.css">
+  <link rel="stylesheet" href="../../assets/prism.css">
+  
+</head>
+<body class="conversation-page" data-total-pages="5">
+  <div class="container">
+    
+<header class="page-header">
+  <div class="header-top">
+    <nav class="breadcrumbs">
+        <a href="../../index.html" class="breadcrumb-item">Sessions</a><span class="breadcrumb-separator">/</span><a href="index.html" class="breadcrumb-item">Updating tokenscope.js README for subagent costs</a><span class="breadcrumb-separator">/</span><span class="breadcrumb-item current">Page 1</span>
+      </nav>
+    <div class="header-actions">
+    <button class="search-trigger" type="button" aria-label="Search">
+      <span class="search-icon">&#128269;</span>
+      <span class="search-text">Search...</span>
+      <kbd>Ctrl+K</kbd>
+    </button>
+    <button 
+  id="theme-toggle" 
+  class="theme-toggle" 
+  type="button"
+  aria-label="Toggle dark mode"
+  aria-pressed="false"
+  title="Toggle theme"
+>
+  <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"/>
+    <line x1="12" y1="1" x2="12" y2="3"/>
+    <line x1="12" y1="21" x2="12" y2="23"/>
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+    <line x1="1" y1="12" x2="3" y2="12"/>
+    <line x1="21" y1="12" x2="23" y2="12"/>
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+  </svg>
+  <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </svg>
+</button>
+  </div>
+  </div>
+  <h1>Updating tokenscope.js README for subagent costs</h1>
+  <p class="subtitle">Page 1 of 5</p>
+</header>
+<nav class="pagination">
+  <span class="pagination-prev disabled">&larr; Previous</span>
+  <span class="pagination-page current">1</span>
+  <a href="page-002.html" class="pagination-page">2</a>
+  <a href="page-003.html" class="pagination-page">3</a>
+  <a href="page-004.html" class="pagination-page">4</a>
+  <a href="page-005.html" class="pagination-page">5</a>
+  <a href="page-002.html" class="pagination-next">Next &rarr;</a>
+</nav>
+<div class="messages">
+  <div class="message message-user" id="msg_af3af6cd60017MF1P3IONKxDN6">
+  <div class="message-header">
+    <span class="message-role">User</span>
+    <span class="message-time">01:42 PM</span>
+    <span class="message-model">anthropic/claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-text">
+  <p>I have done some changes to tokenscope.js compared to main to add subagent costs and api calls and token numbers for more complete picture of what is going on in a session. Read the code and update the readme accordingly where needed based on this new inclusion. Also if you notice something that is wrong with the readme regarding how the code works please update those sections also.</p>
+</div>
+  </div>
+</div>
+<div class="message message-assistant" id="msg_af3af6ce4001OJoXvVXWacNVaS">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">01:42 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>I&#39;ll start by reading the current code and README to understand the changes and what needs to be updated.</p>
+</div>
+<div class="tool-call tool-batch" data-status="completed">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="tool-icon">&#128230;</span>
+    <span class="batch-title">Batch (2 calls)</span>
+    <span class="batch-summary">2 read</span>
+    <span class="tool-toggle">-</span>
+  </div>
+  <div class="tool-body">
+    <ul class="batch-tool-list">
+        <li class="batch-tool-item">
+    <span class="batch-tool-index">1</span>
+    <span class="batch-tool-icon">&#128196;</span>
+    <span class="batch-tool-name">read</span>
+    <span class="batch-tool-info">/home/ramtinj/personal-workspace/opencode-tokenscope/plugin/tokenscope.ts</span>
+  </li>
+<li class="batch-tool-item">
+    <span class="batch-tool-index">2</span>
+    <span class="batch-tool-icon">&#128196;</span>
+    <span class="batch-tool-name">read</span>
+    <span class="batch-tool-info">/home/ramtinj/personal-workspace/opencode-tokenscope/README.md</span>
+  </li>
+      </ul>
+    <div class="batch-output">
+      <details open>
+        <summary class="batch-output-label">Combined Output (3 lines)</summary>
+        <pre><code>All 2 tools executed successfully.
+
+Keep using the batch tool for optimal performance in your next response!</code></pre>
+      </details>
+    </div>
+    
+  </div>
+</div>
+<div class="tool-call tool-read" data-status="completed">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="tool-icon">&#128196;</span>
+    <span class="read-file-path" title="/home/ramtinj/personal-workspace/opencode-tokenscope/plugin/tokenscope.ts">tokenscope.ts</span>
+    <span class="read-full-path">/home/ramtinj/personal-workspace/opencode-tokenscope/plugin/tokenscope.ts</span>
+    
+    <span class="read-lines">1344 lines</span>
+    <span class="tool-toggle">+</span>
+  </div>
+  <div class="tool-body collapsed">
+    <div class="read-content">
+      <pre><code>&lt;file&gt;
+00001| import type { Plugin } from &quot;@opencode-ai/plugin&quot;
+00002| import { tool } from &quot;@opencode-ai/plugin&quot;
+00003| import path from &quot;path&quot;
+00004| import fs from &quot;fs/promises&quot;
+00005| import { fileURLToPath, pathToFileURL } from &quot;url&quot;
+00006| 
+00007| const DEFAULT_ENTRY_LIMIT = 3
+00008| const VENDOR_ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), &quot;vendor&quot;, &quot;node_modules&quot;)
+00009| 
+00010| // Types
+00011| 
+00012| interface SessionMessage {
+00013|   info: SessionMessageInfo
+00014|   parts: SessionMessagePart[]
+00015| }
+00016| 
+00017| interface SessionMessageInfo {
+00018|   id: string
+00019|   role: string
+00020|   modelID?: string
+00021|   providerID?: string
+00022|   system?: string[]
+00023|   tokens?: TokenUsage
+00024|   cost?: number
+00025| }
+00026| 
+00027| interface TokenUsage {
+00028|   input?: number
+00029|   output?: number
+00030|   reasoning?: number
+00031|   cache?: {
+00032|     read?: number
+00033|     write?: number
+00034|   }
+00035| }
+00036| 
+00037| type SessionMessagePart =
+00038|   | { type: &quot;text&quot;; text: string; synthetic?: boolean }
+00039|   | { type: &quot;reasoning&quot;; text: string }
+00040|   | { type: &quot;tool&quot;; tool: string; state: ToolState }
+00041|   | { type: string; [key: string]: unknown }
+00042| 
+00043| function isToolPart(part: SessionMessagePart): part is { type: &quot;tool&quot;; tool: string; state: ToolState } {
+00044|   return part.type === &quot;tool&quot;
+00045| }
+00046| 
+00047| function isReasoningPart(part: SessionMessagePart): part is { type: &quot;reasoning&quot;; text: string } {
+00048|   return part.type === &quot;reasoning&quot;
+00049| }
+00050| 
+00051| function isTextPart(part: SessionMessagePart): part is { type: &quot;text&quot;; text: string; synthetic?: boolean } {
+00052|   return part.type === &quot;text&quot;
+00053| }
+00054| 
+00055| interface ToolState {
+00056|   status: &quot;pending&quot; | &quot;running&quot; | &quot;completed&quot; | &quot;error&quot;
+00057|   output?: string
+00058| }
+00059| 
+00060| interface CategoryEntry {
+00061|   label: string
+00062|   tokens: number
+00063| }
+00064| 
+00065| interface CategorySummary {
+00066|   label: string
+00067|   totalTokens: number
+00068|   entries: CategoryEntry[]
+00069|   allEntries: CategoryEntry[]
+00070| }
+00071| 
+00072| interface TokenAnalysis {
+00073|   sessionID: string
+00074|   model: TokenModel
+00075|   categories: {
+00076|     system: CategorySummary
+00077|     user: CategorySummary
+00078|     assistant: CategorySummary
+00079|     tools: CategorySummary
+00080|     reasoning: CategorySummary
+00081|   }
+00082|   totalTokens: number
+00083|   inputTokens: number
+00084|   outputTokens: number
+00085|   reasoningTokens: number
+00086|   cacheReadTokens: number
+00087|   cacheWriteTokens: number
+00088|   assistantMessageCount: number
+00089|   mostRecentInput: number
+00090|   mostRecentOutput: number
+00091|   mostRecentReasoning: number
+00092|   mostRecentCacheRead: number
+00093|   mostRecentCacheWrite: number
+00094|   sessionCost: number
+00095|   mostRecentCost: number
+00096|   allToolsCalled: string[]
+00097|   toolCallCounts: Map&lt;string, number&gt;
+00098|   subagentAnalysis?: SubagentAnalysis
+00099| }
+00100| 
+00101| interface TokenModel {
+00102|   name: string
+00103|   spec: TokenizerSpec
+00104| }
+00105| 
+00106| type TokenizerSpec = 
+00107|   | { kind: &quot;tiktoken&quot;; model: string }
+00108|   | { kind: &quot;transformers&quot;; hub: string }
+00109|   | { kind: &quot;approx&quot; }
+00110| 
+00111| interface CategoryEntrySource {
+00112|   label: string
+00113|   content: string
+00114| }
+00115| 
+00116| interface CostEstimate {
+00117|   isSubscription: boolean
+00118|   apiSessionCost: number
+00119|   apiMostRecentCost: number
+00120|   estimatedSessionCost: number
+00121|   estimatedInputCost: number
+00122|   estimatedOutputCost: number
+00123|   estimatedCacheReadCost: number
+00124|   estimatedCacheWriteCost: number
+00125|   pricePerMillionInput: number
+00126|   pricePerMillionOutput: number
+00127|   pricePerMillionCacheRead: number
+00128|   pricePerMillionCacheWrite: number
+00129|   inputTokens: number
+00130|   outputTokens: number
+00131|   reasoningTokens: number
+00132|   cacheReadTokens: number
+00133|   cacheWriteTokens: number
+00134| }
+00135| 
+00136| interface SubagentSummary {
+00137|   sessionID: string
+00138|   title: string
+00139|   agentType: string
+00140|   inputTokens: number
+00141|   outputTokens: number
+00142|   reasoningTokens: number
+00143|   cacheReadTokens: number
+00144|   cacheWriteTokens: number
+00145|   totalTokens: number
+00146|   apiCost: number
+00147|   estimatedCost: number
+00148|   assistantMessageCount: number
+00149| }
+00150| 
+00151| interface SubagentAnalysis {
+00152|   subagents: SubagentSummary[]
+00153|   totalInputTokens: number
+00154|   totalOutputTokens: number
+00155|   totalReasoningTokens: number
+00156|   totalCacheReadTokens: number
+00157|   totalCacheWriteTokens: number
+00158|   totalTokens: number
+00159|   totalApiCost: number
+00160|   totalEstimatedCost: number
+00161|   totalApiCalls: number
+00162| }
+00163| 
+00164| interface ModelPricing {
+00165|   input: number
+00166|   output: number
+00167|   cacheWrite: number
+00168|   cacheRead: number
+00169| }
+00170| 
+00171| interface ChildSession {
+00172|   id: string
+00173|   title: string
+00174|   parentID?: string
+00175| }
+00176| 
+00177| // Model Configuration
+00178| 
+00179| let PRICING_CACHE: Record&lt;string, ModelPricing&gt; | null = null
+00180| 
+00181| async function loadModelPricing(): Promise&lt;Record&lt;string, ModelPricing&gt;&gt; {
+00182|   if (PRICING_CACHE) return PRICING_CACHE
+00183| 
+00184|   try {
+00185|     const modelsPath = path.join(path.dirname(fileURLToPath(import.meta.url)), &#39;models.json&#39;)
+00186|     const data = await fs.readFile(modelsPath, &#39;utf8&#39;)
+00187|     PRICING_CACHE = JSON.parse(data)
+00188|     return PRICING_CACHE!
+00189|   } catch {
+00190|     PRICING_CACHE = { &quot;default&quot;: { input: 1, output: 3, cacheWrite: 0, cacheRead: 0 } }
+00191|     return PRICING_CACHE
+00192|   }
+00193| }
+00194| 
+00195| const OPENAI_MODEL_MAP: Record&lt;string, string&gt; = {
+00196|   &quot;gpt-5&quot;: &quot;gpt-4o&quot;,
+00197|   &quot;o4-mini&quot;: &quot;gpt-4o&quot;,
+00198|   &quot;o3&quot;: &quot;gpt-4o&quot;,
+00199|   &quot;o3-mini&quot;: &quot;gpt-4o&quot;,
+00200|   &quot;o1&quot;: &quot;gpt-4o&quot;,
+00201|   &quot;o1-pro&quot;: &quot;gpt-4o&quot;,
+00202|   &quot;gpt-4.1&quot;: &quot;gpt-4o&quot;,
+00203|   &quot;gpt-4.1-mini&quot;: &quot;gpt-4o&quot;,
+00204|   &quot;gpt-4o&quot;: &quot;gpt-4o&quot;,
+00205|   &quot;gpt-4o-mini&quot;: &quot;gpt-4o-mini&quot;,
+00206|   &quot;gpt-4-turbo&quot;: &quot;gpt-4&quot;,
+00207|   &quot;gpt-4&quot;: &quot;gpt-4&quot;,
+00208|   &quot;gpt-3.5-turbo&quot;: &quot;gpt-3.5-turbo&quot;,
+00209|   &quot;text-embedding-3-large&quot;: &quot;text-embedding-3-large&quot;,
+00210|   &quot;text-embedding-3-small&quot;: &quot;text-embedding-3-small&quot;,
+00211|   &quot;text-embedding-ada-002&quot;: &quot;text-embedding-ada-002&quot;,
+00212| }
+00213| 
+00214| const TRANSFORMERS_MODEL_MAP: Record&lt;string, string&gt; = {
+00215|   &quot;claude-opus-4&quot;: &quot;Xenova/claude-tokenizer&quot;,
+00216|   &quot;claude-sonnet-4&quot;: &quot;Xenova/claude-tokenizer&quot;,
+00217|   &quot;claude-3.7-sonnet&quot;: &quot;Xenova/claude-tokenizer&quot;,
+00218|   &quot;claude-3.5-sonnet&quot;: &quot;Xenova/claude-tokenizer&quot;,
+00219|   &quot;claude-3.5-haiku&quot;: &quot;Xenova/claude-tokenizer&quot;,
+00220|   &quot;claude-3-opus&quot;: &quot;Xenova/claude-tokenizer&quot;,
+00221|   &quot;claude-3-sonnet&quot;: &quot;Xenova/claude-tokenizer&quot;,
+00222|   &quot;claude-3-haiku&quot;: &quot;Xenova/claude-tokenizer&quot;,
+00223|   &quot;claude-2.1&quot;: &quot;Xenova/claude-tokenizer&quot;,
+00224|   &quot;claude-2.0&quot;: &quot;Xenova/claude-tokenizer&quot;,
+00225|   &quot;claude-instant-1.2&quot;: &quot;Xenova/claude-tokenizer&quot;,
+00226|   &quot;llama-4&quot;: &quot;Xenova/llama4-tokenizer&quot;,
+00227|   &quot;llama-3.3&quot;: &quot;unsloth/Llama-3.3-70B-Instruct&quot;,
+00228|   &quot;llama-3.2&quot;: &quot;Xenova/Llama-3.2-Tokenizer&quot;,
+00229|   &quot;llama-3.1&quot;: &quot;Xenova/Meta-Llama-3.1-Tokenizer&quot;,
+00230|   &quot;llama-3&quot;: &quot;Xenova/llama3-tokenizer-new&quot;,
+00231|   &quot;llama-2&quot;: &quot;Xenova/llama2-tokenizer&quot;,
+00232|   &quot;code-llama&quot;: &quot;Xenova/llama-code-tokenizer&quot;,
+00233|   &quot;deepseek-r1&quot;: &quot;deepseek-ai/DeepSeek-R1&quot;,
+00234|   &quot;deepseek-v3&quot;: &quot;deepseek-ai/DeepSeek-V3&quot;,
+00235|   &quot;deepseek-v2&quot;: &quot;deepseek-ai/DeepSeek-V2&quot;,
+00236|   &quot;mistral-large&quot;: &quot;Xenova/mistral-tokenizer-v3&quot;,
+00237|   &quot;mistral-small&quot;: &quot;Xenova/mistral-tokenizer-v3&quot;,
+00238|   &quot;mistral-nemo&quot;: &quot;Xenova/Mistral-Nemo-Instruct-Tokenizer&quot;,
+00239|   &quot;devstral-small&quot;: &quot;Xenova/Mistral-Nemo-Instruct-Tokenizer&quot;,
+00240|   &quot;codestral&quot;: &quot;Xenova/mistral-tokenizer-v3&quot;,
+00241| }
+00242| 
+00243| const PROVIDER_DEFAULTS: Record&lt;string, TokenizerSpec&gt; = {
+00244|   anthropic: { kind: &quot;transformers&quot;, hub: &quot;Xenova/claude-tokenizer&quot; },
+00245|   meta: { kind: &quot;transformers&quot;, hub: &quot;Xenova/Meta-Llama-3.1-Tokenizer&quot; },
+00246|   mistral: { kind: &quot;transformers&quot;, hub: &quot;Xenova/mistral-tokenizer-v3&quot; },
+00247|   deepseek: { kind: &quot;transformers&quot;, hub: &quot;deepseek-ai/DeepSeek-V3&quot; },
+00248|   google: { kind: &quot;transformers&quot;, hub: &quot;google/gemma-2-9b-it&quot; },
+00249| }
+00250| 
+00251| // Tokenizer Management
+00252| 
+00253| class TokenizerManager {
+00254|   private tiktokenCache = new Map&lt;string, any&gt;()
+00255|   private transformerCache = new Map&lt;string, any&gt;()
+00256|   private tiktokenModule?: Promise&lt;any&gt;
+00257|   private transformersModule?: Promise&lt;any&gt;
+00258| 
+00259|   async countTokens(content: string, model: TokenModel): Promise&lt;number&gt; {
+00260|     if (!content.trim()) return 0
+00261| 
+00262|     try {
+00263|       switch (model.spec.kind) {
+00264|         case &quot;approx&quot;:
+00265|           return this.approximateTokenCount(content)
+00266|         case &quot;tiktoken&quot;:
+00267|           return await this.countWithTiktoken(content, model.spec.model)
+00268|         case &quot;transformers&quot;:
+00269|           return await this.countWithTransformers(content, model.spec.hub)
+00270|       }
+00271|     } catch (error) {
+00272|       console.error(`Token counting error for ${model.name}:`, error)
+00273|       return this.approximateTokenCount(content)
+00274|     }
+00275|   }
+00276| 
+00277|   private approximateTokenCount(content: string): number {
+00278|     return Math.ceil(content.length / 4)
+00279|   }
+00280| 
+00281|   private async countWithTiktoken(content: string, model: string): Promise&lt;number&gt; {
+00282|     const encoder = await this.loadTiktokenEncoder(model)
+00283|     try {
+00284|       return encoder.encode(content).length
+00285|     } catch {
+00286|       return this.approximateTokenCount(content)
+00287|     }
+00288|   }
+00289| 
+00290|   private async countWithTransformers(content: string, hub: string): Promise&lt;number&gt; {
+00291|     const tokenizer = await this.loadTransformersTokenizer(hub)
+00292|     if (!tokenizer || typeof tokenizer.encode !== &quot;function&quot;) {
+00293|       return this.approximateTokenCount(content)
+00294|     }
+00295| 
+00296|     try {
+00297|       const encoding = await tokenizer.encode(content)
+00298|       return Array.isArray(encoding) ? encoding.length : (encoding?.length ?? this.approximateTokenCount(content))
+00299|     } catch {
+00300|       return this.approximateTokenCount(content)
+00301|     }
+00302|   }
+00303| 
+00304|   private async loadTiktokenEncoder(model: string) {
+00305|     if (this.tiktokenCache.has(model)) {
+00306|       return this.tiktokenCache.get(model)
+00307|     }
+00308| 
+00309|     const mod = await this.loadTiktokenModule()
+00310|     const encodingForModel = mod.encodingForModel ?? mod.default?.encodingForModel
+00311|     const getEncoding = mod.getEncoding ?? mod.default?.getEncoding
+00312| 
+00313|     if (typeof getEncoding !== &quot;function&quot;) {
+00314|       return { encode: (text: string) =&gt; ({ length: Math.ceil(text.length / 4) }) }
+00315|     }
+00316| 
+00317|     let encoder
+00318|     try {
+00319|       encoder = encodingForModel(model)
+00320|     } catch {
+00321|       encoder = getEncoding(&quot;cl100k_base&quot;)
+00322|     }
+00323| 
+00324|     this.tiktokenCache.set(model, encoder)
+00325|     return encoder
+00326|   }
+00327| 
+00328|   private async loadTiktokenModule() {
+00329|     if (!this.tiktokenModule) {
+00330|       this.tiktokenModule = this.importFromVendor(&quot;js-tiktoken&quot;)
+00331|     }
+00332|     return this.tiktokenModule
+00333|   }
+00334| 
+00335|   private async loadTransformersTokenizer(hub: string) {
+00336|     if (this.transformerCache.has(hub)) {
+00337|       return this.transformerCache.get(hub)
+00338|     }
+00339| 
+00340|     try {
+00341|       const { AutoTokenizer } = await this.loadTransformersModule()
+00342|       const tokenizer = await AutoTokenizer.from_pretrained(hub)
+00343|       this.transformerCache.set(hub, tokenizer)
+00344|       return tokenizer
+00345|     } catch {
+00346|       this.transformerCache.set(hub, null)
+00347|       return null
+00348|     }
+00349|   }
+00350| 
+00351|   private async loadTransformersModule() {
+00352|     if (!this.transformersModule) {
+00353|       this.transformersModule = this.importFromVendor(&quot;@huggingface/transformers&quot;)
+00354|     }
+00355|     return this.transformersModule
+00356|   }
+00357| 
+00358|   private async importFromVendor(pkg: string) {
+00359|     const pkgJsonPath = path.join(VENDOR_ROOT, pkg, &quot;package.json&quot;)
+00360|     let data: string
+00361|     try {
+00362|       data = await fs.readFile(pkgJsonPath, &quot;utf8&quot;)
+00363|     } catch {
+00364|       throw new Error(
+00365|         `Token analyzer dependencies missing. Run the install.sh script to install vendor tokenizers.\n` +
+00366|         `Expected path: ${pkgJsonPath}`
+00367|       )
+00368|     }
+00369| 
+00370|     const manifest = JSON.parse(data)
+00371|     const entry = manifest.module ?? manifest.main ?? &quot;index.js&quot;
+00372|     const entryPath = path.join(VENDOR_ROOT, pkg, entry)
+00373|     return import(pathToFileURL(entryPath).href)
+00374|   }
+00375| }
+00376| 
+00377| // Model Resolution
+00378| 
+00379| class ModelResolver {
+00380|   resolveTokenModel(messages: SessionMessage[]): TokenModel {
+00381|     for (const message of [...messages].reverse()) {
+00382|       const modelID = this.canonicalize(message.info.modelID)
+00383|       const providerID = this.canonicalize(message.info.providerID)
+00384| 
+00385|       const openaiModel = this.resolveOpenAIModel(modelID, providerID)
+00386|       if (openaiModel) return openaiModel
+00387| 
+00388|       const transformerModel = this.resolveTransformersModel(modelID, providerID)
+00389|       if (transformerModel) return transformerModel
+00390|     }
+00391| 
+00392|     return { name: &quot;approx&quot;, spec: { kind: &quot;approx&quot; } }
+00393|   }
+00394| 
+00395|   private resolveOpenAIModel(modelID?: string, providerID?: string): TokenModel | undefined {
+00396|     if (providerID === &quot;openai&quot; || providerID === &quot;opencode&quot; || providerID === &quot;azure&quot;) {
+00397|       const mapped = this.mapOpenAI(modelID)
+00398|       return { name: modelID ?? mapped, spec: { kind: &quot;tiktoken&quot;, model: mapped } }
+00399|     }
+00400| 
+00401|     if (modelID &amp;&amp; OPENAI_MODEL_MAP[modelID]) {
+00402|       return { name: modelID, spec: { kind: &quot;tiktoken&quot;, model: OPENAI_MODEL_MAP[modelID] } }
+00403|     }
+00404| 
+00405|     return undefined
+00406|   }
+00407| 
+00408|   private resolveTransformersModel(modelID?: string, providerID?: string): TokenModel | undefined {
+00409|     if (modelID &amp;&amp; TRANSFORMERS_MODEL_MAP[modelID]) {
+00410|       return { name: modelID, spec: { kind: &quot;transformers&quot;, hub: TRANSFORMERS_MODEL_MAP[modelID] } }
+00411|     }
+00412| 
+00413|     if (providerID &amp;&amp; PROVIDER_DEFAULTS[providerID]) {
+00414|       return { name: modelID ?? providerID, spec: PROVIDER_DEFAULTS[providerID] }
+00415|     }
+00416| 
+00417|     // Prefix-based fallbacks
+00418|     if (modelID?.startsWith(&quot;claude&quot;)) {
+00419|       return { name: modelID, spec: { kind: &quot;transformers&quot;, hub: &quot;Xenova/claude-tokenizer&quot; } }
+00420|     }
+00421| 
+00422|     if (modelID?.startsWith(&quot;llama&quot;)) {
+00423|       return {
+00424|         name: modelID,
+00425|         spec: { kind: &quot;transformers&quot;, hub: TRANSFORMERS_MODEL_MAP[modelID] ?? &quot;Xenova/Meta-Llama-3.1-Tokenizer&quot; },
+00426|       }
+00427|     }
+00428| 
+00429|     if (modelID?.startsWith(&quot;mistral&quot;)) {
+00430|       return { name: modelID, spec: { kind: &quot;transformers&quot;, hub: &quot;Xenova/mistral-tokenizer-v3&quot; } }
+00431|     }
+00432| 
+00433|     if (modelID?.startsWith(&quot;deepseek&quot;)) {
+00434|       return { name: modelID, spec: { kind: &quot;transformers&quot;, hub: &quot;deepseek-ai/DeepSeek-V3&quot; } }
+00435|     }
+00436| 
+00437|     return undefined
+00438|   }
+00439| 
+00440|   private mapOpenAI(modelID?: string): string {
+00441|     if (!modelID) return &quot;cl100k_base&quot;
+00442|     return OPENAI_MODEL_MAP[modelID] ?? modelID
+00443|   }
+00444| 
+00445|   private canonicalize(value?: string): string | undefined {
+00446|     return value?.split(&quot;/&quot;).pop()?.toLowerCase().trim()
+00447|   }
+00448| }
+00449| 
+00450| // Content Collectors
+00451| 
+00452| class ContentCollector {
+00453|   collectSystemPrompts(messages: SessionMessage[]): CategoryEntrySource[] {
+00454|     const prompts = new Map&lt;string, string&gt;()
+00455| 
+00456|     for (const message of messages) {
+00457|       if (message.info.role === &quot;system&quot;) {
+00458|         const content = this.extractText(message.parts)
+00459|         if (content) prompts.set(content, content)
+00460|       }
+00461| 
+00462|       if (message.info.role === &quot;assistant&quot;) {
+00463|         for (const prompt of message.info.system ?? []) {
+00464|           const trimmed = (prompt ?? &quot;&quot;).trim()
+00465|           if (trimmed) prompts.set(trimmed, trimmed)
+00466|         }
+00467|       }
+00468|     }
+00469| 
+00470|     return Array.from(prompts.values()).map((content, index) =&gt; ({
+00471|       label: this.identifySystemPrompt(content, index + 1),
+00472|       content,
+00473|     }))
+00474|   }
+00475| 
+00476|   collectMessageTexts(messages: SessionMessage[], role: &quot;user&quot; | &quot;assistant&quot;): CategoryEntrySource[] {
+00477|     const results: CategoryEntrySource[] = []
+00478|     let index = 0
+00479| 
+00480|     for (const message of messages) {
+00481|       if (message.info.role !== role) continue
+00482|       const content = this.extractText(message.parts)
+00483|       if (!content) continue
+00484| 
+00485|       index += 1
+00486|       results.push({ label: `${this.capitalize(role)}#${index}`, content })
+00487|     }
+00488| 
+00489|     return results
+00490|   }
+00491| 
+00492|   collectToolOutputs(messages: SessionMessage[]): CategoryEntrySource[] {
+00493|     const toolOutputs = new Map&lt;string, string&gt;()
+00494| 
+00495|     for (const message of messages) {
+00496|       for (const part of message.parts) {
+00497|         if (!isToolPart(part)) continue
+00498| 
+00499|         if (part.state.status !== &quot;completed&quot;) continue
+00500| 
+00501|         const output = (part.state.output ?? &quot;&quot;).toString().trim()
+00502|         if (!output) continue
+00503| 
+00504|         const toolName = part.tool || &quot;tool&quot;
+00505|         const existing = toolOutputs.get(toolName) || &quot;&quot;
+00506|         toolOutputs.set(toolName, existing + (existing ? &quot;\n\n&quot; : &quot;&quot;) + output)
+00507|       }
+00508|     }
+00509| 
+00510|     return Array.from(toolOutputs.entries()).map(([toolName, content]) =&gt; ({
+00511|       label: toolName,
+00512|       content,
+00513|     }))
+00514|   }
+00515| 
+00516|   collectToolCallCounts(messages: SessionMessage[]): Map&lt;string, number&gt; {
+00517|     const toolCounts = new Map&lt;string, number&gt;()
+00518| 
+00519|     for (const message of messages) {
+00520|       for (const part of message.parts) {
+00521|         if (!isToolPart(part)) continue
+00522| 
+00523|         const toolName = part.tool || &quot;tool&quot;
+00524|         if (toolName) {
+00525|           toolCounts.set(toolName, (toolCounts.get(toolName) || 0) + 1)
+00526|         }
+00527|       }
+00528|     }
+00529| 
+00530|     return toolCounts
+00531|   }
+00532| 
+00533|   collectAllToolsCalled(messages: SessionMessage[]): string[] {
+00534|     return Array.from(this.collectToolCallCounts(messages).keys()).sort()
+00535|   }
+00536| 
+00537|   collectReasoningTexts(messages: SessionMessage[]): CategoryEntrySource[] {
+00538|     const results: CategoryEntrySource[] = []
+00539|     let index = 0
+00540| 
+00541|     for (const message of messages) {
+00542|       for (const part of message.parts) {
+00543|         if (!isReasoningPart(part)) continue
+00544| 
+00545|         const text = (part.text ?? &quot;&quot;).toString().trim()
+00546|         if (!text) continue
+00547| 
+00548|         index += 1
+00549|         results.push({ label: `Reasoning#${index}`, content: text })
+00550|       }
+00551|     }
+00552| 
+00553|     return results
+00554|   }
+00555| 
+00556|   private extractText(parts: SessionMessagePart[]): string {
+00557|     return parts
+00558|       .filter(isTextPart)
+00559|       .map((part) =&gt; part.text ?? &quot;&quot;)
+00560|       .map((text) =&gt; text.trim())
+00561|       .filter(Boolean)
+00562|       .join(&quot;\n\n&quot;)
+00563|   }
+00564| 
+00565|   private identifySystemPrompt(content: string, index: number): string {
+00566|     const lower = content.toLowerCase()
+00567| 
+00568|     if (lower.includes(&quot;opencode&quot;) &amp;&amp; lower.includes(&quot;cli&quot;) &amp;&amp; content.length &gt; 500) return &quot;System#MainPrompt&quot;
+00569|     if (lower.includes(&quot;opencode&quot;) &amp;&amp; lower.includes(&quot;cli&quot;) &amp;&amp; content.length &lt;= 500) return &quot;System#ShortPrompt&quot;
+00570|     if (lower.includes(&quot;agent&quot;) &amp;&amp; lower.includes(&quot;mode&quot;)) return &quot;System#AgentMode&quot;
+00571|     if (lower.includes(&quot;permission&quot;) || lower.includes(&quot;allowed&quot;) || lower.includes(&quot;deny&quot;)) return &quot;System#Permissions&quot;
+00572|     if (lower.includes(&quot;tool&quot;) &amp;&amp; (lower.includes(&quot;rule&quot;) || lower.includes(&quot;guideline&quot;))) return &quot;System#ToolRules&quot;
+00573|     if (lower.includes(&quot;format&quot;) || lower.includes(&quot;style&quot;) || lower.includes(&quot;concise&quot;)) return &quot;System#Formatting&quot;
+00574|     if (lower.includes(&quot;project&quot;) || lower.includes(&quot;repository&quot;) || lower.includes(&quot;codebase&quot;)) return &quot;System#ProjectContext&quot;
+00575|     if (lower.includes(&quot;session&quot;) || lower.includes(&quot;context&quot;) || lower.includes(&quot;memory&quot;)) return &quot;System#SessionMgmt&quot;
+00576|     if (content.includes(&quot;@&quot;) &amp;&amp; (content.includes(&quot;.md&quot;) || content.includes(&quot;.txt&quot;))) return &quot;System#FileRefs&quot;
+00577|     if (content.includes(&quot;name:&quot;) &amp;&amp; content.includes(&quot;description:&quot;)) return &quot;System#AgentDef&quot;
+00578|     if (lower.includes(&quot;code&quot;) &amp;&amp; (lower.includes(&quot;convention&quot;) || lower.includes(&quot;standard&quot;))) return &quot;System#CodeGuidelines&quot;
+00579| 
+00580|     return `System#${index}`
+00581|   }
+00582| 
+00583|   private capitalize(value: string): string {
+00584|     if (!value) return value
+00585|     return value[0].toUpperCase() + value.slice(1)
+00586|   }
+00587| }
+00588| 
+00589| // Token Analysis Engine
+00590| 
+00591| class TokenAnalysisEngine {
+00592|   constructor(
+00593|     private tokenizerManager: TokenizerManager,
+00594|     private contentCollector: ContentCollector
+00595|   ) {}
+00596| 
+00597|   async analyze(
+00598|     sessionID: string,
+00599|     messages: SessionMessage[],
+00600|     tokenModel: TokenModel,
+00601|     entryLimit: number
+00602|   ): Promise&lt;TokenAnalysis&gt; {
+00603|     const systemPrompts = this.contentCollector.collectSystemPrompts(messages)
+00604|     const userTexts = this.contentCollector.collectMessageTexts(messages, &quot;user&quot;)
+00605|     const assistantTexts = this.contentCollector.collectMessageTexts(messages, &quot;assistant&quot;)
+00606|     const toolOutputs = this.contentCollector.collectToolOutputs(messages)
+00607|     const reasoningTraces = this.contentCollector.collectReasoningTexts(messages)
+00608|     const allToolsCalled = this.contentCollector.collectAllToolsCalled(messages)
+00609|     const toolCallCounts = this.contentCollector.collectToolCallCounts(messages)
+00610| 
+00611|     const [system, user, assistant, tools, reasoning] = await Promise.all([
+00612|       this.buildCategory(&quot;system&quot;, systemPrompts, tokenModel, entryLimit),
+00613|       this.buildCategory(&quot;user&quot;, userTexts, tokenModel, entryLimit),
+00614|       this.buildCategory(&quot;assistant&quot;, assistantTexts, tokenModel, entryLimit),
+00615|       this.buildCategory(&quot;tools&quot;, toolOutputs, tokenModel, entryLimit),
+00616|       this.buildCategory(&quot;reasoning&quot;, reasoningTraces, tokenModel, entryLimit),
+00617|     ])
+00618| 
+00619|     const analysis: TokenAnalysis = {
+00620|       sessionID,
+00621|       model: tokenModel,
+00622|       categories: { system, user, assistant, tools, reasoning },
+00623|       totalTokens:
+00624|         system.totalTokens + user.totalTokens + assistant.totalTokens + tools.totalTokens + reasoning.totalTokens,
+00625|       inputTokens: 0,
+00626|       outputTokens: 0,
+00627|       reasoningTokens: 0,
+00628|       cacheReadTokens: 0,
+00629|       cacheWriteTokens: 0,
+00630|       assistantMessageCount: 0,
+00631|       mostRecentInput: 0,
+00632|       mostRecentOutput: 0,
+00633|       mostRecentReasoning: 0,
+00634|       mostRecentCacheRead: 0,
+00635|       mostRecentCacheWrite: 0,
+00636|       sessionCost: 0,
+00637|       mostRecentCost: 0,
+00638|       allToolsCalled,
+00639|       toolCallCounts,
+00640|     }
+00641| 
+00642|     this.applyTelemetryAdjustments(analysis, messages)
+00643| 
+00644|     return analysis
+00645|   }
+00646| 
+00647|   private async buildCategory(
+00648|     label: string,
+00649|     sources: CategoryEntrySource[],
+00650|     model: TokenModel,
+00651|     entryLimit: number
+00652|   ): Promise&lt;CategorySummary&gt; {
+00653|     const entries: CategoryEntry[] = []
+00654| 
+00655|     for (const source of sources) {
+00656|       const tokens = await this.tokenizerManager.countTokens(source.content, model)
+00657|       if (tokens &gt; 0) {
+00658|         entries.push({ label: source.label, tokens })
+00659|       }
+00660|     }
+00661| 
+00662|     entries.sort((a, b) =&gt; b.tokens - a.tokens)
+00663|     const limited = entries.slice(0, entryLimit)
+00664|     const totalTokens = entries.reduce((sum, entry) =&gt; sum + entry.tokens, 0)
+00665| 
+00666|     return { label, totalTokens, entries: limited, allEntries: entries }
+00667|   }
+00668| 
+00669|   private applyTelemetryAdjustments(analysis: TokenAnalysis, messages: SessionMessage[]) {
+00670|     const assistants = messages
+00671|       .filter((m) =&gt; m.info.role === &quot;assistant&quot; &amp;&amp; (m.info?.tokens || m.info?.cost !== undefined))
+00672|       .map((m) =&gt; ({ msg: m, tokens: m.info.tokens, cost: m.info.cost ?? 0 }))
+00673| 
+00674|     let totalInput = 0, totalOutput = 0, totalReasoning = 0
+00675|     let totalCacheRead = 0, totalCacheWrite = 0, totalCost = 0
+00676| 
+00677|     for (const { tokens, cost } of assistants) {
+00678|       if (tokens) {
+00679|         totalInput += Number(tokens.input) || 0
+00680|         totalOutput += Number(tokens.output) || 0
+00681|         totalReasoning += Number(tokens.reasoning) || 0
+00682|         totalCacheRead += Number(tokens.cache?.read) || 0
+00683|         totalCacheWrite += Number(tokens.cache?.write) || 0
+00684|       }
+00685|       totalCost += Number(cost) || 0
+00686|     }
+00687| 
+00688|     const mostRecentWithUsage = [...assistants]
+00689|       .reverse()
+00690|       .find(({ tokens }) =&gt; 
+00691|         tokens &amp;&amp; (
+00692|           (Number(tokens.input) || 0) +
+00693|           (Number(tokens.output) || 0) +
+00694|           (Number(tokens.reasoning) || 0) +
+00695|           (Number(tokens.cache?.read) || 0) +
+00696|           (Number(tokens.cache?.write) || 0) &gt; 0
+00697|         )
+00698|       ) ?? assistants[assistants.length - 1]
+00699| 
+00700|     let mostRecentInput = 0, mostRecentOutput = 0, mostRecentReasoning = 0
+00701|     let mostRecentCacheRead = 0, mostRecentCacheWrite = 0, mostRecentCost = 0
+00702| 
+00703|     if (mostRecentWithUsage) {
+00704|       const t = mostRecentWithUsage.tokens
+00705|       if (t) {
+00706|         mostRecentInput = Number(t.input) || 0
+00707|         mostRecentOutput = Number(t.output) || 0
+00708|         mostRecentReasoning = Number(t.reasoning) || 0
+00709|         mostRecentCacheRead = Number(t.cache?.read) || 0
+00710|         mostRecentCacheWrite = Number(t.cache?.write) || 0
+00711|       }
+00712|       mostRecentCost = Number(mostRecentWithUsage.cost) || 0
+00713|     }
+00714| 
+00715|     analysis.inputTokens = totalInput
+00716|     analysis.outputTokens = totalOutput
+00717|     analysis.reasoningTokens = totalReasoning
+00718|     analysis.cacheReadTokens = totalCacheRead
+00719|     analysis.cacheWriteTokens = totalCacheWrite
+00720|     analysis.assistantMessageCount = assistants.length
+00721|     analysis.sessionCost = totalCost
+00722|     analysis.mostRecentCost = mostRecentCost
+00723|     analysis.mostRecentInput = mostRecentInput
+00724|     analysis.mostRecentOutput = mostRecentOutput
+00725|     analysis.mostRecentReasoning = mostRecentReasoning
+00726|     analysis.mostRecentCacheRead = mostRecentCacheRead
+00727|     analysis.mostRecentCacheWrite = mostRecentCacheWrite
+00728| 
+00729|     const recentApiInputTotal = mostRecentInput + mostRecentCacheRead
+00730|     const localUserAndTools = analysis.categories.user.totalTokens + analysis.categories.tools.totalTokens
+00731|     const inferredSystemTokens = Math.max(0, recentApiInputTotal - localUserAndTools)
+00732|     
+00733|     if (inferredSystemTokens &gt; 0 &amp;&amp; analysis.categories.system.totalTokens === 0) {
+00734|       analysis.categories.system.totalTokens = inferredSystemTokens
+00735|       analysis.categories.system.entries = [{ label: &quot;System (inferred from API)&quot;, tokens: inferredSystemTokens }]
+00736|       analysis.categories.system.allEntries = analysis.categories.system.entries
+00737|     }
+00738| 
+00739|     analysis.totalTokens =
+00740|       analysis.categories.system.totalTokens +
+00741|       analysis.categories.user.totalTokens +
+00742|       analysis.categories.assistant.totalTokens +
+00743|       analysis.categories.tools.totalTokens +
+00744|       analysis.categories.reasoning.totalTokens
+00745|   }
+00746| }
+00747| 
+00748| // Cost Calculator
+00749| 
+00750| class CostCalculator {
+00751|   constructor(private pricingData: Record&lt;string, ModelPricing&gt;) {}
+00752| 
+00753|   calculateCost(analysis: TokenAnalysis): CostEstimate {
+00754|     const pricing = this.getPricing(analysis.model.name)
+00755|     const hasActivity = analysis.assistantMessageCount &gt; 0 &amp;&amp; 
+00756|       (analysis.inputTokens &gt; 0 || analysis.outputTokens &gt; 0)
+00757|     const isSubscription = hasActivity &amp;&amp; analysis.sessionCost === 0
+00758|     
+00759|     const estimatedInputCost = (analysis.inputTokens / 1_000_000) * pricing.input
+00760|     const estimatedOutputCost = ((analysis.outputTokens + analysis.reasoningTokens) / 1_000_000) * pricing.output
+00761|     const estimatedCacheReadCost = (analysis.cacheReadTokens / 1_000_000) * pricing.cacheRead
+00762|     const estimatedCacheWriteCost = (analysis.cacheWriteTokens / 1_000_000) * pricing.cacheWrite
+00763|     const estimatedSessionCost = estimatedInputCost + estimatedOutputCost + estimatedCacheReadCost + estimatedCacheWriteCost
+00764|     
+00765|     return {
+00766|       isSubscription,
+00767|       apiSessionCost: analysis.sessionCost,
+00768|       apiMostRecentCost: analysis.mostRecentCost,
+00769|       estimatedSessionCost,
+00770|       estimatedInputCost,
+00771|       estimatedOutputCost,
+00772|       estimatedCacheReadCost,
+00773|       estimatedCacheWriteCost,
+00774|       pricePerMillionInput: pricing.input,
+00775|       pricePerMillionOutput: pricing.output,
+00776|       pricePerMillionCacheRead: pricing.cacheRead,
+00777|       pricePerMillionCacheWrite: pricing.cacheWrite,
+00778|       inputTokens: analysis.inputTokens,
+00779|       outputTokens: analysis.outputTokens,
+00780|       reasoningTokens: analysis.reasoningTokens,
+00781|       cacheReadTokens: analysis.cacheReadTokens,
+00782|       cacheWriteTokens: analysis.cacheWriteTokens,
+00783|     }
+00784|   }
+00785|   
+00786|   private getPricing(modelName: string): ModelPricing {
+00787|     const normalizedName = this.normalizeModelName(modelName)
+00788|     
+00789|     if (this.pricingData[normalizedName]) return this.pricingData[normalizedName]
+00790|     
+00791|     const lowerModel = normalizedName.toLowerCase()
+00792|     for (const [key, pricing] of Object.entries(this.pricingData)) {
+00793|       if (lowerModel.startsWith(key.toLowerCase())) return pricing
+00794|     }
+00795|     
+00796|     return this.pricingData[&quot;default&quot;] || { input: 1, output: 3, cacheWrite: 0, cacheRead: 0 }
+00797|   }
+00798| 
+00799|   private normalizeModelName(modelName: string): string {
+00800|     return modelName.includes(&#39;/&#39;) ? modelName.split(&#39;/&#39;).pop() || modelName : modelName
+00801|   }
+00802| }
+00803| 
+00804| // Subagent Analyzer
+00805| 
+00806| class SubagentAnalyzer {
+00807|   constructor(
+00808|     private client: any,
+00809|     private costCalculator: CostCalculator,
+00810|     private pricingData: Record&lt;string, ModelPricing&gt;
+00811|   ) {}
+00812| 
+00813|   async analyzeChildSessions(parentSessionID: string): Promise&lt;SubagentAnalysis&gt; {
+00814|     const result: SubagentAnalysis = {
+00815|       subagents: [],
+00816|       totalInputTokens: 0,
+00817|       totalOutputTokens: 0,
+00818|       totalReasoningTokens: 0,
+00819|       totalCacheReadTokens: 0,
+00820|       totalCacheWriteTokens: 0,
+00821|       totalTokens: 0,
+00822|       totalApiCost: 0,
+00823|       totalEstimatedCost: 0,
+00824|       totalApiCalls: 0,
+00825|     }
+00826| 
+00827|     try {
+00828|       const childrenResponse = await this.client.session.children({ path: { id: parentSessionID } })
+00829|       const children: ChildSession[] = ((childrenResponse as any)?.data ?? childrenResponse ?? []) as ChildSession[]
+00830| 
+00831|       if (!Array.isArray(children) || children.length === 0) return result
+00832| 
+00833|       for (const child of children) {
+00834|         const summary = await this.analyzeChildSession(child)
+00835|         if (summary) {
+00836|           result.subagents.push(summary)
+00837|           result.totalInputTokens += summary.inputTokens
+00838|           result.totalOutputTokens += summary.outputTokens
+00839|           result.totalReasoningTokens += summary.reasoningTokens
+00840|           result.totalCacheReadTokens += summary.cacheReadTokens
+00841|           result.totalCacheWriteTokens += summary.cacheWriteTokens
+00842|           result.totalTokens += summary.totalTokens
+00843|           result.totalApiCost += summary.apiCost
+00844|           result.totalEstimatedCost += summary.estimatedCost
+00845|           result.totalApiCalls += summary.assistantMessageCount
+00846|         }
+00847| 
+00848|         const nestedAnalysis = await this.analyzeChildSessions(child.id)
+00849|         for (const nested of nestedAnalysis.subagents) {
+00850|           result.subagents.push(nested)
+00851|         }
+00852|         result.totalInputTokens += nestedAnalysis.totalInputTokens
+00853|         result.totalOutputTokens += nestedAnalysis.totalOutputTokens
+00854|         result.totalReasoningTokens += nestedAnalysis.totalReasoningTokens
+00855|         result.totalCacheReadTokens += nestedAnalysis.totalCacheReadTokens
+00856|         result.totalCacheWriteTokens += nestedAnalysis.totalCacheWriteTokens
+00857|         result.totalTokens += nestedAnalysis.totalTokens
+00858|         result.totalApiCost += nestedAnalysis.totalApiCost
+00859|         result.totalEstimatedCost += nestedAnalysis.totalEstimatedCost
+00860|         result.totalApiCalls += nestedAnalysis.totalApiCalls
+00861|       }
+00862|     } catch (error) {
+00863|       console.error(`Failed to fetch child sessions for ${parentSessionID}:`, error)
+00864|     }
+00865| 
+00866|     return result
+00867|   }
+00868| 
+00869|   private async analyzeChildSession(child: ChildSession): Promise&lt;SubagentSummary | null&gt; {
+00870|     try {
+00871|       const messagesResponse = await this.client.session.messages({ path: { id: child.id } })
+00872|       const messages: SessionMessage[] = ((messagesResponse as any)?.data ?? messagesResponse ?? []) as SessionMessage[]
+00873| 
+00874|       if (!Array.isArray(messages) || messages.length === 0) return null
+00875| 
+00876|       const agentType = this.extractAgentType(child.title)
+00877|       let inputTokens = 0, outputTokens = 0, reasoningTokens = 0
+00878|       let cacheReadTokens = 0, cacheWriteTokens = 0
+00879|       let apiCost = 0, assistantMessageCount = 0, modelName = &quot;unknown&quot;
+00880| 
+00881|       for (const message of messages) {
+00882|         if (message.info.role === &quot;assistant&quot;) {
+00883|           assistantMessageCount++
+00884|           const tokens = message.info.tokens
+00885|           if (tokens) {
+00886|             inputTokens += Number(tokens.input) || 0
+00887|             outputTokens += Number(tokens.output) || 0
+00888|             reasoningTokens += Number(tokens.reasoning) || 0
+00889|             cacheReadTokens += Number(tokens.cache?.read) || 0
+00890|             cacheWriteTokens += Number(tokens.cache?.write) || 0
+00891|           }
+00892|           apiCost += Number(message.info.cost) || 0
+00893|           if (message.info.modelID) modelName = message.info.modelID
+00894|         }
+00895|       }
+00896| 
+00897|       const totalTokens = inputTokens + outputTokens + reasoningTokens + cacheReadTokens + cacheWriteTokens
+00898|       const pricing = this.getPricing(modelName)
+00899|       const estimatedCost = 
+00900|         (inputTokens / 1_000_000) * pricing.input +
+00901|         ((outputTokens + reasoningTokens) / 1_000_000) * pricing.output +
+00902|         (cacheReadTokens / 1_000_000) * pricing.cacheRead +
+00903|         (cacheWriteTokens / 1_000_000) * pricing.cacheWrite
+00904| 
+00905|       return {
+00906|         sessionID: child.id, title: child.title, agentType,
+00907|         inputTokens, outputTokens, reasoningTokens, cacheReadTokens, cacheWriteTokens,
+00908|         totalTokens, apiCost, estimatedCost, assistantMessageCount,
+00909|       }
+00910|     } catch (error) {
+00911|       console.error(`Failed to analyze child session ${child.id}:`, error)
+00912|       return null
+00913|     }
+00914|   }
+00915| 
+00916|   private extractAgentType(title: string): string {
+00917|     const match = title.match(/@(\w+)\s+subagent/i)
+00918|     if (match) return match[1]
+00919|     const words = title.split(/\s+/)
+00920|     return words[0]?.toLowerCase() || &quot;subagent&quot;
+00921|   }
+00922| 
+00923|   private getPricing(modelName: string): ModelPricing {
+00924|     const normalizedName = modelName.includes(&#39;/&#39;) ? modelName.split(&#39;/&#39;).pop() || modelName : modelName
+00925|     if (this.pricingData[normalizedName]) return this.pricingData[normalizedName]
+00926|     
+00927|     const lowerModel = normalizedName.toLowerCase()
+00928|     for (const [key, pricing] of Object.entries(this.pricingData)) {
+00929|       if (lowerModel.startsWith(key.toLowerCase())) return pricing
+00930|     }
+00931|     
+00932|     return this.pricingData[&quot;default&quot;] || { input: 1, output: 3, cacheWrite: 0, cacheRead: 0 }
+00933|   }
+00934| }
+00935| 
+00936| // Output Formatter
+00937| 
+00938| class OutputFormatter {
+00939|   private readonly BAR_WIDTH = 30
+00940|   private readonly TOKEN_SPACING = 11
+00941|   private readonly CATEGORY_LABEL_WIDTH = 9
+00942|   private readonly TOOL_LABEL_WIDTH = 20
+00943|   private readonly TOP_CONTRIBUTOR_LABEL_WIDTH = 30
+00944| 
+00945|   constructor(private costCalculator: CostCalculator) {}
+00946| 
+00947|   private formatCategoryBar(
+00948|     label: string,
+00949|     tokens: number,
+00950|     total: number,
+00951|     labelWidth: number = this.CATEGORY_LABEL_WIDTH
+00952|   ): string {
+00953|     if (tokens === 0) return &quot;&quot;
+00954| 
+00955|     const percentage = total &gt; 0 ? ((tokens / total) * 100).toFixed(1) : &quot;0.0&quot;
+00956|     const percentageNum = parseFloat(percentage)
+00957|     const barWidth = Math.round((percentageNum / 100) * this.BAR_WIDTH)
+00958|     const bar = &quot;█&quot;.repeat(barWidth) + &quot;░&quot;.repeat(Math.max(0, this.BAR_WIDTH - barWidth))
+00959|     const labelPadded = label.padEnd(labelWidth)
+00960|     const formattedTokens = this.formatNumber(tokens)
+00961| 
+00962|     let pct = percentage
+00963|     if (percentageNum &lt; 10) {
+00964|       pct = &quot; &quot; + pct
+00965|     }
+00966| 
+00967|     const tokensPart = `(${formattedTokens})`
+00968|     const spacesNeeded = Math.max(1, this.TOKEN_SPACING - tokensPart.length)
+00969|     const spacing = &quot; &quot;.repeat(spacesNeeded)
+00970| 
+00971|     return `${labelPadded} ${bar} ${spacing}${pct}% ${tokensPart}`
+00972|   }
+00973| 
+00974|   format(analysis: TokenAnalysis): string {
+00975|     const inputCategories = [
+00976|       { label: &quot;SYSTEM&quot;, tokens: analysis.categories.system.totalTokens },
+00977|       { label: &quot;USER&quot;, tokens: analysis.categories.user.totalTokens },
+00978|       { label: &quot;TOOLS&quot;, tokens: analysis.categories.tools.totalTokens },
+00979|     ]
+00980|     const outputCategories = [
+00981|       { label: &quot;ASSISTANT&quot;, tokens: analysis.categories.assistant.totalTokens },
+00982|       { label: &quot;REASONING&quot;, tokens: analysis.categories.reasoning.totalTokens },
+00983|     ]
+00984|     const topEntries = this.collectTopEntries(analysis, 5)
+00985|     
+00986|     const toolStats = new Map&lt;string, { tokens: number; calls: number }&gt;()
+00987|     for (const [toolName, calls] of analysis.toolCallCounts.entries()) {
+00988|       toolStats.set(toolName, { tokens: 0, calls })
+00989|     }
+00990|     for (const entry of analysis.categories.tools.allEntries) {
+00991|       const existing = toolStats.get(entry.label) || { tokens: 0, calls: 0 }
+00992|       toolStats.set(entry.label, { ...existing, tokens: entry.tokens })
+00993|     }
+00994|     const toolEntries = Array.from(toolStats.entries())
+00995|       .map(([label, stats]) =&gt; ({ label, tokens: stats.tokens, calls: stats.calls }))
+00996|       .sort((a, b) =&gt; b.tokens - a.tokens)
+00997| 
+00998|     const costEstimate = this.costCalculator.calculateCost(analysis)
+00999| 
+01000|     return this.formatVisualOutput(
+01001|       analysis.sessionID, analysis.model.name, analysis.totalTokens,
+01002|       analysis.inputTokens, analysis.outputTokens, analysis.reasoningTokens,
+01003|       analysis.cacheReadTokens, analysis.cacheWriteTokens, analysis.assistantMessageCount,
+01004|       analysis.mostRecentInput, analysis.mostRecentOutput, analysis.mostRecentReasoning,
+01005|       analysis.mostRecentCacheRead, analysis.mostRecentCacheWrite,
+01006|       inputCategories, outputCategories, topEntries, toolEntries, costEstimate,
+01007|       analysis.subagentAnalysis
+01008|     )
+01009|   }
+01010| 
+01011|   private formatVisualOutput(
+01012|     sessionID: string,
+01013|     modelName: string,
+01014|     totalTokens: number,
+01015|     inputTokens: number,
+01016|     outputTokens: number,
+01017|     reasoningTokens: number,
+01018|     cacheReadTokens: number,
+01019|     cacheWriteTokens: number,
+01020|     assistantMessageCount: number,
+01021|     mostRecentInput: number,
+01022|     mostRecentOutput: number,
+01023|     mostRecentReasoning: number,
+01024|     mostRecentCacheRead: number,
+01025|     mostRecentCacheWrite: number,
+01026|     inputCategories: Array&lt;{ label: string; tokens: number }&gt;,
+01027|     outputCategories: Array&lt;{ label: string; tokens: number }&gt;,
+01028|     topEntries: CategoryEntry[],
+01029|     toolEntries: Array&lt;{ label: string; tokens: number; calls: number }&gt;,
+01030|     cost: CostEstimate,
+01031|     subagentAnalysis?: SubagentAnalysis
+01032|   ): string {
+01033|     const lines: string[] = []
+01034|     const sessionTotal = inputTokens + cacheReadTokens + cacheWriteTokens + outputTokens + reasoningTokens
+01035|     const mainCost = cost.isSubscription ? cost.estimatedSessionCost : cost.apiSessionCost
+01036| 
+01037|     // Header
+01038|     lines.push(`═══════════════════════════════════════════════════════════════════════════`)
+01039|     lines.push(`Token Analysis: Session ${sessionID}`)
+01040|     lines.push(`Model: ${modelName}`)
+01041|     lines.push(`═══════════════════════════════════════════════════════════════════════════`)
+01042|     lines.push(``)
+01043| 
+01044|     // 1. TOKEN BREAKDOWN BY CATEGORY
+01045|     lines.push(`TOKEN BREAKDOWN BY CATEGORY`)
+01046|     lines.push(`─────────────────────────────────────────────────────────────────────────`)
+01047|     lines.push(`Estimated using tokenizer analysis of message content:`)
+01048|     lines.push(``)
+01049| 
+01050|     const inputTotal = inputCategories.reduce((sum, cat) =&gt; sum + cat.tokens, 0)
+01051|     lines.push(`Input Categories:`)
+01052|     for (const category of inputCategories) {
+01053|       const barLine = this.formatCategoryBar(category.label, category.tokens, inputTotal)
+01054|       if (barLine) lines.push(`  ${barLine}`)
+01055|     }
+01056|     lines.push(``)
+01057|     lines.push(`  Subtotal: ${this.formatNumber(inputTotal)} estimated input tokens`)
+01058|     lines.push(``)
+01059| 
+01060|     const outputTotal = outputCategories.reduce((sum, cat) =&gt; sum + cat.tokens, 0)
+01061|     lines.push(`Output Categories:`)
+01062|     for (const category of outputCategories) {
+01063|       const barLine = this.formatCategoryBar(category.label, category.tokens, outputTotal)
+01064|       if (barLine) lines.push(`  ${barLine}`)
+01065|     }
+01066|     lines.push(``)
+01067|     lines.push(`  Subtotal: ${this.formatNumber(outputTotal)} estimated output tokens`)
+01068|     lines.push(``)
+01069|     lines.push(`Local Total: ${this.formatNumber(totalTokens)} tokens (estimated)`)
+01070| 
+01071|     // 2. TOOL USAGE BREAKDOWN (right after token breakdown)
+01072|     if (toolEntries.length &gt; 0) {
+01073|       const toolsTotalTokens = inputCategories.find(c =&gt; c.label === &quot;TOOLS&quot;)?.tokens || 0
+01074|       lines.push(``)
+01075|       lines.push(`TOOL USAGE BREAKDOWN`)
+01076|       lines.push(`─────────────────────────────────────────────────────────────────────────`)
+01077|       for (const tool of toolEntries) {
+01078|         const barLine = this.formatCategoryBar(tool.label, tool.tokens, toolsTotalTokens, this.TOOL_LABEL_WIDTH)
+01079|         if (barLine) {
+01080|           const calls = `${tool.calls}x`.padStart(5)
+01081|           lines.push(`${barLine} ${calls}`)
+01082|         }
+01083|       }
+01084|     }
+01085| 
+01086|     // 3. TOP CONTRIBUTORS
+01087|     if (topEntries.length &gt; 0) {
+01088|       lines.push(``)
+01089|       lines.push(`TOP CONTRIBUTORS`)
+01090|       lines.push(`─────────────────────────────────────────────────────────────────────────`)
+01091|       for (const entry of topEntries) {
+01092|         const percentage = ((entry.tokens / totalTokens) * 100).toFixed(1)
+01093|         const label = `• ${entry.label}`.padEnd(this.TOP_CONTRIBUTOR_LABEL_WIDTH)
+01094|         const formattedTokens = this.formatNumber(entry.tokens)
+01095|         lines.push(`${label} ${formattedTokens} tokens (${percentage}%)`)
+01096|       }
+01097|     }
+01098| 
+01099|     // 4. MOST RECENT API CALL
+01100|     lines.push(``)
+01101|     lines.push(`═══════════════════════════════════════════════════════════════════════════`)
+01102|     lines.push(`MOST RECENT API CALL`)
+01103|     lines.push(`─────────────────────────────────────────────────────────────────────────`)
+01104|     lines.push(``)
+01105|     lines.push(`Raw telemetry from last API response:`)
+01106|     lines.push(`  Input (fresh):     ${this.formatNumber(mostRecentInput).padStart(10)} tokens`)
+01107|     lines.push(`  Cache read:        ${this.formatNumber(mostRecentCacheRead).padStart(10)} tokens`)
+01108|     if (mostRecentCacheWrite &gt; 0) {
+01109|       lines.push(`  Cache write:       ${this.formatNumber(mostRecentCacheWrite).padStart(10)} tokens`)
+01110|     }
+01111|     lines.push(`  Output:            ${this.formatNumber(mostRecentOutput).padStart(10)} tokens`)
+01112|     if (mostRecentReasoning &gt; 0) {
+01113|       lines.push(`  Reasoning:         ${this.formatNumber(mostRecentReasoning).padStart(10)} tokens`)
+01114|     }
+01115|     lines.push(`  ───────────────────────────────────`)
+01116|     lines.push(`  Total:             ${this.formatNumber(mostRecentInput + mostRecentCacheRead + mostRecentCacheWrite + mostRecentOutput + mostRecentReasoning).padStart(10)} tokens`)
+01117| 
+01118|     // 5. SESSION TOTALS
+01119|     lines.push(``)
+01120|     lines.push(`═══════════════════════════════════════════════════════════════════════════`)
+01121|     lines.push(`SESSION TOTALS (All ${assistantMessageCount} API calls)`)
+01122|     lines.push(`─────────────────────────────────────────────────────────────────────────`)
+01123|     lines.push(``)
+01124|     lines.push(`Total tokens processed across the entire session (for cost calculation):`)
+01125|     lines.push(``)
+01126|     lines.push(`  Input tokens:      ${this.formatNumber(inputTokens).padStart(10)} (fresh tokens across all calls)`)
+01127|     lines.push(`  Cache read:        ${this.formatNumber(cacheReadTokens).padStart(10)} (cached tokens across all calls)`)
+01128|     lines.push(`  Cache write:       ${this.formatNumber(cacheWriteTokens).padStart(10)} (tokens written to cache)`)
+01129|     lines.push(`  Output tokens:     ${this.formatNumber(outputTokens).padStart(10)} (all model responses)`)
+01130|     if (reasoningTokens &gt; 0) {
+01131|       lines.push(`  Reasoning tokens:  ${this.formatNumber(reasoningTokens).padStart(10)} (thinking/reasoning)`)
+01132|     }
+01133|     lines.push(`  ───────────────────────────────────`)
+01134|     lines.push(`  Session Total:     ${this.formatNumber(sessionTotal).padStart(10)} tokens (for billing)`)
+01135| 
+01136|     // 6. SESSION COST / ESTIMATED SESSION COST
+01137|     lines.push(``)
+01138|     lines.push(`═══════════════════════════════════════════════════════════════════════════`)
+01139|     if (cost.isSubscription) {
+01140|       lines.push(`ESTIMATED SESSION COST (API Key Pricing)`)
+01141|       lines.push(`─────────────────────────────────────────────────────────────────────────`)
+01142|       lines.push(``)
+01143|       lines.push(`You appear to be on a subscription plan (API cost is $0).`)
+01144|       lines.push(`Here&#39;s what this session would cost with direct API access:`)
+01145|       lines.push(``)
+01146|       lines.push(`  Input tokens:      ${this.formatNumber(inputTokens).padStart(10)} × $${cost.pricePerMillionInput.toFixed(2)}/M  = $${cost.estimatedInputCost.toFixed(4)}`)
+01147|       lines.push(`  Output tokens:     ${this.formatNumber(outputTokens + reasoningTokens).padStart(10)} × $${cost.pricePerMillionOutput.toFixed(2)}/M  = $${cost.estimatedOutputCost.toFixed(4)}`)
+01148|       if (cacheReadTokens &gt; 0 &amp;&amp; cost.pricePerMillionCacheRead &gt; 0) {
+01149|         lines.push(`  Cache read:        ${this.formatNumber(cacheReadTokens).padStart(10)} × $${cost.pricePerMillionCacheRead.toFixed(2)}/M  = $${cost.estimatedCacheReadCost.toFixed(4)}`)
+01150|       }
+01151|       if (cacheWriteTokens &gt; 0 &amp;&amp; cost.pricePerMillionCacheWrite &gt; 0) {
+01152|         lines.push(`  Cache write:       ${this.formatNumber(cacheWriteTokens).padStart(10)} × $${cost.pricePerMillionCacheWrite.toFixed(2)}/M  = $${cost.estimatedCacheWriteCost.toFixed(4)}`)
+01153|       }
+01154|       lines.push(`─────────────────────────────────────────────────────────────────────────`)
+01155|       lines.push(`ESTIMATED TOTAL: $${cost.estimatedSessionCost.toFixed(4)}`)
+01156|       lines.push(``)
+01157|       lines.push(`Note: This estimate uses standard API pricing from models.json.`)
+01158|       lines.push(`Actual API costs may vary based on provider and context size.`)
+01159|     } else {
+01160|       lines.push(`SESSION COST`)
+01161|       lines.push(`─────────────────────────────────────────────────────────────────────────`)
+01162|       lines.push(``)
+01163|       lines.push(`Token usage breakdown:`)
+01164|       lines.push(`  Input tokens:      ${this.formatNumber(inputTokens).padStart(10)}`)
+01165|       lines.push(`  Output tokens:     ${this.formatNumber(outputTokens).padStart(10)}`)
+01166|       if (reasoningTokens &gt; 0) {
+01167|         lines.push(`  Reasoning tokens:  ${this.formatNumber(reasoningTokens).padStart(10)}`)
+01168|       }
+01169|       if (cacheReadTokens &gt; 0) {
+01170|         lines.push(`  Cache read:        ${this.formatNumber(cacheReadTokens).padStart(10)}`)
+01171|       }
+01172|       if (cacheWriteTokens &gt; 0) {
+01173|         lines.push(`  Cache write:       ${this.formatNumber(cacheWriteTokens).padStart(10)}`)
+01174|       }
+01175|       lines.push(``)
+01176|       lines.push(`─────────────────────────────────────────────────────────────────────────`)
+01177|       lines.push(`ACTUAL COST (from API):  $${cost.apiSessionCost.toFixed(4)}`)
+01178|       const diff = Math.abs(cost.apiSessionCost - cost.estimatedSessionCost)
+01179|       const diffPercent = cost.apiSessionCost &gt; 0 ? (diff / cost.apiSessionCost) * 100 : 0
+01180|       if (diffPercent &gt; 5) {
+01181|         lines.push(`Estimated cost:          $${cost.estimatedSessionCost.toFixed(4)} (${diffPercent &gt; 0 ? (cost.estimatedSessionCost &gt; cost.apiSessionCost ? &#39;+&#39; : &#39;-&#39;) : &#39;&#39;}${diffPercent.toFixed(1)}% diff)`)
+01182|       }
+01183|       lines.push(``)
+01184|       lines.push(`Note: Actual cost from OpenCode includes provider-specific pricing`)
+01185|       lines.push(`and 200K+ context adjustments.`)
+01186|     }
+01187| 
+01188|     // 7. SUBAGENT COSTS (if any)
+01189|     if (subagentAnalysis &amp;&amp; subagentAnalysis.subagents.length &gt; 0) {
+01190|       const subagentLabelWidth = 25
+01191|       const subagentTotalCost = cost.isSubscription 
+01192|         ? subagentAnalysis.totalEstimatedCost 
+01193|         : subagentAnalysis.totalApiCost
+01194| 
+01195|       lines.push(``)
+01196|       lines.push(`═══════════════════════════════════════════════════════════════════════════`)
+01197|       lines.push(`SUBAGENT COSTS (${subagentAnalysis.subagents.length} child sessions, ${subagentAnalysis.totalApiCalls} API calls)`)
+01198|       lines.push(`─────────────────────────────────────────────────────────────────────────`)
+01199|       lines.push(``)
+01200|       for (const subagent of subagentAnalysis.subagents) {
+01201|         const label = `${subagent.agentType}`.padEnd(subagentLabelWidth)
+01202|         const costStr = cost.isSubscription 
+01203|           ? `$${subagent.estimatedCost.toFixed(4)}`
+01204|           : `$${subagent.apiCost.toFixed(4)}`
+01205|         const tokensStr = `(${this.formatNumber(subagent.totalTokens)} tokens, ${subagent.assistantMessageCount} calls)`
+01206|         lines.push(`  ${label} ${costStr.padStart(10)}  ${tokensStr}`)
+01207|       }
+01208|       lines.push(`─────────────────────────────────────────────────────────────────────────`)
+01209|       lines.push(`Subagent Total:${&#39; &#39;.repeat(subagentLabelWidth - 14)} $${subagentTotalCost.toFixed(4)}  (${this.formatNumber(subagentAnalysis.totalTokens)} tokens, ${subagentAnalysis.totalApiCalls} calls)`)
+01210|     }
+01211| 
+01212|     // 8. SUMMARY (always last)
+01213|     lines.push(``)
+01214|     lines.push(`═══════════════════════════════════════════════════════════════════════════`)
+01215|     lines.push(`SUMMARY`)
+01216|     lines.push(`─────────────────────────────────────────────────────────────────────────`)
+01217|     lines.push(``)
+01218|     lines.push(`                          Cost        Tokens          API Calls`)
+01219| 
+01220|     if (subagentAnalysis &amp;&amp; subagentAnalysis.subagents.length &gt; 0) {
+01221|       const subagentTotalCost = cost.isSubscription 
+01222|         ? subagentAnalysis.totalEstimatedCost 
+01223|         : subagentAnalysis.totalApiCost
+01224|       const grandTotalCost = mainCost + subagentTotalCost
+01225|       const grandTotalTokens = sessionTotal + subagentAnalysis.totalTokens
+01226|       const grandTotalApiCalls = assistantMessageCount + subagentAnalysis.totalApiCalls
+01227| 
+01228|       lines.push(`  Main session:      $${mainCost.toFixed(4).padStart(10)}    ${this.formatNumber(sessionTotal).padStart(10)}         ${assistantMessageCount.toString().padStart(5)}`)
+01229|       lines.push(`  Subagents:         $${subagentTotalCost.toFixed(4).padStart(10)}    ${this.formatNumber(subagentAnalysis.totalTokens).padStart(10)}         ${subagentAnalysis.totalApiCalls.toString().padStart(5)}`)
+01230|       lines.push(`─────────────────────────────────────────────────────────────────────────`)
+01231|       lines.push(`  TOTAL:             $${grandTotalCost.toFixed(4).padStart(10)}    ${this.formatNumber(grandTotalTokens).padStart(10)}         ${grandTotalApiCalls.toString().padStart(5)}`)
+01232|     } else {
+01233|       lines.push(`  Session:           $${mainCost.toFixed(4).padStart(10)}    ${this.formatNumber(sessionTotal).padStart(10)}         ${assistantMessageCount.toString().padStart(5)}`)
+01234|     }
+01235| 
+01236|     lines.push(``)
+01237|     lines.push(`═══════════════════════════════════════════════════════════════════════════`)
+01238| 
+01239|     return lines.join(&quot;\n&quot;)
+01240|   }
+01241| 
+01242|   private collectTopEntries(analysis: TokenAnalysis, limit: number): CategoryEntry[] {
+01243|     const pool = [
+01244|       ...analysis.categories.system.allEntries,
+01245|       ...analysis.categories.user.allEntries,
+01246|       ...analysis.categories.assistant.allEntries,
+01247|       ...analysis.categories.tools.allEntries,
+01248|       ...analysis.categories.reasoning.allEntries,
+01249|     ]
+01250|       .filter((entry) =&gt; entry.tokens &gt; 0)
+01251|       .sort((a, b) =&gt; b.tokens - a.tokens)
+01252| 
+01253|     return pool.slice(0, limit)
+01254|   }
+01255| 
+01256|   private formatNumber(value: number): string {
+01257|     return new Intl.NumberFormat(&quot;en-US&quot;).format(value)
+01258|   }
+01259| }
+01260| 
+01261| // Plugin Export
+01262| 
+01263| export const TokenAnalyzerPlugin: Plugin = async ({ client }) =&gt; {
+01264|   const pricingData = await loadModelPricing()
+01265|   
+01266|   const tokenizerManager = new TokenizerManager()
+01267|   const modelResolver = new ModelResolver()
+01268|   const contentCollector = new ContentCollector()
+01269|   const analysisEngine = new TokenAnalysisEngine(tokenizerManager, contentCollector)
+01270|   const costCalculator = new CostCalculator(pricingData)
+01271|   const subagentAnalyzer = new SubagentAnalyzer(client, costCalculator, pricingData)
+01272|   const formatter = new OutputFormatter(costCalculator)
+01273| 
+01274|   return {
+01275|     tool: {
+01276|       tokenscope: tool({
+01277|         description:
+01278|           &quot;Analyze token usage across the current session with detailed breakdowns by category (system, user, assistant, tools, reasoning). &quot; +
+01279|           &quot;Provides visual charts, identifies top token consumers, and includes costs from subagent (Task tool) child sessions.&quot;,
+01280|         args: {
+01281|           sessionID: tool.schema.string().optional(),
+01282|           limitMessages: tool.schema.number().int().min(1).max(10).optional(),
+01283|           includeSubagents: tool.schema.boolean().optional().describe(&quot;Include token costs from subagent child sessions (default: true)&quot;),
+01284|         },
+01285|         async execute(args, context) {
+01286|           const sessionID = args.sessionID ?? context.sessionID
+01287|           if (!sessionID) {
+01288|             throw new Error(&quot;No session ID available for token analysis&quot;)
+01289|           }
+01290| 
+01291|           const response = await client.session.messages({ path: { id: sessionID } })
+01292|           const messages: SessionMessage[] = ((response as any)?.data ?? response ?? []) as SessionMessage[]
+01293| 
+01294|           if (!Array.isArray(messages) || messages.length === 0) {
+01295|             return `Session ${sessionID} has no messages yet.`
+01296|           }
+01297| 
+01298|           const tokenModel = modelResolver.resolveTokenModel(messages)
+01299|           const analysis = await analysisEngine.analyze(
+01300|             sessionID,
+01301|             messages,
+01302|             tokenModel,
+01303|             args.limitMessages ?? DEFAULT_ENTRY_LIMIT
+01304|           )
+01305| 
+01306|           if (args.includeSubagents !== false) {
+01307|             analysis.subagentAnalysis = await subagentAnalyzer.analyzeChildSessions(sessionID)
+01308|           }
+01309| 
+01310|           const output = formatter.format(analysis)
+01311|           const outputPath = path.join(process.cwd(), &#39;token-usage-output.txt&#39;)
+01312|           
+01313|           try {
+01314|             try { await fs.unlink(outputPath) } catch {}
+01315|             await fs.writeFile(outputPath, output, { encoding: &#39;utf8&#39;, flag: &#39;w&#39; })
+01316|           } catch (error) {
+01317|             throw new Error(`Failed to write token analysis to ${outputPath}: ${error}`)
+01318|           }
+01319| 
+01320|           const timestamp = new Date().toISOString()
+01321|           const formattedTotal = new Intl.NumberFormat(&quot;en-US&quot;).format(analysis.totalTokens)
+01322|           
+01323|           let summaryMsg = `Token analysis complete! Full report saved to: ${outputPath}\n\nTimestamp: ${timestamp}\nMain session tokens: ${formattedTotal}`
+01324|           
+01325|           if (analysis.subagentAnalysis &amp;&amp; analysis.subagentAnalysis.subagents.length &gt; 0) {
+01326|             const subagentTokens = new Intl.NumberFormat(&quot;en-US&quot;).format(analysis.subagentAnalysis.totalTokens)
+01327|             const grandTotal = new Intl.NumberFormat(&quot;en-US&quot;).format(analysis.totalTokens + analysis.subagentAnalysis.totalTokens)
+01328|             summaryMsg += `\nSubagent sessions: ${analysis.subagentAnalysis.subagents.length} (${subagentTokens} tokens)`
+01329|             summaryMsg += `\nGrand total: ${grandTotal} tokens`
+01330|           }
+01331|           
+01332|           summaryMsg += `\n\nUse: cat token-usage-output.txt (or read the file) to view the complete analysis.`
+01333|           
+01334|           return summaryMsg
+01335|         },
+01336|       }),
+01337|     },
+01338|   }
+01339| }
+01340| 
+
+(End of file - total 1340 lines)
+&lt;/file&gt;</code></pre>
+    </div>
+    
+  </div>
+</div>
+<div class="tool-call tool-read" data-status="completed">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="tool-icon">&#128196;</span>
+    <span class="read-file-path" title="/home/ramtinj/personal-workspace/opencode-tokenscope/README.md">README.md</span>
+    <span class="read-full-path">/home/ramtinj/personal-workspace/opencode-tokenscope/README.md</span>
+    
+    <span class="read-lines">406 lines</span>
+    <span class="tool-toggle">+</span>
+  </div>
+  <div class="tool-body collapsed">
+    <div class="read-content">
+      <pre><code>&lt;file&gt;
+00001| # OpenCode-Tokenscope, Token Analyzer Plugin
+00002| 
+00003| &gt; Comprehensive token usage analysis and cost tracking for OpenCode AI sessions
+00004| 
+00005| Track and optimize your token usage across system prompts, user messages, tool outputs, and more. Get detailed breakdowns, accurate cost estimates, and visual insights for your AI development workflow.
+00006| 
+00007| ## Features
+00008| 
+00009| ### Comprehensive Token Analysis
+00010| - **5 Category Breakdown**: System prompts, user messages, assistant responses, tool outputs, and reasoning traces
+00011| - **Visual Charts**: Easy-to-read ASCII bar charts with percentages and token counts
+00012| - **Smart Inference**: Automatically infers system prompts from API telemetry (since they&#39;re not exposed in session messages)
+00013| 
+00014| ### Accurate Cost Tracking
+00015| - **41+ Models Supported**: Comprehensive pricing database for Claude, GPT, DeepSeek, Llama, Mistral, and more
+00016| - **Cache-Aware Pricing**: Properly handles cache read/write tokens with discounted rates
+00017| - **Session-Wide Billing**: Aggregates costs across all API calls in your session
+00018| 
+00019| ### Dual Tracking System
+00020| - **Current Context**: Matches what OpenCode TUI displays (~2K difference expected)
+00021| - **Session Total**: Cumulative billing across all API calls
+00022| - **Clear Separation**: Understand the difference between current context and total costs
+00023| 
+00024| ### Advanced Features
+00025| - **Tool Usage Stats**: Track which tools consume the most tokens
+00026| - **Top Contributors**: Identify the biggest token consumers
+00027| - **Model Normalization**: Handles `provider/model` format automatically
+00028| - **Multi-Tokenizer Support**: Uses official tokenizers (tiktoken for OpenAI, transformers for others)
+00029| 
+00030| ## Quick Install
+00031| 
+00032| ### One-Line Install (Recommended)
+00033| 
+00034| ```bash
+00035| curl -sSL https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/install.sh | bash
+00036| ```
+00037| 
+00038| Then restart OpenCode and run `/tokenscope`
+00039| 
+00040| ## Manual Installation
+00041| 
+00042| &lt;details&gt;
+00043| &lt;summary&gt;Click to expand manual installation steps&lt;/summary&gt;
+00044| 
+00045| ### Requirements
+00046| - OpenCode installed (`~/.config/opencode` directory exists)
+00047| - npm (for tokenizer dependencies)
+00048| - ~50MB disk space (for tokenizer models)
+00049| 
+00050| ### Installation Steps
+00051| 
+00052| 1. **Navigate to OpenCode config**:
+00053|    ```bash
+00054|    cd ~/.config/opencode
+00055|    ```
+00056| 
+00057| 2. **Download plugin files**:
+00058|    ```bash
+00059|    # Download to plugin directory
+00060|    cd plugin
+00061|    curl -O https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/tokenscope.ts
+00062|    curl -O https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/models.json
+00063|    curl -O https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/install.sh
+00064|    curl -O https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/package.json
+00065|    ```
+00066| 
+00067| 3. **Download command file**:
+00068|    ```bash
+00069|    cd ../command
+00070|    curl -O https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/command/tokenscope.md
+00071|    ```
+00072| 
+00073| 4. **Install dependencies**:
+00074|    ```bash
+00075|    cd ../plugin
+00076|    chmod +x install.sh
+00077|    ./install.sh
+00078|    ```
+00079| 
+00080| 5. **Restart OpenCode**
+00081| 
+00082| 6. **Test**: Run `/tokenscope` in any session
+00083| 
+00084| &lt;/details&gt;
+00085| 
+00086| ## Updating
+00087| 
+00088| To update to the latest version, run the install script with the `--update` flag:
+00089| 
+00090| ```bash
+00091| curl -sSL https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/install.sh | bash -s -- --update
+00092| ```
+00093| 
+00094| This will download the latest plugin files while skipping dependency installation (faster).
+00095| 
+00096| For a full reinstall (if you&#39;re having issues):
+00097| 
+00098| ```bash
+00099| curl -sSL https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/install.sh | bash
+00100| ```
+00101| 
+00102| ## Usage
+00103| 
+00104| ### Basic Command
+00105| 
+00106| Simply type in OpenCode:
+00107| ```
+00108| /tokenscope
+00109| ```
+00110| 
+00111| The plugin will:
+00112| 1. Analyze the current session
+00113| 2. Count tokens across all categories
+00114| 3. Calculate costs based on API telemetry
+00115| 4. Display results in terminal
+00116| 5. Save detailed report to `token-usage-output.txt`
+00117| 
+00118| ### Reading the Full Report
+00119| 
+00120| ```bash
+00121| cat token-usage-output.txt
+00122| ```
+00123| 
+00124| ### Example Output
+00125| 
+00126| ```
+00127| ═══════════════════════════════════════════════════════════════════════════
+00128| Token Analysis: Session ses_50c712089ffeshuuuJPmOoXCPX
+00129| Model: claude-opus-4-5
+00130| ═══════════════════════════════════════════════════════════════════════════
+00131| 
+00132| TOKEN BREAKDOWN BY CATEGORY
+00133| ─────────────────────────────────────────────────────────────────────────
+00134| Estimated using tokenizer analysis of message content:
+00135| 
+00136| Input Categories:
+00137|   SYSTEM    ██████████████░░░░░░░░░░░░░░░░    45.8% (22,367)
+00138|   USER      ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░        0.8% (375)
+00139|   TOOLS     ████████████████░░░░░░░░░░░░░░    53.5% (26,146)
+00140| 
+00141|   Subtotal: 48,888 estimated input tokens
+00142| 
+00143| Output Categories:
+00144|   ASSISTANT ██████████████████████████████     100.0% (1,806)
+00145| 
+00146|   Subtotal: 1,806 estimated output tokens
+00147| 
+00148| Local Total: 50,694 tokens (estimated)
+00149| 
+00150| TOOL USAGE BREAKDOWN
+00151| ─────────────────────────────────────────────────────────────────────────
+00152| bash                 ██████████░░░░░░░░░░░░░░░░░░░░     34.0% (8,886)    4x
+00153| read                 ██████████░░░░░░░░░░░░░░░░░░░░     33.1% (8,643)    3x
+00154| task                 ████████░░░░░░░░░░░░░░░░░░░░░░     27.7% (7,245)    4x
+00155| webfetch             █░░░░░░░░░░░░░░░░░░░░░░░░░░░░░      4.9% (1,286)    1x
+00156| tokenscope           ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░         0.3% (75)    2x
+00157| batch                ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░         0.0% (11)    1x
+00158| 
+00159| TOP CONTRIBUTORS
+00160| ─────────────────────────────────────────────────────────────────────────
+00161| • System (inferred from API)   22,367 tokens (44.1%)
+00162| • bash                         8,886 tokens (17.5%)
+00163| • read                         8,643 tokens (17.0%)
+00164| • task                         7,245 tokens (14.3%)
+00165| • webfetch                     1,286 tokens (2.5%)
+00166| 
+00167| ═══════════════════════════════════════════════════════════════════════════
+00168| MOST RECENT API CALL
+00169| ─────────────────────────────────────────────────────────────────────────
+00170| 
+00171| Raw telemetry from last API response:
+00172|   Input (fresh):              2 tokens
+00173|   Cache read:            48,886 tokens
+00174|   Cache write:               54 tokens
+00175|   Output:                   391 tokens
+00176|   ───────────────────────────────────
+00177|   Total:                 49,333 tokens
+00178| 
+00179| ═══════════════════════════════════════════════════════════════════════════
+00180| SESSION TOTALS (All 15 API calls)
+00181| ─────────────────────────────────────────────────────────────────────────
+00182| 
+00183| Total tokens processed across the entire session (for cost calculation):
+00184| 
+00185|   Input tokens:              10 (fresh tokens across all calls)
+00186|   Cache read:           320,479 (cached tokens across all calls)
+00187|   Cache write:           51,866 (tokens written to cache)
+00188|   Output tokens:          3,331 (all model responses)
+00189|   ───────────────────────────────────
+00190|   Session Total:        375,686 tokens (for billing)
+00191| 
+00192| ═══════════════════════════════════════════════════════════════════════════
+00193| ESTIMATED SESSION COST (API Key Pricing)
+00194| ─────────────────────────────────────────────────────────────────────────
+00195| 
+00196| You appear to be on a subscription plan (API cost is $0).
+00197| Here&#39;s what this session would cost with direct API access:
+00198| 
+00199|   Input tokens:              10 × $5.00/M  = $0.0001
+00200|   Output tokens:          3,331 × $25.00/M  = $0.0833
+00201|   Cache read:           320,479 × $0.50/M  = $0.1602
+00202|   Cache write:           51,866 × $6.25/M  = $0.3242
+00203| ─────────────────────────────────────────────────────────────────────────
+00204| ESTIMATED TOTAL: $0.5677
+00205| 
+00206| Note: This estimate uses standard API pricing from models.json.
+00207| Actual API costs may vary based on provider and context size.
+00208| 
+00209| ═══════════════════════════════════════════════════════════════════════════
+00210| SUBAGENT COSTS (4 child sessions, 23 API calls)
+00211| ─────────────────────────────────────────────────────────────────────────
+00212| 
+00213|   docs                         $0.3190  (194,701 tokens, 8 calls)
+00214|   general                      $0.2957  (104,794 tokens, 4 calls)
+00215|   docs                         $0.2736  (69,411 tokens, 4 calls)
+00216|   general                      $0.5006  (197,568 tokens, 7 calls)
+00217| ─────────────────────────────────────────────────────────────────────────
+00218| Subagent Total:            $1.3888  (566,474 tokens, 23 calls)
+00219| 
+00220| ═══════════════════════════════════════════════════════════════════════════
+00221| SUMMARY
+00222| ─────────────────────────────────────────────────────────────────────────
+00223| 
+00224|                           Cost        Tokens          API Calls
+00225|   Main session:      $    0.5677       375,686            15
+00226|   Subagents:         $    1.3888       566,474            23
+00227| ─────────────────────────────────────────────────────────────────────────
+00228|   TOTAL:             $    1.9565       942,160            38
+00229| 
+00230| ═══════════════════════════════════════════════════════════════════════════
+00231| 
+00232| ```
+00233| ## Supported Models
+00234| 
+00235| **41+ models with accurate pricing:**
+00236| 
+00237| ### Claude Models
+00238| - Claude Opus 4.5, 4.1, 4
+00239| - Claude Sonnet 4, 4-5, 3.7, 3.5, 3
+00240| - Claude Haiku 4-5, 3.5, 3
+00241| 
+00242| ### OpenAI Models
+00243| - GPT-4, GPT-4 Turbo, GPT-4o, GPT-4o Mini
+00244| - GPT-3.5 Turbo
+00245| - GPT-5 and all its variations
+00246| 
+00247| ### Other Models
+00248| - DeepSeek (R1, V2, V3)
+00249| - Llama (3.1, 3.2, 3.3)
+00250| - Mistral (Large, Small)
+00251| - Qwen, Kimi, GLM, Grok
+00252| - And more...
+00253| 
+00254| **Free/Open models** are marked with zero pricing.
+00255| 
+00256| ## Customization
+00257| 
+00258| ### Add New Model Pricing
+00259| 
+00260| Edit `~/.config/opencode/plugin/models.json`:
+00261| 
+00262| ```json
+00263| {
+00264|   &quot;your-model-name&quot;: {
+00265|     &quot;input&quot;: 1.50,
+00266|     &quot;output&quot;: 5.00,
+00267|     &quot;cacheWrite&quot;: 0.50,
+00268|     &quot;cacheRead&quot;: 0.10
+00269|   }
+00270| }
+00271| ```
+00272| 
+00273| Save the file and restart OpenCode. The plugin will automatically use the new pricing.
+00274| 
+00275| ### Update Existing Model Pricing
+00276| 
+00277| Simply edit the values in `models.json` and restart OpenCode. No code changes needed!
+00278| 
+00279| ## How It Works
+00280| 
+00281| ### System Prompt Inference
+00282| OpenCode doesn&#39;t expose system prompts in the session messages API. The plugin intelligently infers them using:
+00283| 
+00284| ```
+00285| System Tokens = (API Input + Cache Read) - (User Tokens + Tool Tokens)
+00286| ```
+00287| 
+00288| This works because the API input includes everything sent to the model.
+00289| 
+00290| ### Dual Tracking
+00291| - **Current Context**: Uses the most recent API call with non-zero tokens (matches TUI)
+00292| - **Session Total**: Aggregates all API calls for accurate billing
+00293| 
+00294| ### Model Name Normalization
+00295| Automatically handles `provider/model` format (e.g., `qwen/qwen3-coder` → `qwen3-coder`)
+00296| 
+00297| ## Troubleshooting
+00298| 
+00299| ### &quot;Dependencies missing&quot; Error
+00300| 
+00301| Run the installer:
+00302| ```bash
+00303| cd ~/.config/opencode/plugin
+00304| ./install.sh
+00305| ```
+00306| 
+00307| ### Command Not Appearing
+00308| 
+00309| 1. Verify `tokenscope.md` exists:
+00310|    ```bash
+00311|    ls ~/.config/opencode/command/tokenscope.md
+00312|    ```
+00313| 2. Restart OpenCode completely
+00314| 3. Check OpenCode logs for plugin errors
+00315| 
+00316| ### Wrong Token Counts
+00317| 
+00318| The plugin uses API telemetry (ground truth). If counts seem off:
+00319| - **Expected ~2K difference from TUI**: Plugin analyzes before its own response is added
+00320| - **Model detection**: Check that the model name is recognized in the output
+00321| - **Tokenizer not installed**: Re-run `install.sh`
+00322| 
+00323| ### New Model Not Showing Correct Pricing
+00324| 
+00325| 1. Check if model exists in `models.json`
+00326| 2. Try exact match or prefix match (e.g., `claude-sonnet-4` matches `claude-sonnet-4-20250514`)
+00327| 3. Add entry to `models.json` if missing
+00328| 4. Restart OpenCode after editing `models.json`
+00329| 
+00330| ### Plugin Fails to Load
+00331| 
+00332| 1. Validate JSON syntax:
+00333|    ```bash
+00334|    cd ~/.config/opencode/plugin
+00335|    node -e &quot;JSON.parse(require(&#39;fs&#39;).readFileSync(&#39;models.json&#39;, &#39;utf8&#39;))&quot;
+00336|    ```
+00337| 2. Check for trailing commas or syntax errors
+00338| 3. Plugin falls back to default pricing if file is invalid
+00339| 
+00340| ## Understanding the Numbers
+00341| 
+00342| ### Current Context vs Session Total
+00343| 
+00344| - **Current Context (34K)**: What&#39;s in your context window right now
+00345|   - Based on most recent API call
+00346|   - Used to understand current memory usage
+00347| 
+00348| - **Session Total (493K)**: All tokens processed in this session
+00349|   - Sum of all 26 API calls
+00350|   - What you&#39;re actually billed for
+00351|   - Used for cost calculation
+00352| 
+00353| ### Cache Tokens
+00354| 
+00355| - **Cache Read**: Tokens retrieved from cache (discounted rate ~90% off)
+00356| - **Cache Write**: Tokens written to cache (slight premium ~25% more)
+00357| - **Note**: Cache write is a billing charge, not additional context tokens
+00358| 
+00359| ## Architecture
+00360| 
+00361| ### Core Components
+00362| 
+00363| 1. **TokenizerManager**: Loads and caches tokenizers (tiktoken, transformers)
+00364| 2. **ModelResolver**: Detects model and selects appropriate tokenizer
+00365| 3. **ContentCollector**: Extracts content from session messages
+00366| 4. **TokenAnalysisEngine**: Counts tokens and applies API telemetry
+00367| 5. **CostCalculator**: Calculates costs from pricing database
+00368| 6. **OutputFormatter**: Generates visual reports
+00369| 
+00370| ## Privacy &amp; Security
+00371| 
+00372| - **All processing is local**: No session data sent to external services
+00373| - **Tokenizers from official sources**:
+00374|   - OpenAI tokenizers: npm registry
+00375|   - Transformers: Hugging Face Hub
+00376| - **Open source**: Audit the code yourself
+00377| 
+00378| ## Performance
+00379| 
+00380| - **Fast**: Tokenizers cached after first load
+00381| - **Parallel**: Categories processed concurrently
+00382| - **Efficient**: Only analyzes on demand
+00383| - **First-run download**: Transformers models download on demand (5-50MB per model)
+00384| - **Subsequent runs**: Instant (uses cache)
+00385| 
+00386| ## Contributing
+00387| 
+00388| Contributions welcome! Ideas for enhancement:
+00389| 
+00390| - Historical trend analysis
+00391| - Export to CSV/JSON/PDF
+00392| - Optimization suggestions
+00393| - Custom categorization rules
+00394| - Real-time monitoring with alerts
+00395| - Compare sessions
+00396| - Token burn rate calculation
+00397| 
+00398| ## Support
+00399| 
+00400| - **Issues**: [GitHub Issues](https://github.com/ramtinJ95/opencode-tokenscope/issues)
+00401| - **Discussions**: [GitHub Discussions](https://github.com/ramtinJ95/opencode-tokenscope/discussions)
+00402| 
+
+(End of file - total 402 lines)
+&lt;/file&gt;</code></pre>
+    </div>
+    
+  </div>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 2 in / 154 out</span>
+<span class="stat">Finish: tool-calls</span></div>
+</div>
+<div class="message message-assistant" id="msg_af3af7e24001bFEMatBWWg62bY">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">01:42 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>Now I have a clear picture of the code and README. Let me analyze the key changes in the code compared to what the README describes:</p>
+<p><strong>Key additions in the code that need to be reflected in the README:</strong></p>
+<p>1. <strong>Subagent Analysis</strong> - The code has a full <code>SubagentAnalyzer</code> class that recursively analyzes child sessions (Task tool calls), tracking their tokens, costs, and API calls. The README does mention this in the example output but doesn&#39;t list it as a feature.</p>
+<p>2. <strong>API Call Counts</strong> - The code tracks <code>assistantMessageCount</code> and displays API calls in the summary, but the README doesn&#39;t mention this as a feature.</p>
+<p>3. <strong>Tool Call Counts</strong> - The code has <code>collectToolCallCounts</code> which tracks how many times each tool is called (displayed as <code>4x</code>, <code>3x</code> etc. in the tool breakdown).</p>
+<p>4. <strong><code>includeSubagents</code> parameter</strong> - The tool accepts an optional <code>includeSubagents</code> boolean parameter.</p>
+<p>5. <strong>Architecture section is missing <code>SubagentAnalyzer</code></strong> - The README lists 6 core components but the code now has 7 with <code>SubagentAnalyzer</code>.</p>
+<p>Let me also check if there are any inaccuracies in how the README describes the code.</p>
+<p>I&#39;ll update the README now:</p>
+</div>
+<div class="tool-call tool-edit" data-status="completed">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="tool-icon">&#9998;</span>
+    <span class="edit-file-path" title="/home/ramtinj/personal-workspace/opencode-tokenscope/README.md">README.md</span>
+    <span class="edit-full-path">/home/ramtinj/personal-workspace/opencode-tokenscope/README.md</span>
+    
+    <span class="edit-stats">
+    <span class="edit-old-lines">22 lines</span>
+    <span class="edit-arrow">&#8594;</span>
+    <span class="edit-new-lines">29 lines</span>
+  </span>
+    <span class="tool-toggle">-</span>
+  </div>
+  <div class="tool-body">
+    <div class="edit-diff">
+      <div class="diff-old">
+        <div class="diff-label">Old</div>
+        <pre><code class="diff-removed">## Features
+
+### Comprehensive Token Analysis
+- **5 Category Breakdown**: System prompts, user messages, assistant responses, tool outputs, and reasoning traces
+- **Visual Charts**: Easy-to-read ASCII bar charts with percentages and token counts
+- **Smart Inference**: Automatically infers system prompts from API telemetry (since they&#39;re not exposed in session messages)
+
+### Accurate Cost Tracking
+- **41+ Models Supported**: Comprehensive pricing database for Claude, GPT, DeepSeek, Llama, Mistral, and more
+- **Cache-Aware Pricing**: Properly handles cache read/write tokens with discounted rates
+- **Session-Wide Billing**: Aggregates costs across all API calls in your session
+
+### Dual Tracking System
+- **Current Context**: Matches what OpenCode TUI displays (~2K difference expected)
+- **Session Total**: Cumulative billing across all API calls
+- **Clear Separation**: Understand the difference between current context and total costs
+
+### Advanced Features
+- **Tool Usage Stats**: Track which tools consume the most tokens
+- **Top Contributors**: Identify the biggest token consumers
+- **Model Normalization**: Handles `provider/model` format automatically
+- **Multi-Tokenizer Support**: Uses official tokenizers (tiktoken for OpenAI, transformers for others)</code></pre>
+      </div>
+      <div class="diff-new">
+        <div class="diff-label">New</div>
+        <pre><code class="diff-added">## Features
+
+### Comprehensive Token Analysis
+- **5 Category Breakdown**: System prompts, user messages, assistant responses, tool outputs, and reasoning traces
+- **Visual Charts**: Easy-to-read ASCII bar charts with percentages and token counts
+- **Smart Inference**: Automatically infers system prompts from API telemetry (since they&#39;re not exposed in session messages)
+
+### Accurate Cost Tracking
+- **41+ Models Supported**: Comprehensive pricing database for Claude, GPT, DeepSeek, Llama, Mistral, and more
+- **Cache-Aware Pricing**: Properly handles cache read/write tokens with discounted rates
+- **Session-Wide Billing**: Aggregates costs across all API calls in your session
+
+### Subagent Cost Tracking
+- **Child Session Analysis**: Recursively analyzes all subagent sessions spawned by the Task tool
+- **Aggregated Totals**: Shows combined tokens, costs, and API calls across main session and all subagents
+- **Per-Agent Breakdown**: Lists each subagent with its type, token usage, cost, and API call count
+- **Optional Toggle**: Enable/disable subagent analysis with the `includeSubagents` parameter
+
+### Dual Tracking System
+- **Current Context**: Matches what OpenCode TUI displays (~2K difference expected)
+- **Session Total**: Cumulative billing across all API calls
+- **Clear Separation**: Understand the difference between current context and total costs
+
+### Advanced Features
+- **Tool Usage Stats**: Track which tools consume the most tokens and how many times each is called
+- **API Call Tracking**: See total API calls for main session and subagents
+- **Top Contributors**: Identify the biggest token consumers
+- **Model Normalization**: Handles `provider/model` format automatically
+- **Multi-Tokenizer Support**: Uses official tokenizers (tiktoken for OpenAI, transformers for others)</code></pre>
+      </div>
+    </div>
+    
+  </div>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+<div class="part part-patch">
+  <div class="patch-header">
+    <span class="patch-icon">&#128190;</span>
+    <span class="patch-label">File changes</span>
+    <span class="patch-file-count">1 file</span>
+    <span class="patch-hash">f14648a3</span>
+  </div>
+  <ul class="patch-files">
+        <li class="patch-file-item">
+          <span class="patch-file-icon">&#128196;</span>
+          <span class="patch-file-name">/home/ramtinj/personal-workspace/opencode-tokenscope/README.md</span>
+        </li>
+      </ul>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 0 in / 1.1k out</span>
+<span class="stat">Cache: 12.2k read</span>
+<span class="stat">Finish: tool-calls</span></div>
+</div>
+<div class="message message-assistant" id="msg_af3afdc110010jxgCF85DGrmBM">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">01:42 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="tool-call tool-edit" data-status="completed">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="tool-icon">&#9998;</span>
+    <span class="edit-file-path" title="/home/ramtinj/personal-workspace/opencode-tokenscope/README.md">README.md</span>
+    <span class="edit-full-path">/home/ramtinj/personal-workspace/opencode-tokenscope/README.md</span>
+    
+    <span class="edit-stats">
+    <span class="edit-old-lines">13 lines</span>
+    <span class="edit-arrow">&#8594;</span>
+    <span class="edit-new-lines">22 lines</span>
+  </span>
+    <span class="tool-toggle">-</span>
+  </div>
+  <div class="tool-body">
+    <div class="edit-diff">
+      <div class="diff-old">
+        <div class="diff-label">Old</div>
+        <pre><code class="diff-removed">### Basic Command
+
+Simply type in OpenCode:
+```
+/tokenscope
+```
+
+The plugin will:
+1. Analyze the current session
+2. Count tokens across all categories
+3. Calculate costs based on API telemetry
+4. Display results in terminal
+5. Save detailed report to `token-usage-output.txt`</code></pre>
+      </div>
+      <div class="diff-new">
+        <div class="diff-label">New</div>
+        <pre><code class="diff-added">### Basic Command
+
+Simply type in OpenCode:
+```
+/tokenscope
+```
+
+The plugin will:
+1. Analyze the current session
+2. Count tokens across all categories
+3. Analyze all subagent (Task tool) child sessions recursively
+4. Calculate costs based on API telemetry
+5. Display results in terminal
+6. Save detailed report to `token-usage-output.txt`
+
+### Options
+
+The tool accepts optional parameters:
+
+- **sessionID**: Analyze a specific session instead of the current one
+- **limitMessages**: Limit entries shown per category (1-10, default: 3)
+- **includeSubagents**: Include subagent child session costs (default: true)</code></pre>
+      </div>
+    </div>
+    
+  </div>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+<div class="part part-patch">
+  <div class="patch-header">
+    <span class="patch-icon">&#128190;</span>
+    <span class="patch-label">File changes</span>
+    <span class="patch-file-count">1 file</span>
+    <span class="patch-hash">c888c462</span>
+  </div>
+  <ul class="patch-files">
+        <li class="patch-file-item">
+          <span class="patch-file-icon">&#128196;</span>
+          <span class="patch-file-name">/home/ramtinj/personal-workspace/opencode-tokenscope/README.md</span>
+        </li>
+      </ul>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 0 in / 340 out</span>
+<span class="stat">Cache: 38.6k read</span>
+<span class="stat">Finish: tool-calls</span></div>
+</div>
+<div class="message message-assistant" id="msg_af3affebc001aPYdWmB0GRB198">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">01:43 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="tool-call tool-edit" data-status="completed">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="tool-icon">&#9998;</span>
+    <span class="edit-file-path" title="/home/ramtinj/personal-workspace/opencode-tokenscope/README.md">README.md</span>
+    <span class="edit-full-path">/home/ramtinj/personal-workspace/opencode-tokenscope/README.md</span>
+    
+    <span class="edit-stats">
+    <span class="edit-old-lines">10 lines</span>
+    <span class="edit-arrow">&#8594;</span>
+    <span class="edit-new-lines">11 lines</span>
+  </span>
+    <span class="tool-toggle">-</span>
+  </div>
+  <div class="tool-body">
+    <div class="edit-diff">
+      <div class="diff-old">
+        <div class="diff-label">Old</div>
+        <pre><code class="diff-removed">## Architecture
+
+### Core Components
+
+1. **TokenizerManager**: Loads and caches tokenizers (tiktoken, transformers)
+2. **ModelResolver**: Detects model and selects appropriate tokenizer
+3. **ContentCollector**: Extracts content from session messages
+4. **TokenAnalysisEngine**: Counts tokens and applies API telemetry
+5. **CostCalculator**: Calculates costs from pricing database
+6. **OutputFormatter**: Generates visual reports</code></pre>
+      </div>
+      <div class="diff-new">
+        <div class="diff-label">New</div>
+        <pre><code class="diff-added">## Architecture
+
+### Core Components
+
+1. **TokenizerManager**: Loads and caches tokenizers (tiktoken, transformers)
+2. **ModelResolver**: Detects model and selects appropriate tokenizer
+3. **ContentCollector**: Extracts content from session messages, including tool call counts
+4. **TokenAnalysisEngine**: Counts tokens and applies API telemetry adjustments
+5. **CostCalculator**: Calculates costs from pricing database with cache-aware pricing
+6. **SubagentAnalyzer**: Recursively fetches and analyzes child sessions from Task tool calls
+7. **OutputFormatter**: Generates visual reports with charts and summaries</code></pre>
+      </div>
+    </div>
+    
+  </div>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+<div class="part part-patch">
+  <div class="patch-header">
+    <span class="patch-icon">&#128190;</span>
+    <span class="patch-label">File changes</span>
+    <span class="patch-file-count">1 file</span>
+    <span class="patch-hash">b841297f</span>
+  </div>
+  <ul class="patch-files">
+        <li class="patch-file-item">
+          <span class="patch-file-icon">&#128196;</span>
+          <span class="patch-file-name">/home/ramtinj/personal-workspace/opencode-tokenscope/README.md</span>
+        </li>
+      </ul>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 0 in / 363 out</span>
+<span class="stat">Cache: 39.7k read</span>
+<span class="stat">Finish: tool-calls</span></div>
+</div>
+<div class="message message-assistant" id="msg_af3b01af2001eSUULcmUK0VoX2">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">01:43 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>Now let me also check if the &quot;Understanding the Numbers&quot; section needs updating to reflect the subagent totals:</p>
+</div>
+<div class="tool-call tool-edit" data-status="completed">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="tool-icon">&#9998;</span>
+    <span class="edit-file-path" title="/home/ramtinj/personal-workspace/opencode-tokenscope/README.md">README.md</span>
+    <span class="edit-full-path">/home/ramtinj/personal-workspace/opencode-tokenscope/README.md</span>
+    
+    <span class="edit-stats">
+    <span class="edit-old-lines">18 lines</span>
+    <span class="edit-arrow">&#8594;</span>
+    <span class="edit-new-lines">35 lines</span>
+  </span>
+    <span class="tool-toggle">-</span>
+  </div>
+  <div class="tool-body">
+    <div class="edit-diff">
+      <div class="diff-old">
+        <div class="diff-label">Old</div>
+        <pre><code class="diff-removed">## Understanding the Numbers
+
+### Current Context vs Session Total
+
+- **Current Context (34K)**: What&#39;s in your context window right now
+  - Based on most recent API call
+  - Used to understand current memory usage
+
+- **Session Total (493K)**: All tokens processed in this session
+  - Sum of all 26 API calls
+  - What you&#39;re actually billed for
+  - Used for cost calculation
+
+### Cache Tokens
+
+- **Cache Read**: Tokens retrieved from cache (discounted rate ~90% off)
+- **Cache Write**: Tokens written to cache (slight premium ~25% more)
+- **Note**: Cache write is a billing charge, not additional context tokens</code></pre>
+      </div>
+      <div class="diff-new">
+        <div class="diff-label">New</div>
+        <pre><code class="diff-added">## Understanding the Numbers
+
+### Current Context vs Session Total
+
+- **Current Context**: What&#39;s in your context window right now
+  - Based on most recent API call
+  - Used to understand current memory usage
+
+- **Session Total**: All tokens processed in this session
+  - Sum of all API calls in the main session
+  - What you&#39;re billed for (main session only)
+  - Used for cost calculation
+
+### Subagent Totals
+
+When using the Task tool, OpenCode spawns subagent sessions. These are tracked separately:
+
+- **Subagent Tokens**: Combined tokens from all child sessions
+- **Subagent API Calls**: Total API calls made by all subagents
+- **Grand Total**: Main session + all subagents combined
+
+The summary section shows a breakdown:
+```
+                          Cost        Tokens          API Calls
+  Main session:      $    0.5677       375,686            15
+  Subagents:         $    1.3888       566,474            23
+─────────────────────────────────────────────────────────────────────────
+  TOTAL:             $    1.9565       942,160            38
+```
+
+### Cache Tokens
+
+- **Cache Read**: Tokens retrieved from cache (discounted rate ~90% off)
+- **Cache Write**: Tokens written to cache (slight premium ~25% more)
+- **Note**: Cache write is a billing charge, not additional context tokens</code></pre>
+      </div>
+    </div>
+    
+  </div>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+<div class="part part-patch">
+  <div class="patch-header">
+    <span class="patch-icon">&#128190;</span>
+    <span class="patch-label">File changes</span>
+    <span class="patch-file-count">1 file</span>
+    <span class="patch-hash">e9bdf32d</span>
+  </div>
+  <ul class="patch-files">
+        <li class="patch-file-item">
+          <span class="patch-file-icon">&#128196;</span>
+          <span class="patch-file-name">/home/ramtinj/personal-workspace/opencode-tokenscope/README.md</span>
+        </li>
+      </ul>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 0 in / 610 out</span>
+<span class="stat">Cache: 40.1k read</span>
+<span class="stat">Finish: tool-calls</span></div>
+</div>
+<div class="message message-assistant" id="msg_af3b05236001jZ5t3OJVqF26sG">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">01:43 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>Let me also update the &quot;Dual Tracking&quot; section in &quot;How It Works&quot; since the code now has more sophisticated tracking:</p>
+</div>
+<div class="tool-call tool-edit" data-status="completed">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="tool-icon">&#9998;</span>
+    <span class="edit-file-path" title="/home/ramtinj/personal-workspace/opencode-tokenscope/README.md">README.md</span>
+    <span class="edit-full-path">/home/ramtinj/personal-workspace/opencode-tokenscope/README.md</span>
+    
+    <span class="edit-stats">
+    <span class="edit-old-lines">6 lines</span>
+    <span class="edit-arrow">&#8594;</span>
+    <span class="edit-new-lines">13 lines</span>
+  </span>
+    <span class="tool-toggle">-</span>
+  </div>
+  <div class="tool-body">
+    <div class="edit-diff">
+      <div class="diff-old">
+        <div class="diff-label">Old</div>
+        <pre><code class="diff-removed">### Dual Tracking
+- **Current Context**: Uses the most recent API call with non-zero tokens (matches TUI)
+- **Session Total**: Aggregates all API calls for accurate billing
+
+### Model Name Normalization
+Automatically handles `provider/model` format (e.g., `qwen/qwen3-coder` → `qwen3-coder`)</code></pre>
+      </div>
+      <div class="diff-new">
+        <div class="diff-label">New</div>
+        <pre><code class="diff-added">### Dual Tracking
+- **Current Context**: Uses the most recent API call with non-zero tokens (matches TUI)
+- **Session Total**: Aggregates all API calls for accurate billing
+
+### Subagent Analysis
+The plugin uses OpenCode&#39;s session API to:
+1. Fetch all child sessions spawned by the Task tool
+2. Recursively analyze nested subagents (subagents can spawn their own subagents)
+3. Aggregate tokens, costs, and API call counts
+4. Calculate estimated costs using the same pricing as the main session
+
+### Model Name Normalization
+Automatically handles `provider/model` format (e.g., `qwen/qwen3-coder` → `qwen3-coder`)</code></pre>
+      </div>
+    </div>
+    
+  </div>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+<div class="part part-patch">
+  <div class="patch-header">
+    <span class="patch-icon">&#128190;</span>
+    <span class="patch-label">File changes</span>
+    <span class="patch-file-count">1 file</span>
+    <span class="patch-hash">59bc9626</span>
+  </div>
+  <ul class="patch-files">
+        <li class="patch-file-item">
+          <span class="patch-file-icon">&#128196;</span>
+          <span class="patch-file-name">/home/ramtinj/personal-workspace/opencode-tokenscope/README.md</span>
+        </li>
+      </ul>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 0 in / 385 out</span>
+<span class="stat">Cache: 40.5k read</span>
+<span class="stat">Finish: tool-calls</span></div>
+</div>
+<div class="message message-assistant" id="msg_af3b075cf001TeSwyLny6Iephl">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">01:43 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>Now let me verify the changes look correct by reading the updated README:</p>
+</div>
+<div class="tool-call tool-read" data-status="completed">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="tool-icon">&#128196;</span>
+    <span class="read-file-path" title="/home/ramtinj/personal-workspace/opencode-tokenscope/README.md">README.md</span>
+    <span class="read-full-path">/home/ramtinj/personal-workspace/opencode-tokenscope/README.md</span>
+    
+    <span class="read-lines">447 lines</span>
+    <span class="tool-toggle">+</span>
+  </div>
+  <div class="tool-body collapsed">
+    <div class="read-content">
+      <pre><code>&lt;file&gt;
+00001| # OpenCode-Tokenscope, Token Analyzer Plugin
+00002| 
+00003| &gt; Comprehensive token usage analysis and cost tracking for OpenCode AI sessions
+00004| 
+00005| Track and optimize your token usage across system prompts, user messages, tool outputs, and more. Get detailed breakdowns, accurate cost estimates, and visual insights for your AI development workflow.
+00006| 
+00007| ## Features
+00008| 
+00009| ### Comprehensive Token Analysis
+00010| - **5 Category Breakdown**: System prompts, user messages, assistant responses, tool outputs, and reasoning traces
+00011| - **Visual Charts**: Easy-to-read ASCII bar charts with percentages and token counts
+00012| - **Smart Inference**: Automatically infers system prompts from API telemetry (since they&#39;re not exposed in session messages)
+00013| 
+00014| ### Accurate Cost Tracking
+00015| - **41+ Models Supported**: Comprehensive pricing database for Claude, GPT, DeepSeek, Llama, Mistral, and more
+00016| - **Cache-Aware Pricing**: Properly handles cache read/write tokens with discounted rates
+00017| - **Session-Wide Billing**: Aggregates costs across all API calls in your session
+00018| 
+00019| ### Subagent Cost Tracking
+00020| - **Child Session Analysis**: Recursively analyzes all subagent sessions spawned by the Task tool
+00021| - **Aggregated Totals**: Shows combined tokens, costs, and API calls across main session and all subagents
+00022| - **Per-Agent Breakdown**: Lists each subagent with its type, token usage, cost, and API call count
+00023| - **Optional Toggle**: Enable/disable subagent analysis with the `includeSubagents` parameter
+00024| 
+00025| ### Dual Tracking System
+00026| - **Current Context**: Matches what OpenCode TUI displays (~2K difference expected)
+00027| - **Session Total**: Cumulative billing across all API calls
+00028| - **Clear Separation**: Understand the difference between current context and total costs
+00029| 
+00030| ### Advanced Features
+00031| - **Tool Usage Stats**: Track which tools consume the most tokens and how many times each is called
+00032| - **API Call Tracking**: See total API calls for main session and subagents
+00033| - **Top Contributors**: Identify the biggest token consumers
+00034| - **Model Normalization**: Handles `provider/model` format automatically
+00035| - **Multi-Tokenizer Support**: Uses official tokenizers (tiktoken for OpenAI, transformers for others)
+00036| 
+00037| ## Quick Install
+00038| 
+00039| ### One-Line Install (Recommended)
+00040| 
+00041| ```bash
+00042| curl -sSL https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/install.sh | bash
+00043| ```
+00044| 
+00045| Then restart OpenCode and run `/tokenscope`
+00046| 
+00047| ## Manual Installation
+00048| 
+00049| &lt;details&gt;
+00050| &lt;summary&gt;Click to expand manual installation steps&lt;/summary&gt;
+00051| 
+00052| ### Requirements
+00053| - OpenCode installed (`~/.config/opencode` directory exists)
+00054| - npm (for tokenizer dependencies)
+00055| - ~50MB disk space (for tokenizer models)
+00056| 
+00057| ### Installation Steps
+00058| 
+00059| 1. **Navigate to OpenCode config**:
+00060|    ```bash
+00061|    cd ~/.config/opencode
+00062|    ```
+00063| 
+00064| 2. **Download plugin files**:
+00065|    ```bash
+00066|    # Download to plugin directory
+00067|    cd plugin
+00068|    curl -O https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/tokenscope.ts
+00069|    curl -O https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/models.json
+00070|    curl -O https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/install.sh
+00071|    curl -O https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/plugin/package.json
+00072|    ```
+00073| 
+00074| 3. **Download command file**:
+00075|    ```bash
+00076|    cd ../command
+00077|    curl -O https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/command/tokenscope.md
+00078|    ```
+00079| 
+00080| 4. **Install dependencies**:
+00081|    ```bash
+00082|    cd ../plugin
+00083|    chmod +x install.sh
+00084|    ./install.sh
+00085|    ```
+00086| 
+00087| 5. **Restart OpenCode**
+00088| 
+00089| 6. **Test**: Run `/tokenscope` in any session
+00090| 
+00091| &lt;/details&gt;
+00092| 
+00093| ## Updating
+00094| 
+00095| To update to the latest version, run the install script with the `--update` flag:
+00096| 
+00097| ```bash
+00098| curl -sSL https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/install.sh | bash -s -- --update
+00099| ```
+00100| 
+00101| This will download the latest plugin files while skipping dependency installation (faster).
+00102| 
+00103| For a full reinstall (if you&#39;re having issues):
+00104| 
+00105| ```bash
+00106| curl -sSL https://raw.githubusercontent.com/ramtinJ95/opencode-tokenscope/main/install.sh | bash
+00107| ```
+00108| 
+00109| ## Usage
+00110| 
+00111| ### Basic Command
+00112| 
+00113| Simply type in OpenCode:
+00114| ```
+00115| /tokenscope
+00116| ```
+00117| 
+00118| The plugin will:
+00119| 1. Analyze the current session
+00120| 2. Count tokens across all categories
+00121| 3. Analyze all subagent (Task tool) child sessions recursively
+00122| 4. Calculate costs based on API telemetry
+00123| 5. Display results in terminal
+00124| 6. Save detailed report to `token-usage-output.txt`
+00125| 
+00126| ### Options
+00127| 
+00128| The tool accepts optional parameters:
+00129| 
+00130| - **sessionID**: Analyze a specific session instead of the current one
+00131| - **limitMessages**: Limit entries shown per category (1-10, default: 3)
+00132| - **includeSubagents**: Include subagent child session costs (default: true)
+00133| 
+00134| ### Reading the Full Report
+00135| 
+00136| ```bash
+00137| cat token-usage-output.txt
+00138| ```
+00139| 
+00140| ### Example Output
+00141| 
+00142| ```
+00143| ═══════════════════════════════════════════════════════════════════════════
+00144| Token Analysis: Session ses_50c712089ffeshuuuJPmOoXCPX
+00145| Model: claude-opus-4-5
+00146| ═══════════════════════════════════════════════════════════════════════════
+00147| 
+00148| TOKEN BREAKDOWN BY CATEGORY
+00149| ─────────────────────────────────────────────────────────────────────────
+00150| Estimated using tokenizer analysis of message content:
+00151| 
+00152| Input Categories:
+00153|   SYSTEM    ██████████████░░░░░░░░░░░░░░░░    45.8% (22,367)
+00154|   USER      ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░        0.8% (375)
+00155|   TOOLS     ████████████████░░░░░░░░░░░░░░    53.5% (26,146)
+00156| 
+00157|   Subtotal: 48,888 estimated input tokens
+00158| 
+00159| Output Categories:
+00160|   ASSISTANT ██████████████████████████████     100.0% (1,806)
+00161| 
+00162|   Subtotal: 1,806 estimated output tokens
+00163| 
+00164| Local Total: 50,694 tokens (estimated)
+00165| 
+00166| TOOL USAGE BREAKDOWN
+00167| ─────────────────────────────────────────────────────────────────────────
+00168| bash                 ██████████░░░░░░░░░░░░░░░░░░░░     34.0% (8,886)    4x
+00169| read                 ██████████░░░░░░░░░░░░░░░░░░░░     33.1% (8,643)    3x
+00170| task                 ████████░░░░░░░░░░░░░░░░░░░░░░     27.7% (7,245)    4x
+00171| webfetch             █░░░░░░░░░░░░░░░░░░░░░░░░░░░░░      4.9% (1,286)    1x
+00172| tokenscope           ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░         0.3% (75)    2x
+00173| batch                ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░         0.0% (11)    1x
+00174| 
+00175| TOP CONTRIBUTORS
+00176| ─────────────────────────────────────────────────────────────────────────
+00177| • System (inferred from API)   22,367 tokens (44.1%)
+00178| • bash                         8,886 tokens (17.5%)
+00179| • read                         8,643 tokens (17.0%)
+00180| • task                         7,245 tokens (14.3%)
+00181| • webfetch                     1,286 tokens (2.5%)
+00182| 
+00183| ═══════════════════════════════════════════════════════════════════════════
+00184| MOST RECENT API CALL
+00185| ─────────────────────────────────────────────────────────────────────────
+00186| 
+00187| Raw telemetry from last API response:
+00188|   Input (fresh):              2 tokens
+00189|   Cache read:            48,886 tokens
+00190|   Cache write:               54 tokens
+00191|   Output:                   391 tokens
+00192|   ───────────────────────────────────
+00193|   Total:                 49,333 tokens
+00194| 
+00195| ═══════════════════════════════════════════════════════════════════════════
+00196| SESSION TOTALS (All 15 API calls)
+00197| ─────────────────────────────────────────────────────────────────────────
+00198| 
+00199| Total tokens processed across the entire session (for cost calculation):
+00200| 
+00201|   Input tokens:              10 (fresh tokens across all calls)
+00202|   Cache read:           320,479 (cached tokens across all calls)
+00203|   Cache write:           51,866 (tokens written to cache)
+00204|   Output tokens:          3,331 (all model responses)
+00205|   ───────────────────────────────────
+00206|   Session Total:        375,686 tokens (for billing)
+00207| 
+00208| ═══════════════════════════════════════════════════════════════════════════
+00209| ESTIMATED SESSION COST (API Key Pricing)
+00210| ─────────────────────────────────────────────────────────────────────────
+00211| 
+00212| You appear to be on a subscription plan (API cost is $0).
+00213| Here&#39;s what this session would cost with direct API access:
+00214| 
+00215|   Input tokens:              10 × $5.00/M  = $0.0001
+00216|   Output tokens:          3,331 × $25.00/M  = $0.0833
+00217|   Cache read:           320,479 × $0.50/M  = $0.1602
+00218|   Cache write:           51,866 × $6.25/M  = $0.3242
+00219| ─────────────────────────────────────────────────────────────────────────
+00220| ESTIMATED TOTAL: $0.5677
+00221| 
+00222| Note: This estimate uses standard API pricing from models.json.
+00223| Actual API costs may vary based on provider and context size.
+00224| 
+00225| ═══════════════════════════════════════════════════════════════════════════
+00226| SUBAGENT COSTS (4 child sessions, 23 API calls)
+00227| ─────────────────────────────────────────────────────────────────────────
+00228| 
+00229|   docs                         $0.3190  (194,701 tokens, 8 calls)
+00230|   general                      $0.2957  (104,794 tokens, 4 calls)
+00231|   docs                         $0.2736  (69,411 tokens, 4 calls)
+00232|   general                      $0.5006  (197,568 tokens, 7 calls)
+00233| ─────────────────────────────────────────────────────────────────────────
+00234| Subagent Total:            $1.3888  (566,474 tokens, 23 calls)
+00235| 
+00236| ═══════════════════════════════════════════════════════════════════════════
+00237| SUMMARY
+00238| ─────────────────────────────────────────────────────────────────────────
+00239| 
+00240|                           Cost        Tokens          API Calls
+00241|   Main session:      $    0.5677       375,686            15
+00242|   Subagents:         $    1.3888       566,474            23
+00243| ─────────────────────────────────────────────────────────────────────────
+00244|   TOTAL:             $    1.9565       942,160            38
+00245| 
+00246| ═══════════════════════════════════════════════════════════════════════════
+00247| 
+00248| ```
+00249| ## Supported Models
+00250| 
+00251| **41+ models with accurate pricing:**
+00252| 
+00253| ### Claude Models
+00254| - Claude Opus 4.5, 4.1, 4
+00255| - Claude Sonnet 4, 4-5, 3.7, 3.5, 3
+00256| - Claude Haiku 4-5, 3.5, 3
+00257| 
+00258| ### OpenAI Models
+00259| - GPT-4, GPT-4 Turbo, GPT-4o, GPT-4o Mini
+00260| - GPT-3.5 Turbo
+00261| - GPT-5 and all its variations
+00262| 
+00263| ### Other Models
+00264| - DeepSeek (R1, V2, V3)
+00265| - Llama (3.1, 3.2, 3.3)
+00266| - Mistral (Large, Small)
+00267| - Qwen, Kimi, GLM, Grok
+00268| - And more...
+00269| 
+00270| **Free/Open models** are marked with zero pricing.
+00271| 
+00272| ## Customization
+00273| 
+00274| ### Add New Model Pricing
+00275| 
+00276| Edit `~/.config/opencode/plugin/models.json`:
+00277| 
+00278| ```json
+00279| {
+00280|   &quot;your-model-name&quot;: {
+00281|     &quot;input&quot;: 1.50,
+00282|     &quot;output&quot;: 5.00,
+00283|     &quot;cacheWrite&quot;: 0.50,
+00284|     &quot;cacheRead&quot;: 0.10
+00285|   }
+00286| }
+00287| ```
+00288| 
+00289| Save the file and restart OpenCode. The plugin will automatically use the new pricing.
+00290| 
+00291| ### Update Existing Model Pricing
+00292| 
+00293| Simply edit the values in `models.json` and restart OpenCode. No code changes needed!
+00294| 
+00295| ## How It Works
+00296| 
+00297| ### System Prompt Inference
+00298| OpenCode doesn&#39;t expose system prompts in the session messages API. The plugin intelligently infers them using:
+00299| 
+00300| ```
+00301| System Tokens = (API Input + Cache Read) - (User Tokens + Tool Tokens)
+00302| ```
+00303| 
+00304| This works because the API input includes everything sent to the model.
+00305| 
+00306| ### Dual Tracking
+00307| - **Current Context**: Uses the most recent API call with non-zero tokens (matches TUI)
+00308| - **Session Total**: Aggregates all API calls for accurate billing
+00309| 
+00310| ### Subagent Analysis
+00311| The plugin uses OpenCode&#39;s session API to:
+00312| 1. Fetch all child sessions spawned by the Task tool
+00313| 2. Recursively analyze nested subagents (subagents can spawn their own subagents)
+00314| 3. Aggregate tokens, costs, and API call counts
+00315| 4. Calculate estimated costs using the same pricing as the main session
+00316| 
+00317| ### Model Name Normalization
+00318| Automatically handles `provider/model` format (e.g., `qwen/qwen3-coder` → `qwen3-coder`)
+00319| 
+00320| ## Troubleshooting
+00321| 
+00322| ### &quot;Dependencies missing&quot; Error
+00323| 
+00324| Run the installer:
+00325| ```bash
+00326| cd ~/.config/opencode/plugin
+00327| ./install.sh
+00328| ```
+00329| 
+00330| ### Command Not Appearing
+00331| 
+00332| 1. Verify `tokenscope.md` exists:
+00333|    ```bash
+00334|    ls ~/.config/opencode/command/tokenscope.md
+00335|    ```
+00336| 2. Restart OpenCode completely
+00337| 3. Check OpenCode logs for plugin errors
+00338| 
+00339| ### Wrong Token Counts
+00340| 
+00341| The plugin uses API telemetry (ground truth). If counts seem off:
+00342| - **Expected ~2K difference from TUI**: Plugin analyzes before its own response is added
+00343| - **Model detection**: Check that the model name is recognized in the output
+00344| - **Tokenizer not installed**: Re-run `install.sh`
+00345| 
+00346| ### New Model Not Showing Correct Pricing
+00347| 
+00348| 1. Check if model exists in `models.json`
+00349| 2. Try exact match or prefix match (e.g., `claude-sonnet-4` matches `claude-sonnet-4-20250514`)
+00350| 3. Add entry to `models.json` if missing
+00351| 4. Restart OpenCode after editing `models.json`
+00352| 
+00353| ### Plugin Fails to Load
+00354| 
+00355| 1. Validate JSON syntax:
+00356|    ```bash
+00357|    cd ~/.config/opencode/plugin
+00358|    node -e &quot;JSON.parse(require(&#39;fs&#39;).readFileSync(&#39;models.json&#39;, &#39;utf8&#39;))&quot;
+00359|    ```
+00360| 2. Check for trailing commas or syntax errors
+00361| 3. Plugin falls back to default pricing if file is invalid
+00362| 
+00363| ## Understanding the Numbers
+00364| 
+00365| ### Current Context vs Session Total
+00366| 
+00367| - **Current Context**: What&#39;s in your context window right now
+00368|   - Based on most recent API call
+00369|   - Used to understand current memory usage
+00370| 
+00371| - **Session Total**: All tokens processed in this session
+00372|   - Sum of all API calls in the main session
+00373|   - What you&#39;re billed for (main session only)
+00374|   - Used for cost calculation
+00375| 
+00376| ### Subagent Totals
+00377| 
+00378| When using the Task tool, OpenCode spawns subagent sessions. These are tracked separately:
+00379| 
+00380| - **Subagent Tokens**: Combined tokens from all child sessions
+00381| - **Subagent API Calls**: Total API calls made by all subagents
+00382| - **Grand Total**: Main session + all subagents combined
+00383| 
+00384| The summary section shows a breakdown:
+00385| ```
+00386|                           Cost        Tokens          API Calls
+00387|   Main session:      $    0.5677       375,686            15
+00388|   Subagents:         $    1.3888       566,474            23
+00389| ─────────────────────────────────────────────────────────────────────────
+00390|   TOTAL:             $    1.9565       942,160            38
+00391| ```
+00392| 
+00393| ### Cache Tokens
+00394| 
+00395| - **Cache Read**: Tokens retrieved from cache (discounted rate ~90% off)
+00396| - **Cache Write**: Tokens written to cache (slight premium ~25% more)
+00397| - **Note**: Cache write is a billing charge, not additional context tokens
+00398| 
+00399| ## Architecture
+00400| 
+00401| ### Core Components
+00402| 
+00403| 1. **TokenizerManager**: Loads and caches tokenizers (tiktoken, transformers)
+00404| 2. **ModelResolver**: Detects model and selects appropriate tokenizer
+00405| 3. **ContentCollector**: Extracts content from session messages, including tool call counts
+00406| 4. **TokenAnalysisEngine**: Counts tokens and applies API telemetry adjustments
+00407| 5. **CostCalculator**: Calculates costs from pricing database with cache-aware pricing
+00408| 6. **SubagentAnalyzer**: Recursively fetches and analyzes child sessions from Task tool calls
+00409| 7. **OutputFormatter**: Generates visual reports with charts and summaries
+00410| 
+00411| ## Privacy &amp; Security
+00412| 
+00413| - **All processing is local**: No session data sent to external services
+00414| - **Tokenizers from official sources**:
+00415|   - OpenAI tokenizers: npm registry
+00416|   - Transformers: Hugging Face Hub
+00417| - **Open source**: Audit the code yourself
+00418| 
+00419| ## Performance
+00420| 
+00421| - **Fast**: Tokenizers cached after first load
+00422| - **Parallel**: Categories processed concurrently
+00423| - **Efficient**: Only analyzes on demand
+00424| - **First-run download**: Transformers models download on demand (5-50MB per model)
+00425| - **Subsequent runs**: Instant (uses cache)
+00426| 
+00427| ## Contributing
+00428| 
+00429| Contributions welcome! Ideas for enhancement:
+00430| 
+00431| - Historical trend analysis
+00432| - Export to CSV/JSON/PDF
+00433| - Optimization suggestions
+00434| - Custom categorization rules
+00435| - Real-time monitoring with alerts
+00436| - Compare sessions
+00437| - Token burn rate calculation
+00438| 
+00439| ## Support
+00440| 
+00441| - **Issues**: [GitHub Issues](https://github.com/ramtinJ95/opencode-tokenscope/issues)
+00442| - **Discussions**: [GitHub Discussions](https://github.com/ramtinJ95/opencode-tokenscope/discussions)
+00443| 
+
+(End of file - total 443 lines)
+&lt;/file&gt;</code></pre>
+    </div>
+    
+  </div>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 0 in / 88 out</span>
+<span class="stat">Cache: 41.1k read</span>
+<span class="stat">Finish: tool-calls</span></div>
+</div>
+<div class="message message-assistant" id="msg_af3b083df001DAuVxBHciFne03">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">01:43 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>The README has been updated. Here&#39;s a summary of the changes I made:</p>
+<p>## Changes to README.md</p>
+<p>### 1. Added new &quot;Subagent Cost Tracking&quot; feature section (lines 19-23)<br>- Documents the child session analysis capability<br>- Explains aggregated totals across main session and subagents<br>- Notes the per-agent breakdown with type, tokens, cost, and API call count<br>- Mentions the <code>includeSubagents</code> parameter toggle</p>
+<p>### 2. Updated &quot;Advanced Features&quot; section (lines 30-35)<br>- Added tool call count tracking (the <code>4x</code>, <code>3x</code> shown in tool breakdown)<br>- Added API call tracking feature</p>
+<p>### 3. Expanded &quot;Usage&quot; section (lines 118-133)<br>- Added step for analyzing subagent sessions<br>- Added new &quot;Options&quot; subsection documenting all three parameters:<br>  - <code>sessionID</code><br>  - <code>limitMessages</code> <br>  - <code>includeSubagents</code></p>
+<p>### 4. Added &quot;Subagent Analysis&quot; subsection under &quot;How It Works&quot; (lines 310-315)<br>- Explains how the plugin uses OpenCode&#39;s session API<br>- Documents the recursive analysis of nested subagents<br>- Explains token/cost/API call aggregation</p>
+<p>### 5. Added &quot;Subagent Totals&quot; subsection under &quot;Understanding the Numbers&quot; (lines 376-391)<br>- Explains subagent token tracking<br>- Shows example of the summary table format<br>- Clarifies grand total calculation</p>
+<p>### 6. Updated &quot;Architecture&quot; section (lines 399-409)<br>- Added <code>SubagentAnalyzer</code> as the 6th component<br>- Now lists 7 core components instead of 6<br>- Updated descriptions for accuracy (e.g., &quot;including tool call counts&quot;, &quot;with cache-aware pricing&quot;, &quot;with charts and summaries&quot;)</p>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 0 in / 420 out</span>
+<span class="stat">Cache: 41.5k read</span>
+<span class="stat">Finish: stop</span></div>
+</div>
+<div class="message message-user" id="msg_af3b12af0001Qw3boMev9abbSO">
+  <div class="message-header">
+    <span class="message-role">User</span>
+    <span class="message-time">01:44 PM</span>
+    <span class="message-model">anthropic/claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-text">
+  <p>Anything redundant from the readme that can be removed? Ask before removing. I feel its a bit long now</p>
+</div>
+  </div>
+</div>
+<div class="message message-assistant" id="msg_af3b12b04001NKdaV0V98aSFEw">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">01:44 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>Looking at the README, I see a few areas that could potentially be trimmed:</p>
+<p>1. <strong>Example Output section (lines 142-248)</strong> - This is 106 lines showing a full sample output. The example already appears in the &quot;Understanding the Numbers &gt; Subagent Totals&quot; section as a smaller snippet. We could remove or significantly shorten this section since users will see the actual output when they run the command.</p>
+<p>2. <strong>Manual Installation section (lines 48-91)</strong> - This is already in a collapsible <code>&lt;details&gt;</code> tag, but it&#39;s 43 lines. Since there&#39;s a one-line install, this could potentially be removed entirely or linked to a separate INSTALL.md file.</p>
+<p>3. <strong>Duplicate information about cache tokens</strong> - The cache read/write explanation appears in both:<br>   - &quot;Accurate Cost Tracking&quot; feature list (line 16)<br>   - &quot;Understanding the Numbers &gt; Cache Tokens&quot; section (lines 393-397)</p>
+<p>4. <strong>&quot;Dual Tracking System&quot; feature section (lines 25-28)</strong> overlaps with &quot;Understanding the Numbers &gt; Current Context vs Session Total&quot; (lines 365-374) - both explain the same concept.</p>
+<p>5. <strong>Contributing section (lines 428-437)</strong> - Lists ideas for enhancement but provides no actual contribution guidelines. Could be shortened to just a link.</p>
+<p>Which of these would you like me to remove or shorten? My recommendation would be:<br>- <strong>Remove or drastically shorten the Example Output</strong> (biggest space saver, ~100 lines)<br>- <strong>Remove the &quot;Dual Tracking System&quot; feature bullet points</strong> since it&#39;s explained better in &quot;Understanding the Numbers&quot;</p>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 2 in / 372 out</span>
+<span class="stat">Cache: 47.8k read</span>
+<span class="stat">Finish: stop</span></div>
+</div>
+<div class="message message-user" id="msg_af3b27d39001I7HOH639Wy5yEy">
+  <div class="message-header">
+    <span class="message-role">User</span>
+    <span class="message-time">01:45 PM</span>
+    <span class="message-model">anthropic/claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-text">
+  <p>remove the dual tracking systems then. The example output its important to show the user what they will get by using the plugin i think</p>
+</div>
+  </div>
+</div>
+<div class="message message-assistant" id="msg_af3b27d48001WqsMrYtKJSS3he">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">01:45 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>Good point about the example output - it&#39;s a good showcase. Let me remove the &quot;Dual Tracking System&quot; feature section since it&#39;s redundant with the &quot;Understanding the Numbers&quot; explanation.</p>
+</div>
+<div class="tool-call tool-edit" data-status="completed">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="tool-icon">&#9998;</span>
+    <span class="edit-file-path" title="/home/ramtinj/personal-workspace/opencode-tokenscope/README.md">README.md</span>
+    <span class="edit-full-path">/home/ramtinj/personal-workspace/opencode-tokenscope/README.md</span>
+    
+    <span class="edit-stats">
+    <span class="edit-old-lines">12 lines</span>
+    <span class="edit-arrow">&#8594;</span>
+    <span class="edit-new-lines">7 lines</span>
+  </span>
+    <span class="tool-toggle">-</span>
+  </div>
+  <div class="tool-body">
+    <div class="edit-diff">
+      <div class="diff-old">
+        <div class="diff-label">Old</div>
+        <pre><code class="diff-removed">### Subagent Cost Tracking
+- **Child Session Analysis**: Recursively analyzes all subagent sessions spawned by the Task tool
+- **Aggregated Totals**: Shows combined tokens, costs, and API calls across main session and all subagents
+- **Per-Agent Breakdown**: Lists each subagent with its type, token usage, cost, and API call count
+- **Optional Toggle**: Enable/disable subagent analysis with the `includeSubagents` parameter
+
+### Dual Tracking System
+- **Current Context**: Matches what OpenCode TUI displays (~2K difference expected)
+- **Session Total**: Cumulative billing across all API calls
+- **Clear Separation**: Understand the difference between current context and total costs
+
+### Advanced Features</code></pre>
+      </div>
+      <div class="diff-new">
+        <div class="diff-label">New</div>
+        <pre><code class="diff-added">### Subagent Cost Tracking
+- **Child Session Analysis**: Recursively analyzes all subagent sessions spawned by the Task tool
+- **Aggregated Totals**: Shows combined tokens, costs, and API calls across main session and all subagents
+- **Per-Agent Breakdown**: Lists each subagent with its type, token usage, cost, and API call count
+- **Optional Toggle**: Enable/disable subagent analysis with the `includeSubagents` parameter
+
+### Advanced Features</code></pre>
+      </div>
+    </div>
+    
+  </div>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+<div class="part part-patch">
+  <div class="patch-header">
+    <span class="patch-icon">&#128190;</span>
+    <span class="patch-label">File changes</span>
+    <span class="patch-file-count">1 file</span>
+    <span class="patch-hash">af1a7e8a</span>
+  </div>
+  <ul class="patch-files">
+        <li class="patch-file-item">
+          <span class="patch-file-icon">&#128196;</span>
+          <span class="patch-file-name">/home/ramtinj/personal-workspace/opencode-tokenscope/README.md</span>
+        </li>
+      </ul>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 2 in / 430 out</span>
+<span class="stat">Cache: 48.2k read</span>
+<span class="stat">Finish: tool-calls</span></div>
+</div>
+<div class="message message-assistant" id="msg_af3b2a1fd0018nxVxe28V47aon">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">01:46 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>Done. Removed the &quot;Dual Tracking System&quot; section (5 lines) since the same concepts are better explained in the &quot;Understanding the Numbers &gt; Current Context vs Session Total&quot; section later in the README.</p>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 0 in / 47 out</span>
+<span class="stat">Cache: 48.6k read</span>
+<span class="stat">Finish: stop</span></div>
+</div>
+<div class="message message-user" id="msg_af3bb5495001rejg77PpyeGhtW">
+  <div class="message-header">
+    <span class="message-role">User</span>
+    <span class="message-time">01:55 PM</span>
+    <span class="message-model">anthropic/claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-text">
+  <p>Now I want to make this into a new release with a new release tag and some release note explaining the changes made today</p>
+</div>
+  </div>
+</div>
+<div class="message message-assistant" id="msg_af3bb54b3002op2A3Y6o9zKNKb">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">01:55 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>I&#39;ll help you create a new release. Let me first check the current state of the repository to understand the existing tags and release history.</p>
+</div>
+<div class="tool-call tool-batch" data-status="completed">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="tool-icon">&#128230;</span>
+    <span class="batch-title">Batch (3 calls)</span>
+    <span class="batch-summary">3 bash</span>
+    <span class="tool-toggle">-</span>
+  </div>
+  <div class="tool-body">
+    <ul class="batch-tool-list">
+        <li class="batch-tool-item">
+    <span class="batch-tool-index">1</span>
+    <span class="batch-tool-icon">$</span>
+    <span class="batch-tool-name">bash</span>
+    <span class="batch-tool-info">cd /home/ramtinj/personal-workspace/opencode-tokenscope &amp;&amp; git tag -l --sort=-v:refname | head -10</span>
+  </li>
+<li class="batch-tool-item">
+    <span class="batch-tool-index">2</span>
+    <span class="batch-tool-icon">$</span>
+    <span class="batch-tool-name">bash</span>
+    <span class="batch-tool-info">cd /home/ramtinj/personal-workspace/opencode-tokenscope &amp;&amp; git log --oneline -10</span>
+  </li>
+<li class="batch-tool-item">
+    <span class="batch-tool-index">3</span>
+    <span class="batch-tool-icon">$</span>
+    <span class="batch-tool-name">bash</span>
+    <span class="batch-tool-info">cd /home/ramtinj/personal-workspace/opencode-tokenscope &amp;&amp; gh release list --limit 5 2&gt;/dev/null || echo &#39;No releases found or gh not configured&#39;</span>
+  </li>
+      </ul>
+    <div class="batch-output">
+      <details open>
+        <summary class="batch-output-label">Combined Output (3 lines)</summary>
+        <pre><code>All 3 tools executed successfully.
+
+Keep using the batch tool for optimal performance in your next response!</code></pre>
+      </details>
+    </div>
+    
+  </div>
+</div>
+<div class="tool-call tool-bash" data-status="completed">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="tool-icon">$</span>
+    <span class="bash-command">cd /home/ramtinj/personal-workspace/opencode-tokenscope &amp;&amp; git tag -l --sort=-v:refname | head -10</span>
+    <span class="bash-description">List existing git tags</span>
+    
+    <span class="tool-toggle">-</span>
+  </div>
+  <div class="tool-body ">
+    <div class="bash-output">
+      <pre><code>v1.0.0
+1.1.0
+</code></pre>
+    </div>
+    
+  </div>
+</div>
+<div class="tool-call tool-bash" data-status="completed">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="tool-icon">$</span>
+    <span class="bash-command">cd /home/ramtinj/personal-workspace/opencode-tokenscope &amp;&amp; git log --oneline -10</span>
+    <span class="bash-description">Show recent commit history</span>
+    
+    <span class="tool-toggle">-</span>
+  </div>
+  <div class="tool-body ">
+    <div class="bash-output">
+      <pre><code>6e3fd1d README updates
+4913368 Trying to make the data visualization a bit cleaner
+f9e5284 Proper counting of API calls for subagents added to the total
+fe5e747 Starting some work on tracking subagent costs and tokens also
+e352d47 Adding a way to update the plugin easily
+c3286d7 Bump package number and update README.md
+cdf80b9 Update model pricing and remove old models
+043691c Update cost and token calculations to be more accurate
+24151ea Small README type with earlier naming
+a59b9df Proper package naming
+</code></pre>
+    </div>
+    
+  </div>
+</div>
+<div class="tool-call tool-bash" data-status="completed">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="tool-icon">$</span>
+    <span class="bash-command">cd /home/ramtinj/personal-workspace/opencode-tokenscope &amp;&amp; gh release list --limit 5 2&gt;/dev/null || echo &#39;No releases found or gh not configured&#39;</span>
+    <span class="bash-description">List existing GitHub releases</span>
+    
+    <span class="tool-toggle">-</span>
+  </div>
+  <div class="tool-body ">
+    <div class="bash-output">
+      <pre><code>1.1.0	Latest	1.1.0	2025-11-29T09:29:31Z
+v1.0.0		v1.0.0	2025-11-10T22:10:42Z
+</code></pre>
+    </div>
+    
+  </div>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 1 in / 262 out</span>
+<span class="stat">Finish: tool-calls</span></div>
+</div>
+<div class="message message-assistant" id="msg_af3bb94c2002sCN8zxtgyEjyJD">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">01:55 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>Now let me check what changes are pending (uncommitted) and what&#39;s been added since the last release:</p>
+</div>
+<div class="tool-call tool-batch" data-status="completed">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="tool-icon">&#128230;</span>
+    <span class="batch-title">Batch (2 calls)</span>
+    <span class="batch-summary">2 bash</span>
+    <span class="tool-toggle">-</span>
+  </div>
+  <div class="tool-body">
+    <ul class="batch-tool-list">
+        <li class="batch-tool-item">
+    <span class="batch-tool-index">1</span>
+    <span class="batch-tool-icon">$</span>
+    <span class="batch-tool-name">bash</span>
+    <span class="batch-tool-info">cd /home/ramtinj/personal-workspace/opencode-tokenscope &amp;&amp; git status</span>
+  </li>
+<li class="batch-tool-item">
+    <span class="batch-tool-index">2</span>
+    <span class="batch-tool-icon">$</span>
+    <span class="batch-tool-name">bash</span>
+    <span class="batch-tool-info">cd /home/ramtinj/personal-workspace/opencode-tokenscope &amp;&amp; git log 1.1.0..HEAD --oneline</span>
+  </li>
+      </ul>
+    <div class="batch-output">
+      <details open>
+        <summary class="batch-output-label">Combined Output (3 lines)</summary>
+        <pre><code>All 2 tools executed successfully.
+
+Keep using the batch tool for optimal performance in your next response!</code></pre>
+      </details>
+    </div>
+    
+  </div>
+</div>
+<div class="tool-call tool-bash" data-status="completed">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="tool-icon">$</span>
+    <span class="bash-command">cd /home/ramtinj/personal-workspace/opencode-tokenscope &amp;&amp; git status</span>
+    <span class="bash-description">Check uncommitted changes</span>
+    
+    <span class="tool-toggle">-</span>
+  </div>
+  <div class="tool-body ">
+    <div class="bash-output">
+      <pre><code>On branch main
+Your branch is up to date with &#39;origin/main&#39;.
+
+nothing to commit, working tree clean
+</code></pre>
+    </div>
+    
+  </div>
+</div>
+<div class="tool-call tool-bash" data-status="completed">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="tool-icon">$</span>
+    <span class="bash-command">cd /home/ramtinj/personal-workspace/opencode-tokenscope &amp;&amp; git log 1.1.0..HEAD --oneline</span>
+    <span class="bash-description">Show commits since last release</span>
+    
+    <span class="tool-toggle">-</span>
+  </div>
+  <div class="tool-body ">
+    <div class="bash-output">
+      <pre><code>6e3fd1d README updates
+4913368 Trying to make the data visualization a bit cleaner
+f9e5284 Proper counting of API calls for subagents added to the total
+fe5e747 Starting some work on tracking subagent costs and tokens also
+e352d47 Adding a way to update the plugin easily
+</code></pre>
+    </div>
+    
+  </div>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 0 in / 181 out</span>
+<span class="stat">Cache: 48.7k read</span>
+<span class="stat">Finish: tool-calls</span></div>
+</div>
+<div class="message message-assistant" id="msg_af3bba80c002aeshtftOH7ftqk">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">01:55 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>I see there are uncommitted changes from our README update today. Let me check:</p>
+</div>
+<div class="tool-call tool-bash" data-status="completed">
+  <div class="tool-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+    <span class="tool-icon">$</span>
+    <span class="bash-command">cd /home/ramtinj/personal-workspace/opencode-tokenscope &amp;&amp; git diff HEAD</span>
+    <span class="bash-description">Show uncommitted changes</span>
+    
+    <span class="tool-toggle">-</span>
+  </div>
+  <div class="tool-body ">
+    
+    
+  </div>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 0 in / 111 out</span>
+<span class="stat">Cache: 49.6k read</span>
+<span class="stat">Finish: tool-calls</span></div>
+</div>
+<div class="message message-assistant" id="msg_af3bbb556001LQk0RM3CoHrwiT">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">01:55 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>The working tree is clean - the README changes we made must have been committed already. Good.</p>
+<p>Here&#39;s the plan for creating the release:</p>
+<p>---</p>
+<p>## Release Plan</p>
+<p>### Proposed Version: <code>v1.2.0</code></p>
+<p>Since <code>1.1.0</code> exists (without the <code>v</code> prefix), I&#39;d suggest using <code>v1.2.0</code> for consistency with <code>v1.0.0</code>. This is a minor version bump because you&#39;ve added new features (subagent tracking) without breaking changes.</p>
+<p><strong>Question:</strong> Do you want <code>v1.2.0</code> or <code>1.2.0</code> (without the <code>v</code> prefix to match <code>1.1.0</code>)?</p>
+<p>### Release Notes Draft</p>
+<p><div class="code-block-wrapper"><br><span class="code-language">markdown</span><br><pre><code class="language-markdown">## What&#39;s New in v1.2.0</p>
+<p>### Subagent Cost Tracking<br>- <strong>Child Session Analysis</strong>: Recursively analyzes all subagent sessions spawned by the Task tool<br>- <strong>Aggregated Totals</strong>: Combined tokens, costs, and API calls across main session and all subagents<br>- <strong>Per-Agent Breakdown</strong>: Each subagent shows type, token usage, cost, and API call count<br>- <strong>New <code>includeSubagents</code> parameter</strong>: Toggle subagent analysis on/off (default: true)</p>
+<p>### Enhanced Summary<br>- New summary section showing main session vs subagent costs side-by-side<br>- Total API call counts for both main session and subagents<br>- Grand total combining all sessions</p>
+<p>### Improved Tool Usage Breakdown<br>- Now shows call counts per tool (e.g., <code>4x</code>, <code>3x</code>)</p>
+<p>### Documentation<br>- Updated README with subagent tracking documentation<br>- Added new &quot;Options&quot; section documenting all parameters<br>- Added &quot;Understanding the Numbers &gt; Subagent Totals&quot; section</code></pre><br></div></p>
+<p>### Steps to Execute<br>1. Commit the README changes (if not already committed)<br>2. Create the git tag<br>3. Push the tag to origin<br>4. Create the GitHub release with the release notes</p>
+<p>---</p>
+<p>Does this look good? Any changes to the version number or release notes you&#39;d like?</p>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 0 in / 466 out</span>
+<span class="stat">Cache: 50.2k read</span>
+<span class="stat">Finish: stop</span></div>
+</div>
+<div class="message message-user" id="msg_af3bca2fa001jvpb4hET11aKdl">
+  <div class="message-header">
+    <span class="message-role">User</span>
+    <span class="message-time">01:56 PM</span>
+    <span class="message-model">anthropic/claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-text">
+  <p>This looks really good but I want to manage the release myself through the github UI can you give me a step by step</p>
+</div>
+  </div>
+</div>
+<div class="message message-assistant" id="msg_af3bca308002qMz3i2wxHlmB94">
+  <div class="message-header">
+    <span class="message-role">Assistant</span>
+    <span class="message-time">01:56 PM</span>
+    <span class="message-model">claude-opus-4-5</span>
+  </div>
+  <div class="message-content">
+    <div class="part part-generic">
+  <span class="part-type">step-start</span>
+</div>
+<div class="part part-text">
+  <p>Sure! Here&#39;s a step-by-step guide to create the release through the GitHub UI:</p>
+<p>---</p>
+<p>## Creating Release v1.2.0 via GitHub UI</p>
+<p>### Step 1: Go to Your Repository<br>Navigate to: https://github.com/ramtinJ95/opencode-tokenscope</p>
+<p>### Step 2: Go to Releases<br>- Click on <strong>&quot;Releases&quot;</strong> in the right sidebar (or go to the &quot;Code&quot; tab and find it there)<br>- Or directly visit: https://github.com/ramtinJ95/opencode-tokenscope/releases</p>
+<p>### Step 3: Create New Release<br>- Click the <strong>&quot;Draft a new release&quot;</strong> button (top right)</p>
+<p>### Step 4: Fill in the Release Details</p>
+<p><strong>Choose a tag:</strong><br>- Type <code>v1.2.0</code> in the &quot;Choose a tag&quot; dropdown<br>- Select <strong>&quot;Create new tag: v1.2.0 on publish&quot;</strong></p>
+<p><strong>Target:</strong><br>- Leave as <code>main</code> (should be the default)</p>
+<p><strong>Release title:</strong><br><div class="code-block-wrapper"><br><span class="code-language">text</span><br><pre><code class="language-text">v1.2.0 - Subagent Cost Tracking</code></pre><br></div></p>
+<p><strong>Release notes (copy this into the description box):</strong></p>
+<p><div class="code-block-wrapper"><br><span class="code-language">markdown</span><br><pre><code class="language-markdown">## What&#39;s New</p>
+<p>### Subagent Cost Tracking<br>- <strong>Child Session Analysis</strong>: Recursively analyzes all subagent sessions spawned by the Task tool<br>- <strong>Aggregated Totals</strong>: Combined tokens, costs, and API calls across main session and all subagents<br>- <strong>Per-Agent Breakdown</strong>: Each subagent shows type, token usage, cost, and API call count<br>- <strong>New <code>includeSubagents</code> parameter</strong>: Toggle subagent analysis on/off (default: true)</p>
+<p>### Enhanced Summary<br>- New summary section showing main session vs subagent costs side-by-side<br>- Total API call counts for both main session and subagents<br>- Grand total combining all sessions</p>
+<p>### Improved Tool Usage Breakdown<br>- Now shows call counts per tool (e.g., <code>4x</code>, <code>3x</code>)</p>
+<p>### Documentation<br>- Updated README with subagent tracking documentation<br>- Added &quot;Options&quot; section documenting all parameters<br>- Added &quot;Subagent Totals&quot; explanation section</code></pre><br></div></p>
+<p>### Step 5: Publish<br>- Leave <strong>&quot;Set as the latest release&quot;</strong> checked<br>- Click <strong>&quot;Publish release&quot;</strong></p>
+<p>---</p>
+<p>That&#39;s it! The tag will be created automatically when you publish.</p>
+</div>
+<div class="part part-generic">
+  <span class="part-type">step-finish</span>
+</div>
+  </div>
+  <div class="message-stats"><span class="stat">Tokens: 1 in / 549 out</span>
+<span class="stat">Cache: 48.4k read</span>
+<span class="stat">Finish: stop</span></div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="pagination-prev disabled">&larr; Previous</span>
+  <span class="pagination-page current">1</span>
+  <a href="page-002.html" class="pagination-page">2</a>
+  <a href="page-003.html" class="pagination-page">3</a>
+  <a href="page-004.html" class="pagination-page">4</a>
+  <a href="page-005.html" class="pagination-page">5</a>
+  <a href="page-002.html" class="pagination-next">Next &rarr;</a>
+</nav>
+<footer class="page-footer">
+  <p>Generated by <a href="https://github.com/opencode-replay" target="_blank" rel="noopener">opencode-replay</a></p>
+</footer>
+
+  </div>
+  <script src="../../assets/theme.js"></script>
+  <script src="../../assets/highlight.js"></script>
+  <script src="../../assets/search.js"></script>
+</body>
+</html>
