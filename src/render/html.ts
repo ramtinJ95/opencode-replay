@@ -92,29 +92,39 @@ async function writeHtml(filePath: string, content: string): Promise<void> {
 }
 
 /**
+ * Get the assets source directory
+ * Handles both development (src/render -> src/assets) and production (dist -> dist/assets)
+ */
+function getAssetsSourceDir(): string {
+  // In production bundle, assets are in ./assets relative to the bundle
+  const prodAssetsDir = join(import.meta.dir, "assets")
+  // In development, assets are in ../assets relative to src/render/
+  const devAssetsDir = join(import.meta.dir, "../assets")
+  
+  // Check which one exists (prod takes priority since it's the installed state)
+  if (Bun.file(join(prodAssetsDir, "styles.css")).size) {
+    return prodAssetsDir
+  }
+  return devAssetsDir
+}
+
+/**
  * Copy asset files to output directory
  */
 async function copyAssets(outputDir: string): Promise<void> {
   const assetsDir = join(outputDir, "assets")
   await ensureDir(assetsDir)
 
+  const sourceDir = getAssetsSourceDir()
+
   // Copy CSS files
-  const cssSource = join(import.meta.dir, "../assets/styles.css")
-  await copyFile(cssSource, join(assetsDir, "styles.css"))
-  
-  const prismCssSource = join(import.meta.dir, "../assets/prism.css")
-  await copyFile(prismCssSource, join(assetsDir, "prism.css"))
+  await copyFile(join(sourceDir, "styles.css"), join(assetsDir, "styles.css"))
+  await copyFile(join(sourceDir, "prism.css"), join(assetsDir, "prism.css"))
 
   // Copy JavaScript files
-  const themeJsSource = join(import.meta.dir, "../assets/theme.js")
-  await copyFile(themeJsSource, join(assetsDir, "theme.js"))
-  
-  const highlightJsSource = join(import.meta.dir, "../assets/highlight.js")
-  await copyFile(highlightJsSource, join(assetsDir, "highlight.js"))
-
-  // Copy search.js
-  const searchJsSource = join(import.meta.dir, "../assets/search.js")
-  await copyFile(searchJsSource, join(assetsDir, "search.js"))
+  await copyFile(join(sourceDir, "theme.js"), join(assetsDir, "theme.js"))
+  await copyFile(join(sourceDir, "highlight.js"), join(assetsDir, "highlight.js"))
+  await copyFile(join(sourceDir, "search.js"), join(assetsDir, "search.js"))
 }
 
 // =============================================================================

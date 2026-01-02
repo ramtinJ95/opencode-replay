@@ -164,7 +164,7 @@ Each tool type has specialized rendering:
 
 ```bash
 # Clone the repository
-git clone https://github.com/username/opencode-replay
+git clone https://github.com/ramtinJ95/opencode-replay
 cd opencode-replay
 
 # Install dependencies
