@@ -38,6 +38,27 @@ function color(text: string, ...codes: string[]): string {
   return codes.join("") + text + colors.reset
 }
 
+// Quiet mode flag (set after argument parsing)
+let quietMode = false
+
+/**
+ * Log a message (respects --quiet flag)
+ */
+function log(message: string): void {
+  if (!quietMode) {
+    console.log(message)
+  }
+}
+
+/**
+ * Write to stdout (for progress updates, respects --quiet flag)
+ */
+function writeProgress(message: string): void {
+  if (!quietMode) {
+    process.stdout.write(message)
+  }
+}
+
 // =============================================================================
 // OUTPUT HELPERS
 // =============================================================================
@@ -176,6 +197,12 @@ const { values } = parseArgs({
       default: "3000",
       description: "Server port (default: 3000)",
     },
+    quiet: {
+      type: "boolean",
+      short: "q",
+      default: false,
+      description: "Suppress non-essential output",
+    },
     "no-generate": {
       type: "boolean",
       default: false,
@@ -216,6 +243,7 @@ Options:
   --serve                Start HTTP server after generation
   --port <number>        Server port (default: 3000)
   --no-generate          Skip generation, only serve existing output
+  -q, --quiet            Suppress non-essential output
   -h, --help             Show this help message
   -v, --version          Show version
 
@@ -245,6 +273,7 @@ if (values.version) {
 // Main execution
 const storagePath = values.storage ?? getDefaultStoragePath()
 const port = parseInt(values.port ?? "3000", 10)
+quietMode = values.quiet ?? false
 
 // Validate port
 if (isNaN(port) || port < 1 || port > 65535) {
@@ -294,10 +323,10 @@ if (values.output) {
   outputDir = "./opencode-replay-output"
 }
 
-console.log(color("opencode-replay", colors.bold, colors.cyan))
-console.log(color("---------------", colors.dim))
-console.log(color("Storage:", colors.dim) + ` ${storagePath}`)
-console.log(color("Output:", colors.dim) + ` ${resolve(outputDir)}`)
+log(color("opencode-replay", colors.bold, colors.cyan))
+log(color("---------------", colors.dim))
+log(color("Storage:", colors.dim) + ` ${storagePath}`)
+log(color("Output:", colors.dim) + ` ${resolve(outputDir)}`)
 
 // Skip generation if --no-generate is set
 if (values["no-generate"]) {
@@ -311,15 +340,15 @@ if (values["no-generate"]) {
     console.error("Run without --no-generate to generate output first.")
     process.exit(1)
   }
-  console.log(color("Skipping generation (--no-generate)", colors.yellow))
-  console.log("")
+  log(color("Skipping generation (--no-generate)", colors.yellow))
+  log("")
 } else {
   const modeText = values.all ? "all projects" : "current project"
-  console.log(color("Mode:", colors.dim) + ` ${modeText}`)
+  log(color("Mode:", colors.dim) + ` ${modeText}`)
   if (values.session) {
-    console.log(color("Session:", colors.dim) + ` ${values.session}`)
+    log(color("Session:", colors.dim) + ` ${values.session}`)
   }
-  console.log("")
+  log("")
 
   try {
     const stats = await generateHtml({
@@ -331,17 +360,18 @@ if (values["no-generate"]) {
       onProgress: (progress) => {
         const msg = formatProgress(progress)
         if (msg) {
-          // Use process.stdout.write for cleaner output (no newline)
+          // Use writeProgress for cleaner output (no newline)
           // Clear line and write new progress
-          process.stdout.write(`\r\x1b[K${msg}`)
+          writeProgress(`\r\x1b[K${msg}`)
         }
       },
     })
 
     // Clear the progress line and print summary
-    process.stdout.write("\r\x1b[K")
-    console.log(color("Done!", colors.green, colors.bold) + ` Generated ${formatStats(stats)}`)
-    console.log(color("Output:", colors.dim) + ` ${resolve(outputDir)}`)
+    writeProgress("\r\x1b[K")
+    log(color("Done!", colors.green, colors.bold) + ` Generated ${formatStats(stats)}`)
+    // Always output the final path (even in quiet mode for scripting)
+    console.log(resolve(outputDir))
   } catch (error) {
     // Clear any progress output before showing error
     process.stdout.write("\r\x1b[K")
