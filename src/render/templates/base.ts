@@ -14,6 +14,8 @@ export interface BaseTemplateOptions {
   headExtra?: string
   /** Additional body classes */
   bodyClass?: string
+  /** Total number of pages for session (used by search.js) */
+  totalPages?: number
 }
 
 /**
@@ -40,7 +42,14 @@ export function renderBasePage(options: BaseTemplateOptions): string {
     assetsPath = "./assets",
     headExtra = "",
     bodyClass = "",
+    totalPages,
   } = options
+
+  // Build body attributes
+  const bodyAttrs: string[] = []
+  if (bodyClass) bodyAttrs.push(`class="${bodyClass}"`)
+  if (totalPages !== undefined) bodyAttrs.push(`data-total-pages="${totalPages}"`)
+  const bodyAttrStr = bodyAttrs.length > 0 ? ` ${bodyAttrs.join(" ")}` : ""
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -55,7 +64,7 @@ export function renderBasePage(options: BaseTemplateOptions): string {
   <link rel="stylesheet" href="${assetsPath}/prism.css">
   ${headExtra}
 </head>
-<body${bodyClass ? ` class="${bodyClass}"` : ""}>
+<body${bodyAttrStr}>
   <div class="container">
     ${content}
   </div>

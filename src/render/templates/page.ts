@@ -168,5 +168,6 @@ ${footer}
     content,
     assetsPath,
     bodyClass: "conversation-page",
+    totalPages,
   })
 }

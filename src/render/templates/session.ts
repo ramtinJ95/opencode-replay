@@ -191,5 +191,6 @@ ${footer}
     content,
     assetsPath,
     bodyClass: "session-page",
+    totalPages: pageCount,
   })
 }
