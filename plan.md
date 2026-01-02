@@ -694,11 +694,63 @@ export async function serve(options: ServeOptions): Promise<void> {
 - Window size: 1 page on each side of current page
 - Always shows first and last page for quick navigation
 
-### Phase 7: Search
-- [ ] Implement search index generation
-- [ ] Create search.js client-side search
-- [ ] Add search UI (modal)
-- [ ] URL fragment support
+### Phase 7: Search (COMPLETED)
+- [x] Implement search index generation (on-demand page fetching, no pre-built index)
+- [x] Create search.js client-side search
+  - Fetches paginated HTML pages on-demand
+  - Case-insensitive substring matching in `.message` elements
+  - Batched fetching (3 pages at a time for performance)
+  - Streaming UX - results appear as pages are processed
+- [x] Add search UI (modal)
+  - HTML `<dialog>` element for accessibility
+  - Search input with magnifying glass icon
+  - Status text showing progress ("Found X result(s) in Y/Z pages...")
+  - Scrollable results container with role badges
+- [x] URL fragment support (`#search=query`)
+  - Auto-opens modal and performs search on page load
+  - Updates URL when searching for shareable links
+- [x] Keyboard shortcut (Ctrl+K / Cmd+K)
+- [x] Result highlighting with `<mark>` tags using TreeWalker
+- [x] Progressive enhancement - hidden for `file://` protocol (CORS limitation)
+- [x] Dark mode support for all search elements
+- [x] Responsive design for mobile
+
+**Phase 7 Files Created:**
+- `src/assets/search.js` - Complete search implementation (~350 lines)
+
+**Phase 7 Files Modified:**
+- `src/assets/styles.css` - Added ~200 lines of search modal and result styles
+- `src/render/templates/base.ts` - Added `totalPages` data attribute support
+- `src/render/templates/page.ts` - Pass `totalPages` to base template
+- `src/render/templates/session.ts` - Pass `totalPages` to base template
+- `src/render/html.ts` - Copy search.js to output assets
+
+**Search UX Pattern (matching claude-code-transcripts):**
+- On session pages: searches within `.message` elements across all paginated pages
+- On index page: searches session titles and previews (no fetching needed)
+- Results link directly to messages via `page-XXX.html#msg-{id}`
+- Max 100 results displayed to prevent performance issues
+
+### Phase 7.5: Git Commit Integration
+- [ ] Extract git commits from bash tool outputs (parse `git commit` and `git push` commands)
+- [ ] Parse commit hashes and messages from tool output
+- [ ] Add commit cards to session timeline (like claude-code-transcripts)
+- [ ] Support `--repo OWNER/NAME` CLI flag for GitHub commit links
+- [ ] Auto-detect repo from git remote if not specified
+- [ ] Display commits inline in timeline between prompts
+- [ ] Link commit hashes to GitHub when repo is known
+
+**Commit Detection Strategy:**
+- Scan bash tool outputs for patterns like:
+  - `[branch hash] commit message` (git commit output)
+  - `To github.com:owner/repo.git` followed by commit range (git push output)
+- Extract: hash (short), message, timestamp (from tool execution time)
+- Store commits associated with the preceding user prompt
+
+**UI Design:**
+- Commit cards styled similar to claude-code-transcripts (orange/amber theme)
+- Show commit hash (monospace, linked if repo known), message, timestamp
+- Position between timeline entries where the commit occurred
 
 ### Phase 8: CLI Polish (COMPLETED)
 - [x] Implement all CLI flags (--all, --auto, --output, --session, --json, --open, --storage, --serve, --port, --no-generate, --quiet, --verbose, --help, --version)
@@ -755,19 +807,22 @@ export async function serve(options: ServeOptions): Promise<void> {
 
 - **v1.1: TUI mode** - Browse sessions interactively in terminal
 - **v1.2: Live server mode** - Optional local server with hot reload
-- **v1.3: Syntax highlighting** - Proper code highlighting in tool outputs
-- **v1.4: Cost analytics** - Token usage graphs and cost summaries
-- **v1.5: Git integration** - Extract and link commits like claude-code-transcripts
-- **v1.6: Gist publishing** - `--gist` flag to upload and get shareable URL
-- **v1.7: Custom themes** - Theme configuration file support
-- **v1.8: Pattern Analytics Dashboard** - Cross-session analysis for self-improvement:
+- **v1.3: Cost analytics** - Token usage graphs and cost summaries
+- **v1.4: Custom themes** - Theme configuration file support
+- **v1.5: Gist publishing** - `--gist` flag to upload HTML to GitHub Gist and get shareable preview URL:
+  - Requires GitHub CLI (`gh`) to be installed and authenticated
+  - Upload all generated HTML files to a new gist
+  - Return gist URL and gistpreview.github.io preview URL
+  - Inject JavaScript to fix relative links when served through gistpreview
+  - Combine with `-o` to keep local copy alongside gist upload
+- **v1.6: Pattern Analytics Dashboard** - Cross-session analysis for self-improvement:
   - Prompt effectiveness scoring (iterations to completion)
   - Tool usage frequency and patterns
   - Token efficiency trends over time
   - Common failure modes identification
   - Session duration vs. complexity metrics
   - Model comparison (if using multiple models)
-- **v1.9: PR Integration Helpers** - Features specifically for code review:
+- **v1.7: PR Integration Helpers** - Features specifically for code review:
   - Single-file HTML export for easy attachment
   - Session summary generation (AI-generated or templated)
   - Diff-focused view showing only file changes
