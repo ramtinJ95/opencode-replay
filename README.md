@@ -1,5 +1,8 @@
 # opencode-replay
 
+[![npm version](https://img.shields.io/npm/v/opencode-replay.svg)](https://www.npmjs.com/package/opencode-replay)
+[![npm downloads](https://img.shields.io/npm/dm/opencode-replay.svg)](https://www.npmjs.com/package/opencode-replay)
+
 A CLI tool that generates static HTML transcripts from [OpenCode](https://github.com/sst/opencode) sessions, enabling browsing, searching, and sharing of AI-assisted coding conversations.
 
 **[Live Demo](https://ramtinj95.github.io/opencode-replay/)** - See example session transcripts
