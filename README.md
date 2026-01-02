@@ -2,6 +2,8 @@
 
 A CLI tool that generates static HTML transcripts from [OpenCode](https://github.com/sst/opencode) sessions, enabling browsing, searching, and sharing of AI-assisted coding conversations.
 
+**[Live Demo](https://ramtinj95.github.io/opencode-replay/)** - See example session transcripts
+
 ## Why?
 
 OpenCode stores session data in `~/.local/share/opencode/storage/` as JSON files, but this data isn't easily browsable or shareable. `opencode-replay` transforms these sessions into clean, searchable, static HTML pages.
