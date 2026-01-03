@@ -480,9 +480,11 @@ Examples:
 
 ---
 
-## Phase 4: Gist Integration (Simon's Approach)
+## Phase 4: Gist Integration (Simon's Approach) ✅ COMPLETED
 
 **Goal:** Add `--gist` flag for direct GitHub Gist upload.
+
+**Status:** Completed on 2026-01-03
 
 ### 4.1 Gist Upload Module
 
@@ -640,18 +642,54 @@ if (values.gist) {
 
 ### 4.5 Tasks
 
-| Task | File | Description |
-|------|------|-------------|
-| 4.1.1 | `src/gist.ts` | Gist upload module |
-| 4.1.2 | `src/assets/gist-preview.js` | Gisthost.github.io link rewriter |
-| 4.2.1 | `src/render/html.ts` | Add gistMode option |
-| 4.2.2 | `src/render/templates/base.ts` | Conditionally inject gist JS |
-| 4.3.1 | `src/index.ts` | Add --gist and --gist-public flags |
-| 4.3.2 | `src/index.ts` | Implement gist upload flow |
-| 4.4.1 | Tests | Unit tests for gist module |
-| 4.4.2 | Tests | Integration tests for --gist flag |
+| Task | File | Description | Status |
+|------|------|-------------|--------|
+| 4.1.1 | `src/gist.ts` | Gist upload module | ✅ Done |
+| 4.1.2 | `src/assets/gist-preview.js` | Gisthost.github.io link rewriter | ✅ Done |
+| 4.2.1 | `src/render/html.ts` | Add gistMode option | ✅ Done |
+| 4.2.2 | `src/render/templates/base.ts` | Conditionally inject gist JS | ✅ Done |
+| 4.3.1 | `src/index.ts` | Add --gist and --gist-public flags | ✅ Done |
+| 4.3.2 | `src/index.ts` | Implement gist upload flow | ✅ Done |
+| 4.4.1 | Tests | Unit tests for gist module | ✅ Done |
+| 4.4.2 | Tests | Integration tests for --gist flag | ✅ Done |
 
 **Estimated effort:** 3-4 hours
+
+### 4.6 Implementation Notes
+
+**Files Created:**
+```
+src/gist.ts                    # createGist(), isGhInstalled(), isGhAuthenticated(), GistError
+src/gist.test.ts               # Unit tests for gist module (7 tests)
+src/assets/gist-preview.js     # Link rewriter for gisthost.github.io
+```
+
+**Files Modified:**
+- `src/render/html.ts` - Added `gistMode` to `GenerateHtmlOptions`, updated `copyAssets()` and `generateSessionHtml()`
+- `src/render/templates/base.ts` - Added `gistMode` to `BaseTemplateOptions`, conditionally inject gist-preview.js
+- `src/render/templates/session.ts` - Added `gistMode` to `SessionPageData`, pass to `renderBasePage()`
+- `src/render/templates/page.ts` - Added `gistMode` to `ConversationPageData`, pass to `renderBasePage()`
+- `src/render/templates/index-page.ts` - Added `gistMode` to `IndexPageData`, pass to `renderBasePage()`
+- `src/index.ts` - Added `--gist` and `--gist-public` flags, gist upload flow, file collection
+
+**Key Features:**
+- Uses `gh gist create` CLI command for uploading
+- Collects all HTML, CSS, and JS files from output directory
+- `gist-preview.js` rewrites relative links for gisthost.github.io format
+- MutationObserver watches for dynamically added links
+- GistError class with typed error codes (NOT_INSTALLED, NOT_AUTHENTICATED, CREATE_FAILED)
+- Helpful error messages with installation/auth instructions
+- Opens gist preview URL in browser when `--open` is used with `--gist`
+
+**CLI Flags Added:**
+- `--gist` - Upload to GitHub Gist after HTML generation
+- `--gist-public` - Make gist public (default: secret)
+
+**Validation:**
+- `--gist` requires `--format html` (default)
+- Error message suggests using `--format md | gh gist create -` for markdown gists
+
+**Test Results:** 7 new tests, all passing (800 total project tests)
 
 ---
 
@@ -713,11 +751,11 @@ Requires [GitHub CLI](https://cli.github.com/) to be installed and authenticated
 | 1 | Shared Foundation | 2-3 hrs | None | ✅ Done |
 | 2 | Markdown Renderer | 4-6 hrs | Phase 1 | ✅ Done |
 | 3 | Markdown CLI | 1-2 hrs | Phase 2 | ✅ Done |
-| 4 | Gist Integration | 3-4 hrs | Phase 1 | Pending |
+| 4 | Gist Integration | 3-4 hrs | Phase 1 | ✅ Done |
 | 5 | Polish & Docs | 1-2 hrs | Phases 3 & 4 | Pending |
 
 **Total estimated effort:** 11-17 hours
-**Completed:** Phases 1, 2 & 3 (~7-11 hrs)
+**Completed:** Phases 1, 2, 3 & 4 (~10-15 hrs)
 
 ### Suggested Order
 
