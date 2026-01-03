@@ -170,6 +170,7 @@ export function calculateSessionStats(messages: MessageWithParts[]): SessionStat
   let totalTokensOutput = 0
   let totalCost = 0
   let model: string | undefined
+  let userMessageCount = 0
 
   for (const msg of messages) {
     if (msg.message.role === "assistant") {
@@ -184,14 +185,17 @@ export function calculateSessionStats(messages: MessageWithParts[]): SessionStat
       if (!model && asst.modelID) {
         model = asst.modelID
       }
+    } else if (msg.message.role === "user") {
+      userMessageCount++
     }
   }
 
-  const pages = paginateMessages(messages)
+  // Calculate page count directly instead of calling paginateMessages
+  const pageCount = userMessageCount > 0 ? Math.ceil(userMessageCount / PROMPTS_PER_PAGE) : 0
 
   return {
     messageCount: messages.length,
-    pageCount: pages.length,
+    pageCount,
     totalTokensInput,
     totalTokensOutput,
     totalCost,
