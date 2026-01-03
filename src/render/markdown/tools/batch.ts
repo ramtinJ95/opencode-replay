@@ -47,7 +47,7 @@ export function renderBatchToolMd(part: ToolPart): string {
     for (let i = 0; i < toolCalls.length; i++) {
       const call = toolCalls[i]!
       const info = getToolInfo(call.tool, call.parameters)
-      lines.push(`${i + 1}. **${call.tool}**: ${info}`)
+      lines.push(`${i + 1}. **${call.tool}**${info ? `: ${info}` : ""}`)
     }
     lines.push("")
   }
