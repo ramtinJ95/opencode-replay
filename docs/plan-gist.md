@@ -11,9 +11,11 @@ This plan is split into phases, with shared foundation work first.
 
 ---
 
-## Phase 1: Shared Foundation
+## Phase 1: Shared Foundation ✅ COMPLETED
 
 **Goal:** Create the abstraction layer needed for both markdown and gist features.
+
+**Status:** Completed on 2026-01-03
 
 ### 1.1 Create Output Format Types
 
@@ -74,20 +76,29 @@ export interface FullTranscriptData {
 
 ### 1.3 Tasks
 
-| Task | File | Description |
-|------|------|-------------|
-| 1.1.1 | `src/render/types.ts` | Create shared type definitions |
-| 1.1.2 | `src/render/data.ts` | Extract data collection from html.ts |
-| 1.1.3 | `src/render/html.ts` | Refactor to use new data structures |
-| 1.1.4 | Tests | Update existing tests for refactor |
+| Task | File | Description | Status |
+|------|------|-------------|--------|
+| 1.1.1 | `src/render/types.ts` | Create shared type definitions | ✅ Done |
+| 1.1.2 | `src/render/data.ts` | Extract data collection from html.ts | ✅ Done |
+| 1.1.3 | `src/render/html.ts` | Refactor to use new data structures | ✅ Done |
+| 1.1.4 | Tests | Update existing tests for refactor | ✅ Done |
 
 **Estimated effort:** 2-3 hours
 
+### 1.4 Implementation Notes
+
+- Created `src/render/types.ts` with `OutputFormat`, `RenderContext`, `SessionRenderData`, `ConversationRenderData`, `FullTranscriptData`, and `FormatRenderer` interface
+- Created `src/render/data.ts` with shared utilities: `getFirstPrompt`, `countTools`, `buildTimeline`, `paginateMessages`, `calculateSessionStats`, `buildSessionData`
+- Refactored `src/render/html.ts` to use shared data utilities
+- All exports available from `src/render/index.ts` barrel
+
 ---
 
-## Phase 2: Markdown Renderer
+## Phase 2: Markdown Renderer ✅ COMPLETED
 
 **Goal:** Create markdown output format with stdout and file support.
+
+**Status:** Completed on 2026-01-03
 
 ### 2.1 Create Markdown Component Renderers
 
@@ -305,24 +316,62 @@ export async function generateMarkdown(
 
 ### 2.6 Tasks
 
-| Task | File | Description |
-|------|------|-------------|
-| 2.1.1 | `src/render/markdown/index.ts` | Main markdown generator |
-| 2.1.2 | `src/render/markdown/message.ts` | Message renderer |
-| 2.1.3 | `src/render/markdown/part.ts` | Part dispatcher |
-| 2.2.1 | `src/render/markdown/tools/bash.ts` | Bash tool renderer |
-| 2.2.2 | `src/render/markdown/tools/read.ts` | Read tool renderer |
-| 2.2.3 | `src/render/markdown/tools/write.ts` | Write tool renderer |
-| 2.2.4 | `src/render/markdown/tools/edit.ts` | Edit tool renderer |
-| 2.2.5 | `src/render/markdown/tools/glob.ts` | Glob tool renderer |
-| 2.2.6 | `src/render/markdown/tools/grep.ts` | Grep tool renderer |
-| 2.2.7 | `src/render/markdown/tools/task.ts` | Task tool renderer |
-| 2.2.8 | `src/render/markdown/tools/todowrite.ts` | TodoWrite tool renderer |
-| 2.2.9 | `src/render/markdown/tools/webfetch.ts` | WebFetch tool renderer |
-| 2.2.10 | `src/render/markdown/tools/batch.ts` | Batch tool renderer |
-| 2.3.1 | Tests | Unit tests for markdown renderers |
+| Task | File | Description | Status |
+|------|------|-------------|--------|
+| 2.1.1 | `src/render/markdown/index.ts` | Main markdown generator | ✅ Done |
+| 2.1.2 | `src/render/markdown/message.ts` | Message renderer | ✅ Done |
+| 2.1.3 | `src/render/markdown/part.ts` | Part dispatcher | ✅ Done |
+| 2.2.1 | `src/render/markdown/tools/bash.ts` | Bash tool renderer | ✅ Done |
+| 2.2.2 | `src/render/markdown/tools/read.ts` | Read tool renderer | ✅ Done |
+| 2.2.3 | `src/render/markdown/tools/write.ts` | Write tool renderer | ✅ Done |
+| 2.2.4 | `src/render/markdown/tools/edit.ts` | Edit tool renderer | ✅ Done |
+| 2.2.5 | `src/render/markdown/tools/glob.ts` | Glob tool renderer | ✅ Done |
+| 2.2.6 | `src/render/markdown/tools/grep.ts` | Grep tool renderer | ✅ Done |
+| 2.2.7 | `src/render/markdown/tools/task.ts` | Task tool renderer | ✅ Done |
+| 2.2.8 | `src/render/markdown/tools/todowrite.ts` | TodoWrite tool renderer | ✅ Done |
+| 2.2.9 | `src/render/markdown/tools/webfetch.ts` | WebFetch tool renderer | ✅ Done |
+| 2.2.10 | `src/render/markdown/tools/batch.ts` | Batch tool renderer | ✅ Done |
+| 2.3.1 | Tests | Unit tests for markdown renderers | ✅ Done |
 
 **Estimated effort:** 4-6 hours
+
+### 2.7 Implementation Notes
+
+**Files Created:**
+```
+src/render/markdown/
+├── index.ts           # markdownRenderer, generateMarkdown, renderSession, renderConversation, renderFullTranscript
+├── message.ts         # renderMessageMd, renderMessagesMd
+├── message.test.ts    # 18 tests
+├── part.ts            # renderPartMd (dispatches to tool renderers)
+├── part.test.ts       # 21 tests
+└── tools/
+    ├── bash.ts        # renderBashToolMd
+    ├── read.ts        # renderReadToolMd
+    ├── write.ts       # renderWriteToolMd
+    ├── edit.ts        # renderEditToolMd (diff format)
+    ├── glob.ts        # renderGlobToolMd
+    ├── grep.ts        # renderGrepToolMd
+    ├── task.ts        # renderTaskToolMd
+    ├── todowrite.ts   # renderTodoWriteToolMd (checkbox format)
+    ├── webfetch.ts    # renderWebFetchToolMd
+    └── batch.ts       # renderBatchToolMd
+```
+
+**Key Features:**
+- Collapsible `<details>` sections for long output (>15-30 lines)
+- Diff-style ````diff` formatting for edit operations
+- Checkbox format for todos: `[x]` completed, `[ ]` pending, `[-]` in progress, `[~]` cancelled
+- Stats in blockquotes for assistant messages
+- All exports available from `src/render/index.ts` barrel
+
+**Code Review Fixes Applied:**
+- Fixed missing markdown module export from barrel
+- Optimized `calculateSessionStats` to avoid duplicate pagination
+- Fixed empty tool info handling in batch renderer
+- Clarified URL truncation logic in webfetch renderer
+
+**Test Results:** 39 new tests, all passing (784 total project tests)
 
 ---
 
@@ -635,15 +684,16 @@ Requires [GitHub CLI](https://cli.github.com/) to be installed and authenticated
 
 ## Summary
 
-| Phase | Description | Effort | Dependencies |
-|-------|-------------|--------|--------------|
-| 1 | Shared Foundation | 2-3 hrs | None |
-| 2 | Markdown Renderer | 4-6 hrs | Phase 1 |
-| 3 | Markdown CLI | 1-2 hrs | Phase 2 |
-| 4 | Gist Integration | 3-4 hrs | Phase 1 |
-| 5 | Polish & Docs | 1-2 hrs | Phases 3 & 4 |
+| Phase | Description | Effort | Dependencies | Status |
+|-------|-------------|--------|--------------|--------|
+| 1 | Shared Foundation | 2-3 hrs | None | ✅ Done |
+| 2 | Markdown Renderer | 4-6 hrs | Phase 1 | ✅ Done |
+| 3 | Markdown CLI | 1-2 hrs | Phase 2 | Pending |
+| 4 | Gist Integration | 3-4 hrs | Phase 1 | Pending |
+| 5 | Polish & Docs | 1-2 hrs | Phases 3 & 4 | Pending |
 
 **Total estimated effort:** 11-17 hours
+**Completed:** Phases 1 & 2 (~6-9 hrs)
 
 ### Suggested Order
 
