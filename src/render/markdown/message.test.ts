@@ -8,7 +8,6 @@ import {
   createUserMessageWithParts,
   createAssistantMessageWithParts,
   createConversation,
-  BASE_TIMESTAMP,
 } from "../../../tests/fixtures"
 
 // =============================================================================
