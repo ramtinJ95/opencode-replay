@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
   "name": "opencode-replay",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Generate static HTML transcripts from OpenCode sessions",
   "type": "module",
   "bin": {
