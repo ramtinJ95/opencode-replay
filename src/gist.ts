@@ -37,10 +37,11 @@ export class GistError extends Error {
 
 /**
  * Check if the GitHub CLI (gh) is installed
+ * Uses 'gh --version' which works cross-platform (Windows, macOS, Linux)
  */
 export async function isGhInstalled(): Promise<boolean> {
   try {
-    const proc = spawn(["which", "gh"], {
+    const proc = spawn(["gh", "--version"], {
       stdout: "pipe",
       stderr: "pipe",
     })

@@ -387,6 +387,11 @@ if (values.gist) {
   }
 }
 
+// Warn if --gist-public is used without --gist
+if (values["gist-public"] && !values.gist) {
+  console.error(color("Warning:", colors.yellow, colors.bold) + " --gist-public has no effect without --gist")
+}
+
 // Validate storage path exists
 // First check if the directory exists, then verify it has the expected structure
 try {
@@ -586,8 +591,10 @@ if (values["no-generate"]) {
     }
     
     log(color("Done!", colors.green, colors.bold) + ` Generated ${formatStats(stats)}`)
-    // Always output the final path (even in quiet mode for scripting)
-    console.log(resolve(outputDir))
+    // Output final path for scripting, but not if --gist is used (we'll output gist URL instead)
+    if (!values.gist) {
+      console.log(resolve(outputDir))
+    }
   } catch (error) {
     // Clear any progress output before showing error
     process.stdout.write("\r\x1b[K")
