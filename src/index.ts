@@ -270,8 +270,10 @@ Usage:
 Options:
   --all                  Generate for all projects (default: current project only)
   -a, --auto             Auto-name output directory from project/session name
-  -o, --output <dir>     Output directory (default: ./opencode-replay-output)
+  -o, --output <path>    Output directory (HTML) or file (markdown)
   -s, --session <id>     Generate for specific session only
+  -f, --format <type>    Output format: html (default), md
+  --stdout               Output to stdout (markdown only, requires --session)
   --json                 Include raw JSON export alongside HTML
   --open                 Open in browser after generation
   --storage <path>       Custom storage path (default: ~/.local/share/opencode/storage)
@@ -285,7 +287,7 @@ Options:
   -v, --version          Show version
 
 Examples:
-  opencode-replay                     # Current project's sessions
+  opencode-replay                     # Current project's sessions (HTML)
   opencode-replay --all               # All projects
   opencode-replay -a                  # Auto-name output (e.g., ./my-project-replay)
   opencode-replay -o ./my-transcripts # Custom output directory
@@ -293,7 +295,12 @@ Examples:
   opencode-replay --serve             # Generate and serve via HTTP
   opencode-replay --serve --port 8080 # Serve on custom port
   opencode-replay --serve --no-generate -o ./existing  # Serve existing output
-  opencode-replay --repo sst/opencode   # Add GitHub links to git commits
+  opencode-replay --repo sst/opencode # Add GitHub links to git commits
+
+Markdown Output:
+  opencode-replay -f md -s ses_xxx                 # Markdown to stdout
+  opencode-replay -f md -s ses_xxx -o transcript   # Markdown to file
+  opencode-replay -f md -s ses_xxx | gh gist create -  # Pipe to gist
 `)
   process.exit(0)
 }
