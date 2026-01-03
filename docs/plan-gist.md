@@ -375,9 +375,11 @@ src/render/markdown/
 
 ---
 
-## Phase 3: CLI Integration for Markdown
+## Phase 3: CLI Integration for Markdown ✅ COMPLETED
 
 **Goal:** Add `--format md` flag and stdout support.
+
+**Status:** Completed on 2026-01-03
 
 ### 3.1 Update CLI Arguments
 
@@ -445,14 +447,36 @@ Examples:
 
 ### 3.4 Tasks
 
-| Task | File | Description |
-|------|------|-------------|
-| 3.1.1 | `src/index.ts` | Add --format and --stdout flags |
-| 3.1.2 | `src/index.ts` | Implement markdown output path |
-| 3.1.3 | `src/index.ts` | Update help text |
-| 3.2.1 | Tests | Integration tests for markdown CLI |
+| Task | File | Description | Status |
+|------|------|-------------|--------|
+| 3.1.1 | `src/index.ts` | Add --format and --stdout flags | ✅ Done |
+| 3.1.2 | `src/index.ts` | Implement markdown output path | ✅ Done |
+| 3.1.3 | `src/index.ts` | Update help text | ✅ Done |
+| 3.2.1 | Tests | Integration tests for markdown CLI | ✅ Done |
 
 **Estimated effort:** 1-2 hours
+
+### 3.5 Implementation Notes
+
+**CLI Flags Added:**
+- `-f, --format <type>` - Output format: html (default), md/markdown
+- `--stdout` - Output to stdout (markdown only, requires --session)
+
+**Validation:**
+- `--stdout` requires `--format md` and `--session`
+- Invalid format values show error with valid options
+- Forces quiet mode when using stdout to prevent mixing output
+
+**Output Modes:**
+- `--format md -s <session>` - Markdown to stdout (default for markdown)
+- `--format md -s <session> -o file` - Markdown to file (auto-adds .md)
+- `--format md --stdout -s <session>` - Explicit stdout output
+
+**Help Text Updated:**
+- Added `-f, --format` and `--stdout` options
+- Added "Markdown Output" examples section
+
+**Test Results:** 9 new tests, all passing (793 total project tests)
 
 ---
 
@@ -688,12 +712,12 @@ Requires [GitHub CLI](https://cli.github.com/) to be installed and authenticated
 |-------|-------------|--------|--------------|--------|
 | 1 | Shared Foundation | 2-3 hrs | None | ✅ Done |
 | 2 | Markdown Renderer | 4-6 hrs | Phase 1 | ✅ Done |
-| 3 | Markdown CLI | 1-2 hrs | Phase 2 | Pending |
+| 3 | Markdown CLI | 1-2 hrs | Phase 2 | ✅ Done |
 | 4 | Gist Integration | 3-4 hrs | Phase 1 | Pending |
 | 5 | Polish & Docs | 1-2 hrs | Phases 3 & 4 | Pending |
 
 **Total estimated effort:** 11-17 hours
-**Completed:** Phases 1 & 2 (~6-9 hrs)
+**Completed:** Phases 1, 2 & 3 (~7-11 hrs)
 
 ### Suggested Order
 
