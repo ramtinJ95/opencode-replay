@@ -325,6 +325,31 @@ if (isNaN(port) || port < 1 || port > 65535) {
   process.exit(1)
 }
 
+// Normalize and validate format
+const format = (values.format ?? "html").toLowerCase()
+if (format !== "html" && format !== "md" && format !== "markdown") {
+  console.error(color("Error:", colors.red, colors.bold) + ` Invalid format: ${values.format}`)
+  console.error("Valid formats: html, md (or markdown)")
+  process.exit(1)
+}
+const isMarkdownFormat = format === "md" || format === "markdown"
+
+// Validate --stdout usage
+if (values.stdout) {
+  if (!isMarkdownFormat) {
+    console.error(color("Error:", colors.red, colors.bold) + " --stdout requires --format md")
+    console.error("HTML output to stdout is not supported.")
+    process.exit(1)
+  }
+  if (!values.session) {
+    console.error(color("Error:", colors.red, colors.bold) + " --stdout requires --session")
+    console.error("Specify a session with -s <session_id> for stdout output.")
+    process.exit(1)
+  }
+  // Force quiet mode for stdout (progress goes to stderr would be messy)
+  quietMode = true
+}
+
 // Validate storage path exists
 // First check if the directory exists, then verify it has the expected structure
 try {
