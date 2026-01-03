@@ -441,7 +441,7 @@ Options:
 Examples:
   opencode-replay --format md                    # Markdown to stdout
   opencode-replay --format md -o transcript.md   # Markdown to file
-  opencode-replay --format md | gh gist create - # Pipe to gist
+  opencode-replay --format md | gh gist create --filename transcript.md -
   opencode-replay --format md -s ses_xxx         # Specific session
 ```
 
@@ -687,7 +687,7 @@ src/assets/gist-preview.js     # Link rewriter for gisthost.github.io
 
 **Validation:**
 - `--gist` requires `--format html` (default)
-- Error message suggests using `--format md | gh gist create -` for markdown gists
+- Error message suggests using `--format md | gh gist create --filename transcript.md -` for markdown gists
 
 **Test Results:** 7 new tests, all passing (800 total project tests)
 
@@ -715,7 +715,7 @@ Generate markdown for sharing or piping:
 ```bash
 # To stdout (for piping)
 opencode-replay --format md
-opencode-replay --format md | gh gist create -
+opencode-replay --format md | gh gist create --filename transcript.md -
 opencode-replay --format md | pbcopy
 
 # To file
@@ -790,7 +790,7 @@ Different use cases:
 
 Markdown defaults to stdout for piping ergonomics:
 ```bash
-replay --format md | gh gist create -
+replay --format md | gh gist create --filename transcript.md -
 replay --format md | pbcopy
 replay --format md > transcript.md
 ```

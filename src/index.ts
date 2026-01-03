@@ -313,7 +313,7 @@ Examples:
 Markdown Output:
   opencode-replay -f md -s ses_xxx                 # Markdown to stdout
   opencode-replay -f md -s ses_xxx -o transcript   # Markdown to file
-  opencode-replay -f md -s ses_xxx | gh gist create -  # Pipe to gist
+  opencode-replay -f md -s ses_xxx | gh gist create --filename transcript.md -
 
 GitHub Gist:
   opencode-replay --gist              # Upload to secret gist
@@ -382,7 +382,7 @@ if (values.stdout) {
 if (values.gist) {
   if (isMarkdownFormat) {
     console.error(color("Error:", colors.red, colors.bold) + " --gist requires --format html (default)")
-    console.error("Use --format md | gh gist create - for markdown gists.")
+    console.error("Use --format md | gh gist create --filename transcript.md - for markdown gists.")
     process.exit(1)
   }
 }
