@@ -424,7 +424,17 @@ if (values.repo && !repoInfo) {
 // =============================================================================
 
 if (isMarkdownFormat) {
-  // Markdown output mode - requires --session
+  // Markdown output mode - validate incompatible options
+  if (values.all) {
+    console.error(color("Error:", colors.red, colors.bold) + " --format md does not support --all")
+    console.error("Markdown output is single-session only. Use -s <session_id>")
+    process.exit(1)
+  }
+  if (values.serve) {
+    console.error(color("Error:", colors.red, colors.bold) + " --serve is not supported with --format md")
+    console.error("Use --format html (default) for serving via HTTP.")
+    process.exit(1)
+  }
   if (!values.session) {
     console.error(color("Error:", colors.red, colors.bold) + " --format md requires --session")
     console.error("Specify a session with -s <session_id>")
