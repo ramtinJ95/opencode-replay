@@ -5,7 +5,7 @@
 
 import { join, dirname } from "node:path"
 import { mkdir, copyFile } from "node:fs/promises"
-import type { Session, MessageWithParts } from "../storage/types"
+import type { Session } from "../storage/types"
 import {
   listProjects,
   listSessions,
@@ -20,12 +20,10 @@ import {
 } from "./templates"
 import { type RepoInfo } from "./git-commits"
 import {
-  PROMPTS_PER_PAGE,
   getFirstPrompt,
   buildTimeline,
   paginateMessages,
   calculateSessionStats,
-  buildSessionData,
 } from "./data"
 
 // Re-export for backwards compatibility
