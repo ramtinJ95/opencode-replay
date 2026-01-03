@@ -44,6 +44,8 @@ export interface GenerateHtmlOptions {
   onProgress?: (progress: ProgressInfo) => void
   /** GitHub repository info for commit links */
   repo?: RepoInfo
+  /** Inject gist-preview.js for gisthost.github.io compatibility */
+  gistMode?: boolean
 }
 
 export interface ProgressInfo {
@@ -107,7 +109,7 @@ function getAssetsSourceDir(): string {
 /**
  * Copy asset files to output directory
  */
-async function copyAssets(outputDir: string): Promise<void> {
+async function copyAssets(outputDir: string, gistMode?: boolean): Promise<void> {
   const assetsDir = join(outputDir, "assets")
   await ensureDir(assetsDir)
 
@@ -121,6 +123,11 @@ async function copyAssets(outputDir: string): Promise<void> {
   await copyFile(join(sourceDir, "theme.js"), join(assetsDir, "theme.js"))
   await copyFile(join(sourceDir, "highlight.js"), join(assetsDir, "highlight.js"))
   await copyFile(join(sourceDir, "search.js"), join(assetsDir, "search.js"))
+
+  // Copy gist-preview.js only in gist mode
+  if (gistMode) {
+    await copyFile(join(sourceDir, "gist-preview.js"), join(assetsDir, "gist-preview.js"))
+  }
 }
 
 // Re-export data utilities for backwards compatibility
@@ -140,7 +147,8 @@ async function generateSessionHtml(
   session: Session,
   projectName?: string,
   repo?: RepoInfo,
-  includeJson?: boolean
+  includeJson?: boolean,
+  gistMode?: boolean
 ): Promise<{ messageCount: number; pageCount: number; firstPrompt?: string }> {
   const sessionDir = join(outputDir, "sessions", session.id)
   await ensureDir(sessionDir)
@@ -168,6 +176,7 @@ async function generateSessionHtml(
     pageCount: stats.pageCount,
     model: stats.model,
     assetsPath: "../../assets",
+    gistMode,
   })
   await writeHtml(join(sessionDir, "index.html"), sessionOverviewHtml)
 
@@ -182,6 +191,7 @@ async function generateSessionHtml(
       pageNumber,
       totalPages: stats.pageCount,
       assetsPath: "../../assets",
+      gistMode,
     })
     const pageFile = `page-${String(pageNumber).padStart(3, "0")}.html`
     await writeHtml(join(sessionDir, pageFile), pageHtml)
@@ -212,13 +222,13 @@ async function generateSessionHtml(
  * Generate static HTML transcripts from OpenCode sessions
  */
 export async function generateHtml(options: GenerateHtmlOptions): Promise<GenerationStats> {
-  const { storagePath, outputDir, all = false, sessionId, includeJson = false, onProgress, repo } = options
+  const { storagePath, outputDir, all = false, sessionId, includeJson = false, onProgress, repo, gistMode = false } = options
 
   // Ensure output directory exists
   await ensureDir(outputDir)
 
-  // Copy assets
-  await copyAssets(outputDir)
+  // Copy assets (includes gist-preview.js only if gistMode is true)
+  await copyAssets(outputDir, gistMode)
 
   // Collect sessions to process
   const sessionCards: SessionCardData[] = []
@@ -249,7 +259,8 @@ export async function generateHtml(options: GenerateHtmlOptions): Promise<Genera
       session,
       project.name,
       repo,
-      includeJson
+      includeJson,
+      gistMode
     )
 
     totalPageCount += result.pageCount
@@ -328,6 +339,7 @@ export async function generateHtml(options: GenerateHtmlOptions): Promise<Genera
     sessions: sessionCards,
     isAllProjects: all,
     assetsPath: "./assets",
+    gistMode,
   })
   await writeHtml(join(outputDir, "index.html"), indexHtml)
 

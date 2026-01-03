@@ -27,6 +27,8 @@ export interface IndexPageData {
   breadcrumbs?: Array<{ label: string; href?: string }>
   /** Relative path to assets directory */
   assetsPath?: string
+  /** Include gist-preview.js for gisthost.github.io compatibility */
+  gistMode?: boolean
 }
 
 /**
@@ -125,6 +127,7 @@ export function renderIndexPage(data: IndexPageData): string {
     isAllProjects = false,
     breadcrumbs = [],
     assetsPath = "./assets",
+    gistMode,
   } = data
 
   const header = renderHeader({
@@ -150,5 +153,6 @@ ${footer}
     content,
     assetsPath,
     bodyClass: "index-page",
+    gistMode,
   })
 }
