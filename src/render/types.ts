@@ -5,7 +5,7 @@
 
 import type { Session, MessageWithParts } from "../storage/types"
 import type { TimelineEntry } from "./templates"
-import type { GenerationStats } from "./html"
+import type { SessionStats } from "./data"
 
 // =============================================================================
 // OUTPUT FORMAT
@@ -59,7 +59,7 @@ export interface FullTranscriptData {
   projectName?: string
   messages: MessageWithParts[]
   timeline: TimelineEntry[]
-  stats: GenerationStats
+  stats: SessionStats
 }
 
 // =============================================================================
