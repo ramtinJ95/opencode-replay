@@ -68,17 +68,21 @@ function truncateUrl(url: string, maxLength = 60): string {
     const domain = parsed.hostname
     const path = parsed.pathname
 
+    // If domain + path fits, use that (strips query string and protocol)
     if (domain.length + path.length <= maxLength) {
       return domain + path
     }
 
-    const availableForPath = maxLength - domain.length - 3
+    // If we have room for domain + meaningful path portion, truncate path
+    const availableForPath = maxLength - domain.length - 3 // 3 for "..."
     if (availableForPath > 10) {
       return domain + path.slice(0, availableForPath) + "..."
     }
 
+    // Domain itself is too long or leaves no room for path, truncate raw URL
     return url.slice(0, maxLength - 3) + "..."
   } catch {
+    // Invalid URL, just truncate raw string
     return url.slice(0, maxLength - 3) + "..."
   }
 }
