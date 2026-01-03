@@ -231,6 +231,17 @@ const { values } = parseArgs({
       type: "string",
       description: "GitHub repo (OWNER/NAME) for commit links",
     },
+    format: {
+      type: "string",
+      short: "f",
+      default: "html",
+      description: "Output format: html (default), md",
+    },
+    stdout: {
+      type: "boolean",
+      default: false,
+      description: "Output to stdout (markdown only)",
+    },
     help: {
       type: "boolean",
       short: "h",
