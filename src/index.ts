@@ -12,6 +12,7 @@ import { generateMarkdown, calculateSessionStats } from "./render"
 import { serve } from "./server"
 import { parseRepoString } from "./render/git-commits"
 import { notifyIfUpdateAvailable } from "./utils/update-notifier"
+import { createGist, GistError } from "./gist"
 
 // =============================================================================
 // TERMINAL COLORS
@@ -243,6 +244,16 @@ const { values } = parseArgs({
       default: false,
       description: "Output to stdout (markdown only)",
     },
+    gist: {
+      type: "boolean",
+      default: false,
+      description: "Upload to GitHub Gist after generation",
+    },
+    "gist-public": {
+      type: "boolean",
+      default: false,
+      description: "Make gist public (default: secret)",
+    },
     help: {
       type: "boolean",
       short: "h",
@@ -274,6 +285,8 @@ Options:
   -s, --session <id>     Generate for specific session only
   -f, --format <type>    Output format: html (default), md
   --stdout               Output to stdout (markdown only, requires --session)
+  --gist                 Upload HTML to GitHub Gist after generation
+  --gist-public          Make gist public (default: secret)
   --json                 Include raw JSON export alongside HTML
   --open                 Open in browser after generation
   --storage <path>       Custom storage path (default: ~/.local/share/opencode/storage)
@@ -301,6 +314,13 @@ Markdown Output:
   opencode-replay -f md -s ses_xxx                 # Markdown to stdout
   opencode-replay -f md -s ses_xxx -o transcript   # Markdown to file
   opencode-replay -f md -s ses_xxx | gh gist create -  # Pipe to gist
+
+GitHub Gist:
+  opencode-replay --gist              # Upload to secret gist
+  opencode-replay --gist --gist-public  # Upload to public gist
+  opencode-replay -s ses_xxx --gist   # Upload specific session to gist
+
+  Requires GitHub CLI (https://cli.github.com/) to be installed and authenticated.
 `)
   process.exit(0)
 }
@@ -356,6 +376,15 @@ if (values.stdout) {
   }
   // Force quiet mode for stdout (progress goes to stderr would be messy)
   quietMode = true
+}
+
+// Validate --gist usage
+if (values.gist) {
+  if (isMarkdownFormat) {
+    console.error(color("Error:", colors.red, colors.bold) + " --gist requires --format html (default)")
+    console.error("Use --format md | gh gist create - for markdown gists.")
+    process.exit(1)
+  }
 }
 
 // Validate storage path exists
@@ -535,6 +564,7 @@ if (values["no-generate"]) {
       sessionId: values.session,
       includeJson: values.json ?? false,
       repo: repoInfo,
+      gistMode: values.gist ?? false,
       onProgress: (progress) => {
         const msg = formatProgress(progress)
         if (msg) {
@@ -566,6 +596,61 @@ if (values["no-generate"]) {
   }
 }
 
+// Upload to gist if --gist is set
+if (values.gist && !values["no-generate"]) {
+  log("")
+  log(color("Uploading to GitHub Gist...", colors.cyan))
+  
+  try {
+    // Collect all files from the output directory (HTML, CSS, JS)
+    const gistFiles = await collectGistFiles(resolve(outputDir))
+    
+    if (gistFiles.length === 0) {
+      console.error(color("Error:", colors.red, colors.bold) + " No files found to upload")
+      process.exit(1)
+    }
+    
+    debug(`Found ${gistFiles.length} files to upload`)
+    
+    // Create the gist
+    const description = values.session 
+      ? `OpenCode transcript: ${values.session}`
+      : values.all 
+        ? "OpenCode transcripts: All projects"
+        : "OpenCode transcripts"
+    
+    const result = await createGist(gistFiles, {
+      public: values["gist-public"] ?? false,
+      description,
+    })
+    
+    log("")
+    log(color("Gist created!", colors.green, colors.bold))
+    log(color("Gist URL:", colors.dim) + ` ${result.gistUrl}`)
+    log(color("Preview:", colors.dim) + ` ${result.previewUrl}`)
+    
+    // Output preview URL for scripting (always output even in quiet mode)
+    console.log(result.previewUrl)
+    
+    // Open preview in browser if --open is set
+    if (values.open) {
+      openInBrowser(result.previewUrl)
+    }
+  } catch (error) {
+    if (error instanceof GistError) {
+      console.error(color("Error:", colors.red, colors.bold) + ` ${error.message}`)
+      if (error.code === "NOT_INSTALLED") {
+        console.error(color("Install GitHub CLI:", colors.dim) + " https://cli.github.com/")
+      } else if (error.code === "NOT_AUTHENTICATED") {
+        console.error(color("Authenticate with:", colors.dim) + " gh auth login")
+      }
+    } else {
+      console.error(color("Error:", colors.red, colors.bold) + " " + (error instanceof Error ? error.message : error))
+    }
+    process.exit(1)
+  }
+}
+
 // Start server if --serve is set
 if (values.serve) {
   // Check for updates before starting server (since serve blocks)
@@ -578,8 +663,9 @@ if (values.serve) {
     // This makes --serve auto-open by default, but respects explicit --open false
     open: values.open ?? true,
   })
-} else if (values.open) {
+} else if (values.open && !values.gist) {
   // Just open without serving (cross-platform)
+  // Skip if --gist was used since we already opened the preview URL
   const indexPath = resolve(outputDir, "index.html")
   openInBrowser(indexPath)
 }
@@ -606,4 +692,27 @@ function openInBrowser(target: string): void {
     // Linux and others
     Bun.spawn(["xdg-open", target])
   }
+}
+
+/**
+ * Recursively collect all files for gist upload (HTML, CSS, JS)
+ */
+async function collectGistFiles(dir: string): Promise<string[]> {
+  const files: string[] = []
+  const entries = await readdir(dir, { withFileTypes: true })
+  
+  for (const entry of entries) {
+    const fullPath = join(dir, entry.name)
+    if (entry.isDirectory()) {
+      files.push(...await collectGistFiles(fullPath))
+    } else if (
+      entry.name.endsWith(".html") ||
+      entry.name.endsWith(".css") ||
+      entry.name.endsWith(".js")
+    ) {
+      files.push(fullPath)
+    }
+  }
+  
+  return files
 }
