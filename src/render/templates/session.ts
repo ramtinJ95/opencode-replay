@@ -51,6 +51,8 @@ export interface SessionPageData {
   model?: string
   /** Relative path to assets directory */
   assetsPath?: string
+  /** Include gist-preview.js for gisthost.github.io compatibility */
+  gistMode?: boolean
 }
 
 /**
@@ -216,7 +218,7 @@ function renderPagination(pageCount: number): string {
  * Render the full session overview page
  */
 export function renderSessionPage(data: SessionPageData): string {
-  const { session, projectName, timeline, pageCount, assetsPath = "../../assets" } = data
+  const { session, projectName, timeline, pageCount, assetsPath = "../../assets", gistMode } = data
 
   const breadcrumbs = [
     { label: projectName ?? "Sessions", href: "../../index.html" },
@@ -250,5 +252,6 @@ ${footer}
     assetsPath,
     bodyClass: "session-page",
     totalPages: pageCount,
+    gistMode,
   })
 }

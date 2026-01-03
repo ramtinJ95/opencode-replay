@@ -16,6 +16,8 @@ export interface BaseTemplateOptions {
   bodyClass?: string
   /** Total number of pages for session (used by search.js) */
   totalPages?: number
+  /** Include gist-preview.js for gisthost.github.io compatibility */
+  gistMode?: boolean
 }
 
 /**
@@ -43,6 +45,7 @@ export function renderBasePage(options: BaseTemplateOptions): string {
     headExtra = "",
     bodyClass = "",
     totalPages,
+    gistMode = false,
   } = options
 
   // Build body attributes
@@ -50,6 +53,11 @@ export function renderBasePage(options: BaseTemplateOptions): string {
   if (bodyClass) bodyAttrs.push(`class="${bodyClass}"`)
   if (totalPages !== undefined) bodyAttrs.push(`data-total-pages="${totalPages}"`)
   const bodyAttrStr = bodyAttrs.length > 0 ? ` ${bodyAttrs.join(" ")}` : ""
+
+  // Conditionally include gist-preview.js for gisthost.github.io compatibility
+  const gistScript = gistMode
+    ? `\n  <script src="${assetsPath}/gist-preview.js"></script>`
+    : ""
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -70,7 +78,7 @@ export function renderBasePage(options: BaseTemplateOptions): string {
   </div>
   <script src="${assetsPath}/theme.js"></script>
   <script src="${assetsPath}/highlight.js"></script>
-  <script src="${assetsPath}/search.js"></script>
+  <script src="${assetsPath}/search.js"></script>${gistScript}
 </body>
 </html>`
 }

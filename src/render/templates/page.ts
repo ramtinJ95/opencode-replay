@@ -20,6 +20,8 @@ export interface ConversationPageData {
   totalPages: number
   /** Relative path to assets directory */
   assetsPath?: string
+  /** Include gist-preview.js for gisthost.github.io compatibility */
+  gistMode?: boolean
 }
 
 /**
@@ -135,6 +137,7 @@ export function renderConversationPage(data: ConversationPageData): string {
     pageNumber,
     totalPages,
     assetsPath = "../../assets",
+    gistMode,
   } = data
 
   const breadcrumbs = [
@@ -169,5 +172,6 @@ ${footer}
     assetsPath,
     bodyClass: "conversation-page",
     totalPages,
+    gistMode,
   })
 }
