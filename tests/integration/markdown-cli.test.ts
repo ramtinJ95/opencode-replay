@@ -8,7 +8,6 @@ import { generateMarkdown, calculateSessionStats } from "../../src/render"
 import {
   createSession,
   createConversation,
-  createProject,
   createAssistantMessageWithParts,
   createUserMessageWithParts,
 } from "../fixtures"
@@ -31,7 +30,7 @@ describe("Markdown CLI Integration", () => {
 
       // Check header components
       expect(markdown).toContain("# Test Session")
-      expect(markdown).toContain("**Session:** `ses_4957d04cdffeJwdujYPBCKpIsb`")
+      expect(markdown).toContain(`**Session:** \`${session.id}\``)
       expect(markdown).toContain("**Project:** my-project")
       expect(markdown).toContain("**Messages:** 2")
 
