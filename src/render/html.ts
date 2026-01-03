@@ -5,7 +5,7 @@
 
 import { join, dirname } from "node:path"
 import { mkdir, copyFile } from "node:fs/promises"
-import type { Session, MessageWithParts, TextPart } from "../storage/types"
+import type { Session, MessageWithParts } from "../storage/types"
 import {
   listProjects,
   listSessions,
@@ -17,21 +17,19 @@ import {
   renderSessionPage,
   renderConversationPage,
   type SessionCardData,
-  type TimelineEntry,
 } from "./templates"
+import { type RepoInfo } from "./git-commits"
 import {
-  extractCommitsFromMessages,
-  detectRepoFromMessages,
-  type RepoInfo,
-  type CommitInfo,
-} from "./git-commits"
+  PROMPTS_PER_PAGE,
+  getFirstPrompt,
+  buildTimeline,
+  paginateMessages,
+  calculateSessionStats,
+  buildSessionData,
+} from "./data"
 
-// =============================================================================
-// CONFIGURATION
-// =============================================================================
-
-/** Number of user prompts per conversation page */
-export const PROMPTS_PER_PAGE = 5
+// Re-export for backwards compatibility
+export { PROMPTS_PER_PAGE } from "./data"
 
 export interface GenerateHtmlOptions {
   /** Path to OpenCode storage directory */
@@ -127,138 +125,8 @@ async function copyAssets(outputDir: string): Promise<void> {
   await copyFile(join(sourceDir, "search.js"), join(assetsDir, "search.js"))
 }
 
-// =============================================================================
-// DATA EXTRACTION HELPERS
-// =============================================================================
-
-/**
- * Extract the first user prompt text from messages
- */
-export function getFirstPrompt(messages: MessageWithParts[]): string | undefined {
-  for (const msg of messages) {
-    if (msg.message.role === "user") {
-      for (const part of msg.parts) {
-        if (part.type === "text") {
-          return (part as TextPart).text
-        }
-      }
-    }
-  }
-  return undefined
-}
-
-/**
- * Count tool usage in an assistant message's parts
- */
-export function countTools(parts: MessageWithParts["parts"]): Record<string, number> {
-  const counts: Record<string, number> = {}
-  for (const part of parts) {
-    if (part.type === "tool") {
-      counts[part.tool] = (counts[part.tool] ?? 0) + 1
-    }
-  }
-  return counts
-}
-
-/**
- * Build timeline entries from messages
- * Optionally includes git commits if repoInfo is provided or detected
- */
-export function buildTimeline(
-  messages: MessageWithParts[],
-  repoOverride?: RepoInfo
-): TimelineEntry[] {
-  const timeline: TimelineEntry[] = []
-  let promptNumber = 0
-
-  // Extract commits from messages
-  // First try to detect repo from messages if not provided
-  const detectedRepo = repoOverride ?? detectRepoFromMessages(messages) ?? undefined
-  const commitsWithPrompts = extractCommitsFromMessages(messages, detectedRepo)
-  
-  // Group commits by prompt number for efficient lookup
-  const commitsByPrompt = new Map<number, CommitInfo[]>()
-  for (const { commit, afterPromptNumber } of commitsWithPrompts) {
-    const existing = commitsByPrompt.get(afterPromptNumber) ?? []
-    existing.push(commit)
-    commitsByPrompt.set(afterPromptNumber, existing)
-  }
-
-  for (let i = 0; i < messages.length; i++) {
-    const msg = messages[i]!
-    if (msg.message.role !== "user") continue
-
-    promptNumber++
-
-    // Get user prompt text
-    let promptPreview = ""
-    for (const part of msg.parts) {
-      if (part.type === "text") {
-        promptPreview = (part as TextPart).text
-        break
-      }
-    }
-
-    // Get tool counts from the following assistant message(s)
-    const toolCounts: Record<string, number> = {}
-    for (let j = i + 1; j < messages.length; j++) {
-      const nextMsg = messages[j]!
-      if (nextMsg.message.role === "user") break
-      const counts = countTools(nextMsg.parts)
-      for (const [tool, count] of Object.entries(counts)) {
-        toolCounts[tool] = (toolCounts[tool] ?? 0) + count
-      }
-    }
-
-    // Calculate page number
-    const pageNumber = Math.ceil(promptNumber / PROMPTS_PER_PAGE)
-
-    // Get commits for this prompt
-    const commits = commitsByPrompt.get(promptNumber)
-
-    timeline.push({
-      promptNumber,
-      messageId: msg.message.id,
-      promptPreview,
-      timestamp: msg.message.time.created,
-      toolCounts,
-      pageNumber,
-      commits,
-    })
-  }
-
-  return timeline
-}
-
-/**
- * Paginate messages by user prompts
- * Returns array of message groups, each containing up to PROMPTS_PER_PAGE user messages
- */
-export function paginateMessages(
-  messages: MessageWithParts[]
-): MessageWithParts[][] {
-  const pages: MessageWithParts[][] = []
-  let currentPage: MessageWithParts[] = []
-  let promptCount = 0
-
-  for (const msg of messages) {
-    if (msg.message.role === "user") {
-      promptCount++
-      if (promptCount > PROMPTS_PER_PAGE) {
-        pages.push(currentPage)
-        currentPage = []
-        promptCount = 1
-      }
-    }
-    currentPage.push(msg)
-  }
-
-  if (currentPage.length > 0) {
-    pages.push(currentPage)
-  }
-
-  return pages
-}
+// Re-export data utilities for backwards compatibility
+export { getFirstPrompt, countTools, buildTimeline, paginateMessages } from "./data"
 
 // =============================================================================
 // SESSION GENERATION
@@ -266,6 +134,7 @@ export function paginateMessages(
 
 /**
  * Generate HTML for a single session
+ * Uses shared data utilities from data.ts
  */
 async function generateSessionHtml(
   storagePath: string,
@@ -280,51 +149,26 @@ async function generateSessionHtml(
 
   // Load messages
   const messages = await getMessagesWithParts(storagePath, session.id)
-  const messageCount = messages.length
+  
+  // Use shared data utilities
   const firstPrompt = getFirstPrompt(messages)
-
-  // Build timeline (includes git commit extraction)
   const timeline = buildTimeline(messages, repo)
-
-  // Calculate totals
-  let totalTokensInput = 0
-  let totalTokensOutput = 0
-  let totalCost = 0
-  let model: string | undefined
-
-  for (const msg of messages) {
-    if (msg.message.role === "assistant") {
-      const asst = msg.message
-      if (asst.tokens) {
-        totalTokensInput += asst.tokens.input
-        totalTokensOutput += asst.tokens.output
-      }
-      if (asst.cost) {
-        totalCost += asst.cost
-      }
-      if (!model && asst.modelID) {
-        model = asst.modelID
-      }
-    }
-  }
-
-  // Paginate messages
+  const stats = calculateSessionStats(messages)
   const pages = paginateMessages(messages)
-  const pageCount = pages.length
 
   // Generate session overview page
   const sessionOverviewHtml = renderSessionPage({
     session,
     projectName,
     timeline,
-    messageCount,
+    messageCount: stats.messageCount,
     totalTokens:
-      totalTokensInput > 0 || totalTokensOutput > 0
-        ? { input: totalTokensInput, output: totalTokensOutput }
+      stats.totalTokensInput > 0 || stats.totalTokensOutput > 0
+        ? { input: stats.totalTokensInput, output: stats.totalTokensOutput }
         : undefined,
-    totalCost: totalCost > 0 ? totalCost : undefined,
-    pageCount,
-    model,
+    totalCost: stats.totalCost > 0 ? stats.totalCost : undefined,
+    pageCount: stats.pageCount,
+    model: stats.model,
     assetsPath: "../../assets",
   })
   await writeHtml(join(sessionDir, "index.html"), sessionOverviewHtml)
@@ -338,7 +182,7 @@ async function generateSessionHtml(
       projectName,
       messages: pageMessages,
       pageNumber,
-      totalPages: pageCount,
+      totalPages: stats.pageCount,
       assetsPath: "../../assets",
     })
     const pageFile = `page-${String(pageNumber).padStart(3, "0")}.html`
@@ -351,14 +195,7 @@ async function generateSessionHtml(
       session,
       messages,
       timeline,
-      stats: {
-        messageCount,
-        pageCount,
-        totalTokensInput,
-        totalTokensOutput,
-        totalCost,
-        model,
-      },
+      stats,
     }
     await Bun.write(
       join(sessionDir, "session.json"),
@@ -366,7 +203,7 @@ async function generateSessionHtml(
     )
   }
 
-  return { messageCount, pageCount, firstPrompt }
+  return { messageCount: stats.messageCount, pageCount: stats.pageCount, firstPrompt }
 }
 
 // =============================================================================
