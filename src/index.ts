@@ -6,8 +6,9 @@
 import { parseArgs } from "util"
 import { resolve, join } from "path"
 import { readdir } from "node:fs/promises"
-import { getDefaultStoragePath, findProjectByPath, listProjects, listSessions } from "./storage/reader"
+import { getDefaultStoragePath, findProjectByPath, listProjects, listSessions, getMessagesWithParts } from "./storage/reader"
 import { generateHtml, type ProgressInfo, type GenerationStats } from "./render/html"
+import { generateMarkdown, calculateSessionStats } from "./render"
 import { serve } from "./server"
 import { parseRepoString } from "./render/git-commits"
 import { notifyIfUpdateAvailable } from "./utils/update-notifier"
@@ -410,6 +411,74 @@ if (values.repo && !repoInfo) {
   console.error("Expected format: OWNER/NAME (e.g., sst/opencode)")
   process.exit(1)
 }
+
+// =============================================================================
+// MARKDOWN OUTPUT PATH
+// =============================================================================
+
+if (isMarkdownFormat) {
+  // Markdown output mode - requires --session
+  if (!values.session) {
+    console.error(color("Error:", colors.red, colors.bold) + " --format md requires --session")
+    console.error("Specify a session with -s <session_id>")
+    process.exit(1)
+  }
+
+  try {
+    // Find the session across all projects
+    const projects = await listProjects(storagePath)
+    let foundSession: { session: Awaited<ReturnType<typeof listSessions>>[0], projectName?: string } | null = null
+
+    for (const project of projects) {
+      const sessions = await listSessions(storagePath, project.id)
+      const session = sessions.find((s) => s.id === values.session)
+      if (session) {
+        foundSession = { session, projectName: project.name }
+        break
+      }
+    }
+
+    if (!foundSession) {
+      console.error(color("Error:", colors.red, colors.bold) + ` Session not found: ${values.session}`)
+      process.exit(1)
+    }
+
+    // Load messages and generate markdown
+    const messages = await getMessagesWithParts(storagePath, foundSession.session.id)
+    const stats = calculateSessionStats(messages)
+    const markdown = generateMarkdown({
+      session: foundSession.session,
+      messages,
+      projectName: foundSession.projectName,
+      stats,
+      includeHeader: true,
+    })
+
+    // Output to stdout or file
+    if (values.stdout) {
+      process.stdout.write(markdown)
+    } else if (values.output) {
+      // Write to specified file
+      const outputPath = values.output.endsWith(".md") 
+        ? values.output 
+        : `${values.output}.md`
+      await Bun.write(outputPath, markdown)
+      console.log(resolve(outputPath))
+    } else {
+      // Default to stdout if no output specified
+      process.stdout.write(markdown)
+    }
+  } catch (error) {
+    console.error(color("Error:", colors.red, colors.bold) + " " + (error instanceof Error ? error.message : error))
+    process.exit(1)
+  }
+
+  process.exit(0)
+}
+
+// =============================================================================
+// HTML OUTPUT PATH
+// =============================================================================
 
 log(color("opencode-replay", colors.bold, colors.cyan))
 log(color("---------------", colors.dim))
